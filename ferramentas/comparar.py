@@ -100,7 +100,8 @@ def comparar(chave, antes_p, depois_p):
     if var:
         corte = 1e6 if chave == "acoes" else 5e5
         md += ["", "### Qual medida de liquidez da B3 bate com a fonte antiga", "",
-               f"Ativos com liquidez antiga acima de R$ 100 mil. A peneira usa a primeira linha (2 meses, pregões sem negócio contam zero).", "",
+               f"Ativos com liquidez antiga acima de R$ 100 mil. Em todas as janelas, pregão sem negócio conta zero. "
+               f"A peneira usa a janela do arquivo de critérios: {'21 pregões nas ações' if chave == 'acoes' else '42 pregões nos FIIs'}.", "",
                "| Janela | Ativos | Diferença mediana | Diferença mediana (absoluta) | Acima de 10% |", "|---|---|---|---|---|"]
         for k, l in var.items():
             md.append(f"| {k.replace('_', ' ')} | {len(l)} | {fmt(statistics.median(l) * 100, 1)}% | "
