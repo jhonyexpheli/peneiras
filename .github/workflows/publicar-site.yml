@@ -1,0 +1,66 @@
+# Publica as peneiras no GitHub Pages (jhonyexpheli.github.io/peneiras).
+#
+# Monta as páginas a partir de acoes/ e fiis/ (código + base de dados do ramo main) e envia ao
+# GitHub Pages. Roda quando o main muda e pode ser disparado à mão na aba Actions.
+# A versão de apresentação ao Clube do Valor (acoes/site_cdv) não entra no site público.
+
+name: Publicar site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "acoes/**"
+      - "fiis/**"
+      - "site/**"
+      - ".github/workflows/publicar-site.yml"
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  montar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Montar as páginas
+        run: |
+          python acoes/site/montar_site.py
+          python fiis/site/montar_site_fii.py
+          mkdir -p _site/acoes _site/fiis
+          cp site/index.html _site/
+          cp acoes/dist/index.html acoes/dist/base.json _site/acoes/
+          cp fiis/dist_fii/index.html _site/fiis/
+          python - <<'EOF'
+          import json
+          a = json.load(open("acoes/data/base.json"))["meta"]["fontes"]
+          f = json.load(open("fiis/data/base_fii.json"))["fontes"]
+          json.dump({"acoes": a.get("precos"), "fiis": f.get("cotacoes_ate")}, open("_site/datas.json", "w"))
+          EOF
+          ls -la _site _site/acoes _site/fiis
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publicar:
+    needs: montar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

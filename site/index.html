@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Peneiras</title>
+<meta name="description" content="Peneira de Valor e Peneira FIIs: ações e fundos imobiliários da B3 pelo método em quatro passos, com dados oficiais da B3 e da CVM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..850&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: capa enxuta com as duas peneiras lado a lado e a origem dos dados embaixo. */
+:root{
+  --bg:#EDF0EC; --surface:#F8FAF7; --ink:#16201A; --muted:#5B675F; --rule:#C8CFC8;
+  --acoes:#8C620F; --fiis:#19665E;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#111613; --surface:#18201B; --ink:#E5EBE4; --muted:#97A49A; --rule:#2C3730;
+  --acoes:#D8A848; --fiis:#62B6AA; color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-body)}
+.wrap{max-width:980px;margin:0 auto;padding-block:48px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:36px}
+h1{font-family:var(--f-display);font-stretch:72%;font-weight:850;font-size:clamp(40px,8vw,68px);line-height:.92;margin:0;text-transform:uppercase}
+.lead{color:var(--muted);max-width:62ch;margin:12px 0 0}
+.cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+a.cartao{display:grid;gap:10px;padding:22px;background:var(--surface);border:1px solid var(--rule);border-top:4px solid var(--c);border-radius:8px;color:inherit;text-decoration:none}
+a.cartao:hover,a.cartao:focus-visible{border-color:var(--c);outline:none}
+.cartao h2{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:30px;margin:0;color:var(--c)}
+.cartao p{margin:0;color:var(--muted)}
+.cartao .ir{font-weight:600;color:var(--ink)}
+.data{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--rule);padding-top:16px;font-size:14px;color:var(--muted);display:grid;gap:6px}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Peneiras</h1>
+    <p class="lead">Ações e fundos imobiliários da B3 passando por quatro peneiras: o que não dá para operar, quem dá prejuízo ou oscila demais, quanto se leva por real pago e a comparação com a própria história.</p>
+  </header>
+
+  <div class="cartoes">
+    <a class="cartao" href="acoes/" style="--c:var(--acoes)">
+      <h2>Peneira de Valor</h2>
+      <p>Ações ordenadas por caixa, lucro operacional e patrimônio por real pago, com bancos e seguradoras em grupo próprio.</p>
+      <span class="data" id="d-acoes">dados de –</span>
+      <span class="ir">Abrir a peneira de ações</span>
+    </a>
+    <a class="cartao" href="fiis/" style="--c:var(--fiis)">
+      <h2>Peneira FIIs</h2>
+      <p>Fundos imobiliários separados em tijolo, papel e FOF, com vacância, resultado, diversificação e preço alvo.</p>
+      <span class="data" id="d-fiis">dados de –</span>
+      <span class="ir">Abrir a peneira de FIIs</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>Dados oficiais e gratuitos: B3 (séries históricas), CVM (dados abertos), Banco Central e Tesouro Direto. Balanços das ações e rendimentos dos FIIs ainda vêm do Status Invest e do Fundamentus, até a próxima etapa.</span>
+    <span>A carteira de cada peneira fica salva neste navegador. Atualizado pelo robô do repositório <a href="https://github.com/jhonyexpheli/peneiras">jhonyexpheli/peneiras</a>.</span>
+    <span>Ferramenta de estudo. Não é recomendação de investimento.</span>
+  </footer>
+</div>
+<script>
+fetch("datas.json").then((r) => r.json()).then((d) => {
+  const br = (s) => s ? s.slice(0, 10).split("-").reverse().join("/") : "–";
+  document.getElementById("d-acoes").textContent = "pregões até " + br(d.acoes);
+  document.getElementById("d-fiis").textContent = "pregões até " + br(d.fiis);
+}).catch(() => {});
+</script>
+</body>
+</html>
