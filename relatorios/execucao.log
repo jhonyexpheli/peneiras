@@ -1,0 +1,58 @@
+# Execução 2026-11-10 14:13 UTC, commit bbbaf07
+COTAHIST_A2016.ZIP (cache, 16 MB): 107929 linhas à vista
+COTAHIST_A2017.ZIP (cache, 17 MB): 112311 linhas à vista
+COTAHIST_A2018.ZIP (cache, 19 MB): 123929 linhas à vista
+COTAHIST_A2019.ZIP (cache, 27 MB): 134041 linhas à vista
+COTAHIST_A2020.ZIP (cache, 37 MB): 184719 linhas à vista
+COTAHIST_A2021.ZIP (cache, 50 MB): 274938 linhas à vista
+COTAHIST_A2022.ZIP (cache, 59 MB): 281782 linhas à vista
+COTAHIST_A2023.ZIP (cache, 70 MB): 193941 linhas à vista
+COTAHIST_A2024.ZIP (cache, 79 MB): 202073 linhas à vista
+COTAHIST_A2025.ZIP (cache, 89 MB): 208073 linhas à vista
+COTAHIST_A2026.ZIP (baixado, 90 MB): 183113 linhas à vista
+dados_oficiais/cotahist_vista.csv.gz: 2006849 linhas, 2877 tickers, 2696 pregões, de 2016-01-04 a 2026-11-09
+{"coletado_em": "2026-11-10T14:15:45+00:00", "selic_meta": 13.75, "cdi": 13.65, "ipca_12m": 4.58, "ntnb": 7.55}
+COTAHIST: 563 de 617 ações com negócios, pregões até 2026-11-09
+base.json: 384 ações com preço da B3, 233 sem negócios no último mês, 184 desdobramentos/grupamentos corrigidos
+dist/index.html e dist/base.json prontos
+dist_cdv/index.html e dist_cdv/base.json prontos
+mensal 2020
+mensal 2021
+mensal 2022
+mensal 2023
+mensal 2024
+mensal 2025
+mensal 2026
+trimestral 2024
+trimestral 2025
+trimestral 2026
+fundamentus tabela: 575
+detalhes 0/241
+detalhes 20/241
+detalhes 40/241
+detalhes 60/241
+detalhes 80/241
+detalhes 100/241
+detalhes 120/241
+detalhes 140/241
+detalhes 160/241
+detalhes 180/241
+detalhes 200/241
+detalhes 220/241
+detalhes 240/241
+detalhes: 241
+b3_fii.json: 1013 fundos, pregões até 2026-11-09
+lendo CVM mensal...
+lendo CVM trimestral...
+aviso: CNPJ já usado por outro ticker BTCI11 09.552.812/0001-14
+aviso: CNPJ já usado por outro ticker FIIP11 08.696.175/0001-97
+aviso: CNPJ já usado por outro ticker FIXX11 17.329.029/0001-14
+aviso: CNPJ já usado por outro ticker FYTO11 18.085.673/0001-57
+aviso: CNPJ já usado por outro ticker MCRE11 36.655.973/0001-06
+aviso: CNPJ já usado por outro ticker PCIP11 28.729.197/0001-13
+aviso: CNPJ já usado por outro ticker PLAG11 32.754.734/0001-52
+aviso: CNPJ já usado por outro ticker RZZR11 35.652.278/0001-28
+aviso: CNPJ já usado por outro ticker VTOT11 35.652.252/0001-80
+aviso: CNPJ já usado por outro ticker VVMR11 30.871.698/0001-81
+fundos: 575; sem informe CVM: 87
+dist_fii/index.html: 1231 KB
