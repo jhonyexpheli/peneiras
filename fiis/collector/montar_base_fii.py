@@ -548,7 +548,8 @@ def main():
         g, c, a = ult.get("g") or {}, ult.get("c") or {}, ult.get("a") or {}
 
         # Cotação: último fechamento oficial da B3; Fundamentus e Status Invest como reserva.
-        preco = (y.get("ult") or [None, None])[1] if b3_ate else None
+        b3_ok = bool(b3_ate) and y.get("ativo", False)  # negociou no último mês
+        preco = (y.get("ult") or [None, None])[1] if b3_ok else None
         preco = preco or ft.get("cotacao") or s.get("price") or (y.get("ult") or [None, None])[1]
         cotas = f(c.get("Cotas_Emitidas")) or fd.get("cotas") or s.get("numerocotas")
         vp_cota = f(c.get("Valor_Patrimonial_Cotas")) or fd.get("vp_cota") or s.get("valorpatrimonialcota")
@@ -638,7 +639,8 @@ def main():
             "segmento_si": s.get("segment"),
             "segmento_fund": ft.get("segmento_fund"),
             "preco": preco,
-            "data_preco": ((y.get("ult") or [None])[0] if b3_ate else None) or dbr(fd.get("data_ult_cot")) or (y.get("ult") or [None])[0],
+            "data_preco": ((y.get("ult") or [None])[0] if b3_ok else None) or dbr(fd.get("data_ult_cot")) or (y.get("ult") or [None])[0],
+            "liquidez_variantes": y.get("liquidez_variantes"),
             "liquidez": liq,
             "cotistas": f(c.get("Total_Numero_Cotistas")) or s.get("numerocotistas"),
             "cotas": cotas,

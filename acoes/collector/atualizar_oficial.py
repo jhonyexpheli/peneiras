@@ -51,10 +51,14 @@ def main():
     sem, eventos = [], 0
     for x in base["acoes"]:
         r = b3.resumo(series.get(x["ticker"]), pregoes)
-        if not r:
+        if not r or not r["ativo"]:
+            # Não negocia mais (saiu de bolsa, foi incorporada ou trocou de código): a liquidez
+            # passa a zero e o resto da ficha fica como estava.
             sem.append(x["ticker"])
             x["liquidez"] = 0.0
-            x["fonte_preco"] = f"sem negócios na B3 desde {pregoes[0][:4]}"
+            x["ultimo_negocio_b3"] = r["data_preco"] if r else None
+            x["fonte_preco"] = (f"sem negócios na B3 desde {r['data_preco']}" if r
+                                else f"sem negócios na B3 desde {pregoes[0][:4]}")
             continue
         anc = x.get("ancora_ficha")
         if not anc:
@@ -86,6 +90,7 @@ def main():
             "preco": r["preco"],
             "data_cotacao": dt.date.fromisoformat(r["data_preco"]).strftime("%d/%m/%Y"),
             "liquidez": r["liquidez"],
+            "liquidez_variantes": r["liquidez_variantes"],
             "vol_1a": r["vol_1a"], "vol_2a": r["vol_2a"], "saltos_1a": r["saltos_1a"],
             "drawdown_1a": r["mdd_1a"],
             "mensal": r["mensal"],
@@ -104,7 +109,7 @@ def main():
         pass
     base["meta"]["atualizado_oficial_em"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     caminho.write_text(json.dumps(base, ensure_ascii=False, separators=(",", ":")), "utf-8")
-    print(f"base.json: {len(base['acoes']) - len(sem)} ações com preço da B3, {len(sem)} sem negócios, "
+    print(f"base.json: {len(base['acoes']) - len(sem)} ações com preço da B3, {len(sem)} sem negócios no último mês, "
           f"{eventos} desdobramentos/grupamentos corrigidos")
 
 

@@ -52,6 +52,9 @@ jobs:
           mkdir -p antes relatorios
           git show origin/main:acoes/data/base.json > antes/base.json
           git show origin/main:fiis/data/base_fii.json > antes/base_fii.json
+          # A Peneira de Valor parte sempre da ficha que está no main (balanços e histórico),
+          # para uma execução nunca empilhar em cima da anterior.
+          cp antes/base.json acoes/data/base.json
           echo "# Execução $(date -u '+%Y-%m-%d %H:%M UTC'), commit ${GITHUB_SHA::7}" > relatorios/execucao.log
 
       - name: Reaproveitar os anos já baixados da B3

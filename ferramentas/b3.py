@@ -88,7 +88,18 @@ def _vol(rets):
     return math.sqrt(sum((r - m) ** 2 for r in bons) / (len(bons) - 1)) * math.sqrt(252) * 100, len(rets) - len(bons)
 
 
-def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121):
+def _liquidez(serie, pregoes, inicio=None, n=None, so_negociados=False):
+    """Volume médio por pregão na janela (data inicial ou últimos n pregões da bolsa)."""
+    janela = pregoes[-n:] if n else [d for d in pregoes if d >= inicio]
+    if not janela:
+        return None
+    vols = [v for d, _, v, *_ in serie if d >= janela[0]]
+    if so_negociados:
+        return sum(vols) / len(vols) if vols else 0.0
+    return sum(vols) / len(janela)
+
+
+def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121, max_sem_negocio: int = 22):
     """Medidas de preço de uma série do ler_vista.
 
     preco, data_preco    último fechamento negociado
@@ -102,6 +113,10 @@ def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121):
     mensal               [[AAAA-MM, fechamento ajustado]] dos últimos meses
     dezembro             {ano: fechamento de dezembro sem ajuste} (para P/VP contra o VP da época)
     eventos              desdobramentos e grupamentos detectados
+    ativo                negociou nos últimos `max_sem_negocio` pregões; quando não, volatilidade e
+                         maior queda ficam vazias e a liquidez é zero (o ativo saiu de bolsa,
+                         foi incorporado ou trocou de código)
+    liquidez_variantes   outras janelas de liquidez, para comparar com as fontes antigas
     """
     if not serie:
         return None
@@ -111,14 +126,17 @@ def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121):
         return None
     adj, eventos = ajustar_eventos(pts)
 
+    sem_negocio = sum(1 for d in pregoes if d > pts[-1][0])
+    ativo = sem_negocio <= max_sem_negocio
     rets = [math.log(adj[i][1] / adj[i - 1][1]) for i in range(1, len(adj))]
     v1, s1 = _vol(rets[-252:])
     v2, _ = _vol(rets[-504:])
 
     um_ano = pregoes[-252:]
-    pico, mdd = -1.0, 0.0
+    pico, mdd, no_ano = -1.0, 0.0, 0
     for d, p in adj:
         if d >= um_ano[0]:
+            no_ano += 1
             pico = max(pico, p)
             mdd = min(mdd, p / pico - 1)
     pregoes_1a = sum(1 for d in um_ano if d >= pts[0][0])
@@ -127,9 +145,14 @@ def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121):
     while m <= 0:
         a, m = a - 1, m + 12
     inicio = f"{a}-{m:02d}-01"
-    janela = [d for d in pregoes if d >= inicio]
-    vol_total = sum(v for d, _, v, *_ in serie if d >= inicio)
-    liquidez = vol_total / len(janela) if janela else None
+    liquidez = _liquidez(serie, pregoes, inicio=inicio)
+    variantes = {
+        "2_meses": liquidez,
+        "2_meses_so_dias_com_negocio": _liquidez(serie, pregoes, inicio=inicio, so_negociados=True),
+        "21_pregoes": _liquidez(serie, pregoes, n=21),
+        "42_pregoes": _liquidez(serie, pregoes, n=42),
+        "63_pregoes": _liquidez(serie, pregoes, n=63),
+    }
 
     mensal = {}
     for d, p in adj:
@@ -142,11 +165,14 @@ def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121):
     return {
         "preco": pts[-1][1],
         "data_preco": pts[-1][0],
-        "liquidez": liquidez,
-        "vol_1a": v1,
-        "vol_2a": v2,
+        "liquidez": liquidez if ativo else 0.0,
+        "liquidez_variantes": {k: (round(v, 2) if v is not None else None) for k, v in variantes.items()},
+        "vol_1a": v1 if ativo else None,
+        "vol_2a": v2 if ativo else None,
         "saltos_1a": s1,
-        "mdd_1a": mdd * 100,
+        "mdd_1a": mdd * 100 if ativo and no_ano > 1 else None,
+        "ativo": ativo,
+        "pregoes_sem_negocio": sem_negocio,
         "pregoes_1a": pregoes_1a,
         "primeiro": pts[0][0],
         "mensal": [[k, round(mensal[k], 4)] for k in sorted(mensal)[-meses_mensal:]],

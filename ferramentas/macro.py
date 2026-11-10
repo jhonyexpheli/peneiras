@@ -22,14 +22,17 @@ import pathlib
 import requests
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
-SGS = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.{id}/dados/ultimos/{n}?formato=json"
+SGS = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.{id}/dados?formato=json&dataInicial={ini}&dataFinal={fim}"
 SERIES = {"selic_meta": 432, "cdi": 4389, "ipca_12m": 13522}
 TESOURO = ("https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/"
            "resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv")
 
 
 def sgs(id_, hoje):
-    r = requests.get(SGS.format(id=id_, n=20), headers={"User-Agent": UA}, timeout=60)
+    # Janela de datas e não "últimos N": a meta da Selic vem preenchida até a próxima reunião do
+    # Copom, e os últimos pontos da série são datas futuras. O IPCA sai com uns 40 dias de atraso.
+    ini = (hoje - dt.timedelta(days=120)).strftime("%d/%m/%Y")
+    r = requests.get(SGS.format(id=id_, ini=ini, fim=hoje.strftime("%d/%m/%Y")), headers={"User-Agent": UA}, timeout=60)
     r.raise_for_status()
     pts = []
     for x in r.json():

@@ -90,6 +90,22 @@ def comparar(chave, antes_p, depois_p):
                   f"{sum(1 for x in difs if x[0] > 5)} | {sum(1 for x in difs if x[0] > 20)} |")
         maiores[rot] = (sorted(difs, reverse=True)[:8], d)
 
+    # Qual janela de liquidez da B3 fica mais perto da fonte antiga (Status Invest ou Fundamentus).
+    var = {}
+    for t in comuns:
+        a = antes[t].get("liquidez")
+        for k, v in (depois[t].get("liquidez_variantes") or {}).items():
+            if ok(a) and a >= 1e5 and ok(v):
+                var.setdefault(k, []).append(v / a - 1)
+    if var:
+        corte = 1e6 if chave == "acoes" else 5e5
+        md += ["", "### Qual medida de liquidez da B3 bate com a fonte antiga", "",
+               f"Ativos com liquidez antiga acima de R$ 100 mil. A peneira usa a primeira linha (2 meses, pregões sem negócio contam zero).", "",
+               "| Janela | Ativos | Diferença mediana | Diferença mediana (absoluta) | Acima de 10% |", "|---|---|---|---|---|"]
+        for k, l in var.items():
+            md.append(f"| {k.replace('_', ' ')} | {len(l)} | {fmt(statistics.median(l) * 100, 1)}% | "
+                      f"{fmt(statistics.median(abs(x) for x in l) * 100, 1)}% | {sum(1 for x in l if abs(x) > 0.1)} |")
+
     ma, md_ = motor(proj, antes_p), motor(proj, depois_p)
     ia, idp = {x["t"]: x for x in ma["itens"]}, {x["t"]: x for x in md_["itens"]}
     ranq = lambda m: {x["t"] for x in m["itens"] if x["etapa"] == 4}
@@ -114,7 +130,7 @@ def comparar(chave, antes_p, depois_p):
         top = lambda m: [x["t"] for x in sorted((x for x in m["itens"] if x["etapa"] == 4 and (g is None or x["grupo"] == g)),
                                                   key=lambda x: x["pos"])][:20]
         ta, td = top(ma), top(md_)
-        md += [f"**Top 20{(' ' + g) if g else ''}**: {len(set(ta) & set(td))} de 20 continuam.", "",
+        md += [f"**Top {len(ta)}{(' ' + g) if g else ''}**: {len(set(ta) & set(td))} de {len(ta)} continuam.", "",
                "| # | Antes | Depois |", "|---|---|---|"]
         for i in range(max(len(ta), len(td))):
             a = ta[i] if i < len(ta) else ""
