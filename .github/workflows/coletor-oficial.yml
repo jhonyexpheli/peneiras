@@ -2,12 +2,15 @@
 #
 # Roda num computador do GitHub (que alcança a B3, a CVM, o Banco Central e o Tesouro), monta as
 # bases das duas peneiras com as fontes oficiais, compara com a base que está no ramo main e grava
-# tudo de volta neste ramo: as bases novas e o quadro de diferenças (relatorios/diferencas.md).
+# tudo de volta no ramo em que rodou: as bases novas e o quadro de diferenças
+# (relatorios/diferencas.md). Rodando no main, o quadro mostra o que mudou desde a última coleta e,
+# quando há dado novo, o site é publicado em seguida (workflow "Publicar site").
 #
 # Quando roda:
-#   - a cada envio de código para o ramo coletor-oficial (o PR da etapa 4);
-#   - à mão, pelo botão "Run workflow" na aba Actions.
-# O agendamento diário entra na etapa 5, depois do PR aprovado.
+#   - dias úteis às 22h37 de Brasília (01h37 UTC de terça a sábado), depois que a B3 publica o pregão;
+#   - à mão, pelo botão "Run workflow" na aba Actions;
+#   - a cada envio de código para o ramo coletor-oficial, para testar mudanças no coletor sem mexer no main.
+# Em feriado não há pregão novo: as bases não mudam, nada é gravado e o site não é republicado.
 
 name: Coletor oficial
 
@@ -19,10 +22,14 @@ on:
       - "acoes/collector/**"
       - "fiis/collector/**"
       - ".github/workflows/coletor-oficial.yml"
+  schedule:
+    - cron: "37 1 * * 2-6"
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: coletor-oficial
@@ -32,6 +39,8 @@ jobs:
   coletar:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    outputs:
+      mudou: ${{ steps.gravar.outputs.mudou }}
     steps:
       - name: Baixar o código
         uses: actions/checkout@v4
@@ -97,13 +106,38 @@ jobs:
           cat relatorios/diferencas.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Gravar o resultado neste ramo
+        id: gravar
         if: always()
         run: |
           git config user.name "robo-peneiras"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Algum passo falhou: grava só o registro da execução, nunca uma base pela metade.
+          if [ "${{ job.status }}" != "success" ]; then
+            echo "mudou=false" >> "$GITHUB_OUTPUT"
+            git add -f relatorios/execucao.log
+            git commit -m "Robô: coleta com erro em $(date -u +%Y-%m-%d) (ver relatorios/execucao.log)" && git push origin "HEAD:${GITHUB_REF_NAME}"
+            exit 0
+          fi
           for f in relatorios dados_oficiais/macro.json acoes/data/base.json \
                    fiis/data/base_fii.json fiis/data/mapa_ticker_cnpj.json; do
             if [ -e "$f" ]; then git add -f "$f"; fi
           done
+          # Último pregão da base nova contra o da base do main.
+          novo=$(python -c "import json;print(json.load(open('acoes/data/base.json'))['meta']['fontes'].get('precos'))" 2>/dev/null || echo erro)
+          velho=$(python -c "import json;print(json.load(open('antes/base.json'))['meta']['fontes'].get('precos'))" 2>/dev/null || echo nenhum)
+          echo "Último pregão: base do main $velho, coleta de agora $novo." | tee -a "$GITHUB_STEP_SUMMARY"
+          if [ "$novo" = "$velho" ] && [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            echo "mudou=false" >> "$GITHUB_OUTPUT"
+            echo "Sem pregão novo (feriado): nada gravado, site não republicado." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "mudou=true" >> "$GITHUB_OUTPUT"
           git commit -m "Robô: coleta oficial de $(date -u +%Y-%m-%d)" || { echo "nada novo para gravar"; exit 0; }
           git push origin "HEAD:${GITHUB_REF_NAME}"
+
+  # Bases novas no main: publica o site. (O envio feito pelo próprio robô não dispara o workflow
+  # "Publicar site" por conta própria, então ele é chamado daqui.)
+  publicar:
+    needs: coletar
+    if: github.ref_name == 'main' && needs.coletar.outputs.mudou == 'true'
+    uses: ./.github/workflows/publicar-site.yml
