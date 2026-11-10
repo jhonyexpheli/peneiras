@@ -1,0 +1,106 @@
+# Robô do coletor oficial.
+#
+# Roda num computador do GitHub (que alcança a B3, a CVM, o Banco Central e o Tesouro), monta as
+# bases das duas peneiras com as fontes oficiais, compara com a base que está no ramo main e grava
+# tudo de volta neste ramo: as bases novas e o quadro de diferenças (relatorios/diferencas.md).
+#
+# Quando roda:
+#   - a cada envio de código para o ramo coletor-oficial (o PR da etapa 4);
+#   - à mão, pelo botão "Run workflow" na aba Actions.
+# O agendamento diário entra na etapa 5, depois do PR aprovado.
+
+name: Coletor oficial
+
+on:
+  push:
+    branches: [coletor-oficial]
+    paths:
+      - "ferramentas/**"
+      - "acoes/collector/**"
+      - "fiis/collector/**"
+      - ".github/workflows/coletor-oficial.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coletor-oficial
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preparar Python e Node
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: pip install requests beautifulsoup4 lxml
+
+      - name: Guardar as bases atuais (ramo main) para comparar
+        run: |
+          mkdir -p antes relatorios
+          git show origin/main:acoes/data/base.json > antes/base.json
+          git show origin/main:fiis/data/base_fii.json > antes/base_fii.json
+          echo "# Execução $(date -u '+%Y-%m-%d %H:%M UTC'), commit ${GITHUB_SHA::7}" > relatorios/execucao.log
+
+      - name: Reaproveitar os anos já baixados da B3
+        uses: actions/cache@v4
+        with:
+          path: cache/cotahist
+          key: cotahist-${{ github.run_id }}
+          restore-keys: cotahist-
+
+      - name: B3, séries históricas (COTAHIST)
+        run: python ferramentas/baixar_cotahist.py --desde 2016 2>&1 | tee -a relatorios/execucao.log
+
+      - name: Banco Central e Tesouro
+        run: python ferramentas/macro.py 2>&1 | tee -a relatorios/execucao.log
+
+      - name: Peneira de Valor, preços oficiais
+        working-directory: acoes
+        run: |
+          python collector/atualizar_oficial.py 2>&1 | tee -a ../relatorios/execucao.log
+          python site/montar_site.py 2>&1 | tee -a ../relatorios/execucao.log
+          python site_cdv/montar_site_cdv.py 2>&1 | tee -a ../relatorios/execucao.log
+
+      - name: Peneira FIIs, CVM e Fundamentus
+        working-directory: fiis
+        run: python collector/coletar_direto_fii.py 2>&1 | tail -n 25 | tee -a ../relatorios/execucao.log
+
+      - name: Peneira FIIs, preços oficiais e montagem
+        working-directory: fiis
+        run: |
+          python collector/precos_oficiais_fii.py 2>&1 | tee -a ../relatorios/execucao.log
+          python collector/montar_base_fii.py 2>&1 | tee -a ../relatorios/execucao.log
+          python site/montar_site_fii.py 2>&1 | tee -a ../relatorios/execucao.log
+
+      - name: Quadro de diferenças
+        run: |
+          python ferramentas/comparar.py --macro dados_oficiais/macro.json \
+            --acoes antes/base.json acoes/data/base.json \
+            --fiis antes/base_fii.json fiis/data/base_fii.json \
+            --saida relatorios/diferencas.md > /dev/null
+          cat relatorios/diferencas.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Gravar o resultado neste ramo
+        if: always()
+        run: |
+          git config user.name "robo-peneiras"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in relatorios dados_oficiais/macro.json acoes/data/base.json \
+                   fiis/data/base_fii.json fiis/data/mapa_ticker_cnpj.json; do
+            if [ -e "$f" ]; then git add -f "$f"; fi
+          done
+          git commit -m "Robô: coleta oficial de $(date -u +%Y-%m-%d)" || { echo "nada novo para gravar"; exit 0; }
+          git push origin "HEAD:${GITHUB_REF_NAME}"

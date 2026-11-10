@@ -68,6 +68,7 @@ def main():
         "grupos": base["grupos"],
         "eventos_fii": base["eventos_fii"],
         "mapeados_por_nome": base.get("mapeados_por_nome", []),
+        "macro": base.get("macro"),
         "fundos": [arred(enxugar(f)) for f in base["fundos"]],
     }
     txt = json.dumps(leve, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")

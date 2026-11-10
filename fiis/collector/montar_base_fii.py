@@ -3,7 +3,9 @@
 Entradas em data/raw/:
   cvm/inf_mensal_fii_AAAA.zip, cvm/inf_trimestral_fii_AAAA.zip   (coletar_direto_fii.py)
   fundamentus_fii_resultado.json, fundamentus_fii_detalhes.json  (coletar_direto_fii.py)
-  statusinvest_fii.json, yahoo_fii.json                          (coletar_navegador_fii.js)
+  b3_fii.json                                                    (precos_oficiais_fii.py, B3 COTAHIST)
+  statusinvest_fii.json, yahoo_fii.txt                           (coletar_navegador_fii.js; reserva)
+  ../dados_oficiais/macro.json                                   (ferramentas/macro.py: NTN-B, Selic, CDI, IPCA)
 Configuração: config/criterios_fii.json, config/grupos_fii.json, config/eventos_fii.json.
 
 Cada fundo leva a data de referência e a fonte de cada bloco, para conferência.
@@ -399,6 +401,21 @@ def ler_yahoo():
     return out
 
 
+def ler_b3():
+    """data/raw/b3_fii.json (precos_oficiais_fii.py) -> ({ticker: {...}}, data do último pregão).
+
+    Mesmo formato que ler_yahoo devolve, mais a liquidez média de 2 meses calculada na B3.
+    """
+    p = RAW / "b3_fii.json"
+    if not p.exists():
+        return {}, None
+    j = json.loads(p.read_text("utf-8"))
+    out = {}
+    for t, y in j["cotacoes"].items():
+        out[t] = {**y, "ye": {int(k): v for k, v in (y.get("ye") or {}).items()}}
+    return out, j.get("ate")
+
+
 # ---------------------------------------------------------------- montagem
 
 def isin_para_ticker(isin: str):
@@ -434,7 +451,12 @@ def main():
     fund_det = ler_json("fundamentus_fii_detalhes.json", {})
     si = ler_json("statusinvest_fii.json", {"universo": [], "proventos": {}})
     si_u = {x["ticker"]: x for x in si.get("universo", [])}
-    yh = ler_yahoo()
+    yh, b3_ate = ler_b3()
+    fonte_cot = f"B3, COTAHIST até {b3_ate}" if yh else "2026-11-03 (data/raw/yahoo_fii.txt)"
+    if not yh:  # sem o arquivo da B3, usa a última coleta do Yahoo pelo navegador
+        yh = ler_yahoo()
+    macro_p = RAIZ.parent / "dados_oficiais" / "macro.json"
+    macro = json.loads(macro_p.read_text("utf-8")) if macro_p.exists() else None
 
     print("lendo CVM mensal...")
     mensal = cvm_mensal()
@@ -496,7 +518,12 @@ def main():
                 print("aviso: CNPJ já usado por outro ticker", t, cand[0])
 
     hoje = dt.date.today()
-    tickers = sorted(set(fund_tab) | set(si_u))
+    tickers = set(fund_tab) | set(si_u)
+    if not tickers and b3_ate:
+        # Fundamentus fora do ar: o universo sai da B3 (fundos com negócio nos últimos 90 dias).
+        corte = (dt.date.fromisoformat(b3_ate) - dt.timedelta(days=90)).isoformat()
+        tickers = {t for t, y in yh.items() if y.get("ult") and y["ult"][0] >= corte}
+    tickers = sorted(tickers)
     fundos = []
     sem_cvm = []
     for t in tickers:
@@ -506,7 +533,8 @@ def main():
         y = yh.get(t, {}) if isinstance(yh.get(t), dict) else {}
         cnpj = mapa.get(t, (None,))[0]
         regs = mensal.get(cnpj, {}) if cnpj else {}
-        liq = ft.get("liquidez") if ft.get("liquidez") is not None else s.get("liquidezmediadiaria")
+        liq = y.get("liquidez") if y.get("liquidez") is not None else (
+            ft.get("liquidez") if ft.get("liquidez") is not None else s.get("liquidezmediadiaria"))
 
         # série mensal (data, cotas, VP) para achar desdobramentos
         serie_m = []
@@ -519,7 +547,9 @@ def main():
         ult = regs.get(ult_d, {}) if ult_d else {}
         g, c, a = ult.get("g") or {}, ult.get("c") or {}, ult.get("a") or {}
 
-        preco = ft.get("cotacao") or s.get("price") or (y.get("ult") or [None, None])[1]
+        # Cotação: último fechamento oficial da B3; Fundamentus e Status Invest como reserva.
+        preco = (y.get("ult") or [None, None])[1] if b3_ate else None
+        preco = preco or ft.get("cotacao") or s.get("price") or (y.get("ult") or [None, None])[1]
         cotas = f(c.get("Cotas_Emitidas")) or fd.get("cotas") or s.get("numerocotas")
         vp_cota = f(c.get("Valor_Patrimonial_Cotas")) or fd.get("vp_cota") or s.get("valorpatrimonialcota")
         pl = f(c.get("Patrimonio_Liquido")) or fd.get("patrimonio") or s.get("patrimonio")
@@ -608,7 +638,7 @@ def main():
             "segmento_si": s.get("segment"),
             "segmento_fund": ft.get("segmento_fund"),
             "preco": preco,
-            "data_preco": dbr(fd.get("data_ult_cot")) or (y.get("ult") or [None])[0],
+            "data_preco": ((y.get("ult") or [None])[0] if b3_ate else None) or dbr(fd.get("data_ult_cot")) or (y.get("ult") or [None])[0],
             "liquidez": liq,
             "cotistas": f(c.get("Total_Numero_Cotistas")) or s.get("numerocotistas"),
             "cotas": cotas,
@@ -641,7 +671,9 @@ def main():
             "fechamento_mensal": sorted((y.get("mens") or {}).items())[-24:],
             "hist": {"p_vp": hist_pvp, "dy": hist_dy, "vp_cota": hist_vp},
             "eventos": ev_manual,
-            "fontes_ok": {"cvm": bool(cnpj), "fundamentus": bool(ft), "statusinvest": bool(s), "yahoo": bool(y.get("ult"))},
+            "fontes_ok": {"cvm": bool(cnpj), "fundamentus": bool(ft), "statusinvest": bool(s), "yahoo": bool(y.get("ult")) and not b3_ate,
+                          "b3": bool(y.get("ult")) and bool(b3_ate)},
+            "eventos_preco": y.get("eventos") or [],
             "hist_descartes": descartes,
         }
         if not cnpj:
@@ -655,14 +687,17 @@ def main():
             "cvm_trimestral_ultimo": max(((x["resultado"] or {}).get("ref") or "") for x in fundos),
             "fundamentus": (ler_json("fundamentus_fii_resultado.json") and "tabela fii_resultado.php") or None,
             "statusinvest_coletado": si.get("coletado"),
-            "yahoo_coletado": "2026-11-03 (data/raw/yahoo_fii.txt)",
-            "ntnb": None,
+            "yahoo_coletado": None if b3_ate else fonte_cot,
+            "cotacoes": fonte_cot,
+            "cotacoes_ate": b3_ate,
+            "ntnb": (macro or {}).get("ntnb"),
         },
         "criterios": criterios,
         "grupos": grupos,
         "eventos_fii": eventos,
         "sem_cvm": sem_cvm,
         "mapeados_por_nome": por_nome,
+        "macro": macro,
         "fundos": fundos,
     }
     (RAIZ / "data").mkdir(exist_ok=True)

@@ -7,3 +7,6 @@ fiis/dist_fii/
 __pycache__/
 *.pyc
 .DS_Store
+# arquivos da B3 baixados pelo robô (ficam no cache do GitHub Actions)
+cache/
+dados_oficiais/cotahist_vista.csv.gz
