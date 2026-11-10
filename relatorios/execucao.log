@@ -1,4 +1,4 @@
-# Execução 2026-11-10 13:54 UTC, commit ec8d69d
+# Execução 2026-11-10 14:04 UTC, commit f89c4ea
 COTAHIST_A2016.ZIP (cache, 16 MB): 107929 linhas à vista
 COTAHIST_A2017.ZIP (cache, 17 MB): 112311 linhas à vista
 COTAHIST_A2018.ZIP (cache, 19 MB): 123929 linhas à vista
@@ -11,7 +11,7 @@ COTAHIST_A2024.ZIP (cache, 79 MB): 202073 linhas à vista
 COTAHIST_A2025.ZIP (cache, 89 MB): 208073 linhas à vista
 COTAHIST_A2026.ZIP (baixado, 90 MB): 183113 linhas à vista
 dados_oficiais/cotahist_vista.csv.gz: 2006849 linhas, 2877 tickers, 2696 pregões, de 2016-01-04 a 2026-11-09
-{"coletado_em": "2026-11-10T13:57:38+00:00", "selic_meta": 13.75, "cdi": 13.65, "ipca_12m": 4.58, "ntnb": 7.55}
+{"coletado_em": "2026-11-10T14:07:07+00:00", "selic_meta": 13.75, "cdi": 13.65, "ipca_12m": 4.58, "ntnb": 7.55}
 COTAHIST: 563 de 617 ações com negócios, pregões até 2026-11-09
 base.json: 384 ações com preço da B3, 233 sem negócios no último mês, 184 desdobramentos/grupamentos corrigidos
 dist/index.html e dist/base.json prontos

@@ -22,7 +22,7 @@ Variação relativa entre a base atual e a nova, nos ativos com o campo preenchi
 | Campo | Comparados | Diferença mediana | Acima de 5% | Acima de 20% |
 |---|---|---|---|---|
 | Preço (R$) | 579 | 0,0% | 0 | 0 |
-| Liquidez diária (R$) | 407 | 11,8% | 305 | 138 |
+| Liquidez diária (R$) | 407 | 5,9% | 231 | 104 |
 | Volatilidade 1 ano (%) | 239 | 0,3% | 21 | 0 |
 | Maior queda 1 ano (%) | 239 | 0,0% | 63 | 17 |
 | Valor de mercado (R$) | 582 | 0,0% | 0 | 0 |
@@ -41,21 +41,20 @@ Ativos com liquidez antiga acima de R$ 100 mil. A peneira usa a primeira linha (
 
 ### O que muda no resultado do método
 
-Ranqueados: 111 antes, 111 depois. Entraram 2, saíram 2, continuaram 109.
+Ranqueados: 111 antes, 110 depois. Entraram 1, saíram 2, continuaram 109.
 
 **Entraram no ranking**
 
 | Ativo | Antes saía por | Posição agora |
 |---|---|---|
 | CURY3 | Volatilidade de 47.5% a.a. entre os 20% mais voláteis (corte em 47.3%) | 37º  |
-| CAML3 | Volatilidade de 48.4% a.a. entre os 20% mais voláteis (corte em 47.3%) | 88º  |
 
 **Saíram do ranking**
 
 | Ativo | Posição antes | Motivo agora |
 |---|---|---|
-| EZTC3 | 32º  | Volatilidade de 51.4% a.a. entre os 20% mais voláteis (corte em 48.6%) |
-| CYRE3 | 54º  | Volatilidade de 52.3% a.a. entre os 20% mais voláteis (corte em 48.6%) |
+| EZTC3 | 32º  | Volatilidade de 51.4% a.a. entre os 20% mais voláteis (corte em 48.4%) |
+| CYRE3 | 54º  | Volatilidade de 52.3% a.a. entre os 20% mais voláteis (corte em 48.4%) |
 
 **Top 20**: 20 de 20 continuam.
 
@@ -88,7 +87,7 @@ Para conferir na fonte: o valor antigo, o novo e a variação.
 
 **Preço (R$)**: ZAMP3 3,50 → 3,50 (0%); YDUQ3 9,65 → 9,65 (0%); WLMM4 15,00 → 15,00 (0%); WLMM3 16,80 → 16,80 (0%); WIZC3 6,05 → 6,05 (0%); WHRL4 3,04 → 3,04 (0%); WHRL3 3,16 → 3,16 (0%); WEST3 3,49 → 3,49 (0%)
 
-**Liquidez diária (R$)**: AMBP3 183.880 → 791.865 (331%); MAPT3 125 → 449 (258%); CEDO3 175 → 562 (221%); ESPA3 643.422 → 1,7 mi (167%); CTAX3 13.432 → 29.343 (118%); FASA3 20.151 → 42.115 (109%); AGXY3 7.744 → 15.515 (100%); ZAMP3 247.849 → 0 (-100%)
+**Liquidez diária (R$)**: ESPA3 643.422 → 1,6 mi (149%); ZAMP3 247.849 → 0 (-100%); SULA11 313,0 mi → 0 (-100%); STBP3 3,1 mi → 0 (-100%); SRNA3 6.388 → 0 (-100%); SOND3 3.866 → 0 (-100%); SHOW3 59.386 → 0 (-100%); RNEW11 1.615 → 0 (-100%)
 
 **Volatilidade 1 ano (%)**: GRND3 37,4 → 43,8 (17%); BBSE3 22,3 → 25,4 (14%); EZTC3 45,3 → 51,4 (13%); DEXP3 32,0 → 36,2 (13%); CYRE4 60,7 → 53,2 (-12%); CYRE3 47,3 → 52,3 (11%); LOGG3 34,9 → 38,1 (9%); POMO3 38,4 → 41,9 (9%)
 
@@ -107,7 +106,7 @@ Variação relativa entre a base atual e a nova, nos ativos com o campo preenchi
 | Campo | Comparados | Diferença mediana | Acima de 5% | Acima de 20% |
 |---|---|---|---|---|
 | Preço (R$) | 575 | 0,0% | 0 | 0 |
-| Liquidez diária (R$) | 380 | 17,1% | 316 | 167 |
+| Liquidez diária (R$) | 380 | 0,0% | 80 | 57 |
 | Volatilidade 1 ano (%) | 223 | 0,2% | 16 | 7 |
 | Maior queda 1 ano (%) | 234 | 0,0% | 19 | 11 |
 | DY 12 meses (%) | 381 | 0,0% | 2 | 1 |
@@ -127,19 +126,12 @@ Ativos com liquidez antiga acima de R$ 100 mil. A peneira usa a primeira linha (
 
 ### O que muda no resultado do método
 
-Ranqueados: 60 antes, 59 depois. Entraram 1, saíram 2, continuaram 58.
-
-**Entraram no ranking**
-
-| Ativo | Antes saía por | Posição agora |
-|---|---|---|
-| HSAF11 | Liquidez média diária R$ 0,41 mi abaixo de R$ 0,5 mi | 7º (papel) |
+Ranqueados: 60 antes, 59 depois. Entraram 0, saíram 1, continuaram 59.
 
 **Saíram do ranking**
 
 | Ativo | Posição antes | Motivo agora |
 |---|---|---|
-| SPXS11 | 3º (papel) | Liquidez média diária R$ 0,48 mi abaixo de R$ 0,5 mi |
 | HBCR11 | 21º (tijolo) | Volatilidade de 27.1% a.a., entre os 20% mais voláteis do grupo tijolo (corte em 23.1%) |
 
 **Top 12 fof**: 12 de 12 continuam.
@@ -159,22 +151,22 @@ Ranqueados: 60 antes, 59 depois. Entraram 1, saíram 2, continuaram 58.
 | 11 | RINV11 | RINV11 |
 | 12 | SNEL11 | SNEL11 |
 
-**Top 20 papel**: 19 de 20 continuam.
+**Top 20 papel**: 20 de 20 continuam.
 
 | # | Antes | Depois |
 |---|---|---|
 | 1 | HABT11 | HABT11 |
 | 2 | VCJR11 | VCJR11 |
-| 3 | SPXS11 | RZAK11 |
-| 4 | RZAK11 | VRTA11 |
-| 5 | VRTA11 | VGIP11 |
-| 6 | VGIP11 | RECR11 |
-| 7 | RECR11 | HSAF11 (novo) |
+| 3 | SPXS11 | SPXS11 |
+| 4 | RZAK11 | RZAK11 |
+| 5 | VRTA11 | VRTA11 |
+| 6 | VGIP11 | VGIP11 |
+| 7 | RECR11 | RECR11 |
 | 8 | RBRR11 | RBRR11 |
 | 9 | VGIR11 | VGIR11 |
-| 10 | PORD11 | RBRY11 |
-| 11 | RBRY11 | BTCI11 |
-| 12 | BTCI11 | PORD11 |
+| 10 | PORD11 | PORD11 |
+| 11 | RBRY11 | RBRY11 |
+| 12 | BTCI11 | BTCI11 |
 | 13 | CLIN11 | CLIN11 |
 | 14 | XPCI11 | XPCI11 |
 | 15 | ICRI11 | ICRI11 |
