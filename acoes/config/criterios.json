@@ -3,6 +3,8 @@
   "versao": "1.0.0",
   "passo1_operavel": {
     "liquidez_media_diaria_min_reais": 1000000,
+    "liquidez_janela_pregoes": 21,
+    "_liquidez_janela_pregoes": "Janela da liquidez média calculada na B3 (COTAHIST), em pregões. 21 é a que mais se aproxima da liquidez do Status Invest usada até 10/11/2026 (diferença mediana de 4%).",
     "excluir_situacoes_cvm": [
       "RJ",
       "REJ",

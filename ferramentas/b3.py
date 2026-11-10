@@ -99,11 +99,13 @@ def _liquidez(serie, pregoes, inicio=None, n=None, so_negociados=False):
     return sum(vols) / len(janela)
 
 
-def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121, max_sem_negocio: int = 22):
+def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121, max_sem_negocio: int = 22,
+           janela_pregoes: int | None = None):
     """Medidas de preço de uma série do ler_vista.
 
     preco, data_preco    último fechamento negociado
-    liquidez             volume financeiro médio por pregão nos últimos `meses_liquidez` meses
+    liquidez             volume financeiro médio por pregão nos últimos `janela_pregoes` pregões da
+                         bolsa, ou nos últimos `meses_liquidez` meses quando a janela não é dada
                          (pregões sem negócio contam como zero)
     vol_1a, vol_2a       volatilidade anualizada dos retornos diários (252 e 504 últimos negócios)
     saltos_1a            dias com variação acima de 25% que ficaram fora da volatilidade
@@ -145,14 +147,14 @@ def resumo(serie, pregoes, meses_liquidez: int = 2, meses_mensal: int = 121, max
     while m <= 0:
         a, m = a - 1, m + 12
     inicio = f"{a}-{m:02d}-01"
-    liquidez = _liquidez(serie, pregoes, inicio=inicio)
     variantes = {
-        "2_meses": liquidez,
+        "2_meses": _liquidez(serie, pregoes, inicio=inicio),
         "2_meses_so_dias_com_negocio": _liquidez(serie, pregoes, inicio=inicio, so_negociados=True),
         "21_pregoes": _liquidez(serie, pregoes, n=21),
         "42_pregoes": _liquidez(serie, pregoes, n=42),
         "63_pregoes": _liquidez(serie, pregoes, n=63),
     }
+    liquidez = _liquidez(serie, pregoes, n=janela_pregoes) if janela_pregoes else variantes["2_meses"]
 
     mensal = {}
     for d, p in adj:

@@ -3,6 +3,8 @@
   "versao": "1.0.0",
   "passo1_operavel": {
     "liquidez_media_diaria_min_reais": 500000,
+    "liquidez_janela_pregoes": 42,
+    "_liquidez_janela_pregoes": "Janela da liquidez média calculada na B3 (COTAHIST), em pregões. 42 reproduz a liquidez de 2 meses do Fundamentus usada até 10/11/2026 (diferença mediana de 0%).",
     "_liquidez": "Volume médio diário de 2 meses (Fundamentus). A Peneira de Valor usa R$ 1 milhão; o mercado de FIIs é mais raso.",
     "meses_minimos_de_bolsa": 12,
     "excluir_eventos_pendentes": true,

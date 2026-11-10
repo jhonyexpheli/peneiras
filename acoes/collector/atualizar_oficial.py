@@ -45,12 +45,16 @@ def main():
     caminho = RAIZ / "data" / "base.json"
     base = json.loads(caminho.read_text("utf-8"))
     tickers = {x["ticker"] for x in base["acoes"]}
+    # A janela da liquidez fica no arquivo de critérios do repositório (o main traz a ficha, não a regra).
+    criterios = json.loads((RAIZ / "config" / "criterios.json").read_text("utf-8"))
+    base["criterios"] = criterios
+    janela = criterios["passo1_operavel"].get("liquidez_janela_pregoes", 21)
     series, pregoes = b3.ler_vista(a.cotahist, lambda t, cod, isin: t in tickers)
     print(f"COTAHIST: {len(series)} de {len(tickers)} ações com negócios, pregões até {pregoes[-1]}")
 
     sem, eventos = [], 0
     for x in base["acoes"]:
-        r = b3.resumo(series.get(x["ticker"]), pregoes)
+        r = b3.resumo(series.get(x["ticker"]), pregoes, janela_pregoes=janela)
         if not r or not r["ativo"]:
             # Não negocia mais (saiu de bolsa, foi incorporada ou trocou de código): a liquidez
             # passa a zero e o resto da ficha fica como estava.
@@ -102,7 +106,7 @@ def main():
     f = base["meta"]["fontes"]
     f["precos"] = pregoes[-1]
     f["precos_fonte"] = "B3, COTAHIST (fechamento oficial; desdobramentos e grupamentos corrigidos)"
-    f["liquidez_fonte"] = "B3, COTAHIST: volume financeiro médio por pregão nos últimos 2 meses"
+    f["liquidez_fonte"] = f"B3, COTAHIST: volume financeiro médio dos últimos {janela} pregões"
     try:
         base["macro"] = json.loads(pathlib.Path(a.macro).read_text("utf-8"))
     except FileNotFoundError:

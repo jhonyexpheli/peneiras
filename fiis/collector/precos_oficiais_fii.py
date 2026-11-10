@@ -30,9 +30,11 @@ def main():
     ap.add_argument("--cotahist", default=str(RAIZ.parent / "dados_oficiais" / "cotahist_vista.csv.gz"))
     a = ap.parse_args()
     series, pregoes = b3.ler_vista(a.cotahist, e_fii)
+    criterios = json.loads((RAIZ / "config" / "criterios_fii.json").read_text("utf-8"))
+    janela = criterios["passo1_operavel"].get("liquidez_janela_pregoes", 42)
     out = {}
     for t, s in series.items():
-        r = b3.resumo(s, pregoes, meses_mensal=24)
+        r = b3.resumo(s, pregoes, meses_mensal=24, janela_pregoes=janela)
         if not r:
             continue
         out[t] = {
