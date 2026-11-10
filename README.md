@@ -23,6 +23,15 @@ python fiis/site/montar_site_fii.py       # fiis/dist_fii/
 
 As páginas montadas a partir deste repositório são idênticas às versões publicadas em 10/11/2026.
 
+## Robôs (GitHub Actions)
+
+| Robô | Quando roda | O que faz |
+|---|---|---|
+| **Coletor oficial** (`.github/workflows/coletor-oficial.yml`) | dias úteis às 22h37 de Brasília, ou pelo botão *Run workflow* | baixa B3, CVM, Banco Central e Tesouro, monta as bases, grava o quadro de diferenças em `relatorios/diferencas.md` e, se houve pregão novo, publica o site |
+| **Publicar site** (`.github/workflows/publicar-site.yml`) | quando o `main` muda, ou chamado pelo coletor | monta as páginas e publica em https://jhonyexpheli.github.io/peneiras |
+
+Se uma coleta falhar, o GitHub manda e-mail e o registro fica em `relatorios/execucao.log`; a base que está no ar não é tocada.
+
 ## Integração em andamento
 
 Hoje parte dos dados vem de sites não oficiais lidos pelo navegador (Status Invest, Fundamentus, Yahoo). A troca é por fontes oficiais e gratuitas, coletadas por um robô agendado no GitHub Actions:
