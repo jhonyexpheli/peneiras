@@ -29,7 +29,7 @@ Variação relativa entre a base atual e a nova, nos ativos com o campo preenchi
 
 ### Qual medida de liquidez da B3 bate com a fonte antiga
 
-Ativos com liquidez antiga acima de R$ 100 mil. A peneira usa a primeira linha (2 meses, pregões sem negócio contam zero).
+Ativos com liquidez antiga acima de R$ 100 mil. Em todas as janelas, pregão sem negócio conta zero. A peneira usa a janela do arquivo de critérios: 21 pregões nas ações.
 
 | Janela | Ativos | Diferença mediana | Diferença mediana (absoluta) | Acima de 10% |
 |---|---|---|---|---|
@@ -114,7 +114,7 @@ Variação relativa entre a base atual e a nova, nos ativos com o campo preenchi
 
 ### Qual medida de liquidez da B3 bate com a fonte antiga
 
-Ativos com liquidez antiga acima de R$ 100 mil. A peneira usa a primeira linha (2 meses, pregões sem negócio contam zero).
+Ativos com liquidez antiga acima de R$ 100 mil. Em todas as janelas, pregão sem negócio conta zero. A peneira usa a janela do arquivo de critérios: 42 pregões nos FIIs.
 
 | Janela | Ativos | Diferença mediana | Diferença mediana (absoluta) | Acima de 10% |
 |---|---|---|---|---|
