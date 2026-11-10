@@ -1,5 +1,10 @@
 {
-  "coletado_em": "2026-11-10T13:46:58+00:00",
+  "coletado_em": "2026-11-10T13:57:38+00:00",
+  "selic_meta": {
+    "valor": 13.75,
+    "data": "2026-11-10",
+    "fonte": "Banco Central, SGS série 432"
+  },
   "cdi": {
     "valor": 13.65,
     "data": "2026-11-09",
@@ -107,8 +112,5 @@
       }
     ],
     "fonte": "Tesouro Transparente, preços e taxas do Tesouro Direto"
-  },
-  "erros": {
-    "selic_meta": "max() iterable argument is empty"
   }
 }
