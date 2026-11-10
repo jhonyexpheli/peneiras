@@ -1,0 +1,76 @@
+{
+  "_doc": "Parâmetros da Peneira FIIs (mesmo raciocínio da Peneira de Valor, régua de fundo imobiliário). Alterar aqui muda os padrões da página; a página também deixa ajustar ao vivo. Projeto separado: não compartilha arquivo com screener/.",
+  "versao": "1.0.0",
+  "passo1_operavel": {
+    "liquidez_media_diaria_min_reais": 500000,
+    "_liquidez": "Volume médio diário de 2 meses (Fundamentus). A Peneira de Valor usa R$ 1 milhão; o mercado de FIIs é mais raso.",
+    "meses_minimos_de_bolsa": 12,
+    "excluir_eventos_pendentes": true,
+    "excluir_sem_informe_cvm": true,
+    "_sem_informe_cvm": "Sem informe mensal de FII na CVM: Fiagro, FI-Infra ou fundo que não é FII. Ficam fora do universo.",
+    "desenvolvimento_pct_min": 50,
+    "_desenvolvimento": "Fora do universo quando imóveis em construção, terrenos e imóveis para venda somam esse % ou mais do investido."
+  },
+  "passo2_sangria_volatilidade": {
+    "excluir_resultado_negativo_12m": true,
+    "excluir_resultado_negativo_ultimo_trimestre": true,
+    "payout_max_pct": 110,
+    "_payout": "Rendimentos declarados ÷ resultado financeiro dos dois últimos semestres (informe trimestral da CVM).",
+    "vacancia_fisica_max_pct": 25,
+    "_vacancia": "Vacância física ponderada pela área dos imóveis para renda acabados (informe trimestral). Só tijolo.",
+    "inadimplencia_max_pct": 10,
+    "_inadimplencia": "Inadimplência ponderada pela participação de cada imóvel na receita. Só tijolo.",
+    "passivo_pl_max_pct": 30,
+    "excluir_um_imovel_so": true,
+    "excluir_percentil_mais_volateis": 20,
+    "_volatilidade": "Desvio-padrão anualizado dos retornos diários (252 pregões), cortado dentro de cada grupo."
+  },
+  "passo3_indice_de_valor": {
+    "_doc": "Quanto se leva por real pago. Cada componente vira percentil 0-100 dentro do grupo; o índice é a média ponderada.",
+    "pesos": {
+      "tijolo": {
+        "patrimonio_por_real": 1,
+        "resultado_por_real": 1,
+        "aluguel_por_real": 1,
+        "dividendo_por_real": 0
+      },
+      "papel": {
+        "patrimonio_por_real": 2,
+        "resultado_por_real": 1,
+        "aluguel_por_real": 0,
+        "dividendo_por_real": 1
+      },
+      "fof": {
+        "patrimonio_por_real": 1,
+        "resultado_por_real": 1,
+        "aluguel_por_real": 0,
+        "dividendo_por_real": 1
+      }
+    },
+    "formulas": {
+      "patrimonio_por_real": "VP da cota ÷ preço (inverso do P/VP)",
+      "resultado_por_real": "Resultado financeiro 12m (CVM) ÷ valor de mercado (FFO yield)",
+      "aluguel_por_real": "Receita de aluguel 12m (CVM) ÷ (valor de mercado + passivo) (cap rate implícito)",
+      "dividendo_por_real": "Rendimentos por cota com data com nos últimos 12 meses ÷ preço (DY 12m)"
+    }
+  },
+  "passo4_media_historica": {
+    "janelas_anos": [
+      10,
+      5,
+      2
+    ],
+    "indicadores": [
+      "p_vp",
+      "dy"
+    ],
+    "_pontos": "Pontos anuais: fechamento de dezembro de cada ano e o momento atual. P/VP com o VP do informe mensal de dezembro; DY com os rendimentos de data com no ano. Desdobramentos são corrigidos pela série de cotas da CVM.",
+    "premio_ntnb": "pendente: a fonte de taxas do Tesouro está bloqueada neste ambiente"
+  },
+  "carteira": {
+    "fundos": 10,
+    "teto_subtipo_tijolo_pct": 30,
+    "teto_papel_pct": 40,
+    "revisao": "trimestral"
+  }
+}

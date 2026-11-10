@@ -1,0 +1,81 @@
+{
+  "_doc": "Parâmetros do método (estratégia Ramiro Gomes Ferreira / Clube do Valor). Alterar aqui muda o build e os padrões da página; a página também deixa ajustar ao vivo.",
+  "versao": "1.0.0",
+  "passo1_operavel": {
+    "liquidez_media_diaria_min_reais": 1000000,
+    "excluir_situacoes_cvm": [
+      "RJ",
+      "REJ",
+      "FAL",
+      "LE",
+      "LJ"
+    ],
+    "_situacoes_cvm": {
+      "RJ": "Em recuperação judicial ou equivalente",
+      "REJ": "Em recuperação extrajudicial",
+      "FAL": "Falida",
+      "LE": "Liquidação extrajudicial",
+      "LJ": "Em liquidação judicial"
+    },
+    "excluir_opa_pendente": true
+  },
+  "passo2_prejuizo_volatilidade": {
+    "excluir_prejuizo_12m": true,
+    "excluir_prejuizo_ultimo_trimestre": true,
+    "excluir_prejuizo_ultimo_exercicio": true,
+    "volatilidade_metrica": "vol_1a",
+    "_volatilidade_metrica": "Desvio-padrão anualizado dos retornos diários (log) dos últimos 252 pregões, em %.",
+    "excluir_percentil_mais_volateis": 20,
+    "volatilidade_teto_absoluto_pct": null
+  },
+  "passo3_indice_de_valor": {
+    "_doc": "Quanto se leva por real pago. Cada componente vira percentil (0-100) dentro do grupo; o índice é a média ponderada.",
+    "componentes_padrao": {
+      "caixa_por_real": {
+        "peso": 1,
+        "formula": "Caixa líquido (disponibilidades - dívida bruta) / Valor de mercado",
+        "base": "liquido"
+      },
+      "lucro_operacional_por_real": {
+        "peso": 1,
+        "formula": "EBIT 12m / Valor da firma (EV)"
+      },
+      "patrimonio_por_real": {
+        "peso": 1,
+        "formula": "Patrimônio líquido / Valor de mercado"
+      }
+    },
+    "componentes_financeiro": {
+      "_doc": "Bancos e seguradoras não têm EBIT nem caixa comparáveis; usa lucro, patrimônio e dividendos por real pago.",
+      "lucro_por_real": {
+        "peso": 1,
+        "formula": "Lucro líquido 12m / Valor de mercado"
+      },
+      "patrimonio_por_real": {
+        "peso": 1,
+        "formula": "Patrimônio líquido / Valor de mercado"
+      },
+      "dividendo_por_real": {
+        "peso": 1,
+        "formula": "Dividend yield 12m"
+      }
+    },
+    "uma_classe_por_empresa": true,
+    "_uma_classe_por_empresa": "Mantém só o papel mais líquido de cada empresa no ranking (ex.: ITUB4 e não ITUB3).",
+    "_caixa": "base 'liquido' desconta a dívida bruta do caixa (o que sobra para o acionista); 'bruto' usa só as disponibilidades. Com caixa bruto, empresas muito alavancadas sobem no ranking só por carregarem caixa para pagar dívida."
+  },
+  "passo4_media_historica": {
+    "janelas_anos": [
+      10,
+      5,
+      2
+    ],
+    "_janelas": "Pontos anuais do Status Invest: o ano corrente (12 meses) mais os exercícios fechados. Se a empresa não tiver a janela inteira, usa o máximo disponível e informa.",
+    "indicadores_base": [
+      "ev_ebit",
+      "p_vp",
+      "p_l",
+      "caixa_liquido_por_real"
+    ]
+  }
+}

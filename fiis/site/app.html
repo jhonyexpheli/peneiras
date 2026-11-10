@@ -1,0 +1,780 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Peneira FIIs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: régua de laudo. Faixa de cabeçalho com o funil da peneira desenhado em escala,
+   abas de trabalho e tabelas densas; a ficha do fundo abre como painel lateral. */
+:root {
+  --paper: #EEF1EE;
+  --surface: #FBFCFB;
+  --ink: #17211F;
+  --muted: #5A6763;
+  --line: #CDD5D1;
+  --line-soft: #E1E6E3;
+  --accent: #19665E;
+  --accent-soft: #D7E8E4;
+  --g-tijolo: #A04E36;
+  --g-papel: #3D5F84;
+  --g-fof: #7C7A2E;
+  --g-outros: #8C9692;
+  --bom: #2D7A4C;
+  --atencao: #A36F0D;
+  --ruim: #AE3A2C;
+  --sai1: #C9D0CC;
+  --sai2: #D9B98A;
+  --c1: #19665E; --c2: #A04E36; --c3: #3D5F84; --c4: #B98A1E; --c5: #6E4C8C; --c6: #4F8A3C; --c7: #C0607A; --c8: #5E7472;
+  --f-display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111715; --surface: #171F1D; --ink: #E2E8E5; --muted: #98A49F; --line: #2C3734; --line-soft: #222C29;
+    --accent: #62B6AA; --accent-soft: #1D3633; --g-tijolo: #D98B70; --g-papel: #8EAAD0; --g-fof: #C3C06E; --g-outros: #75807C;
+    --bom: #6CC08E; --atencao: #E0AE4E; --ruim: #EE8073; --sai1: #34403C; --sai2: #6B5634;
+    --c1: #62B6AA; --c2: #D98B70; --c3: #8EAAD0; --c4: #E0BC5E; --c5: #B79AD6; --c6: #8CC97A; --c7: #E896AC; --c8: #9DB2AF; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111715; --surface: #171F1D; --ink: #E2E8E5; --muted: #98A49F; --line: #2C3734; --line-soft: #222C29;
+  --accent: #62B6AA; --accent-soft: #1D3633; --g-tijolo: #D98B70; --g-papel: #8EAAD0; --g-fof: #C3C06E; --g-outros: #75807C;
+  --bom: #6CC08E; --atencao: #E0AE4E; --ruim: #EE8073; --sai1: #34403C; --sai2: #6B5634;
+    --c1: #62B6AA; --c2: #D98B70; --c3: #8EAAD0; --c4: #E0BC5E; --c5: #B79AD6; --c6: #8CC97A; --c7: #E896AC; --c8: #9DB2AF; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--paper); color: var(--ink); font: 14px/1.5 var(--f-body); }
+.casca { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
+a { color: var(--accent); }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.num, td, .mono { font-variant-numeric: tabular-nums; }
+
+/* cabeçalho */
+.topo { padding-block: 28px 18px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.topo-linha { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.marca h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 800; font-stretch: 72%; letter-spacing: -0.01em; line-height: 0.95; text-transform: uppercase; }
+.marca h1 span { color: var(--accent); }
+.marca p { margin: 8px 0 0; color: var(--muted); max-width: 62ch; }
+.busca { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.busca label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.busca input { width: 220px; max-width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); font-family: var(--f-mono); text-transform: uppercase; }
+.datas { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--muted); }
+.datas b { color: var(--ink); font-weight: 500; }
+
+/* funil */
+.funil { margin-top: 20px; }
+.funil-barra { display: flex; height: 26px; border-radius: 3px; overflow: hidden; border: 1px solid var(--line); }
+.funil-barra i { display: block; min-width: 2px; }
+.funil-leg { margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 20px; }
+.funil-leg div { display: flex; gap: 8px; align-items: baseline; min-width: 0; }
+.funil-leg .sw { width: 10px; height: 10px; border-radius: 2px; flex: none; transform: translateY(1px); }
+.funil-leg b { font-family: var(--f-display); font-size: 22px; font-stretch: 85%; font-weight: 700; line-height: 1; }
+.funil-leg span { color: var(--muted); font-size: 12px; line-height: 1.3; }
+
+/* abas */
+.abas { display: flex; gap: 2px; border-bottom: 1px solid var(--line); margin-top: 22px; overflow-x: auto; }
+.abas button { border: 0; background: none; padding: 10px 14px; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; font-weight: 500; white-space: nowrap; }
+.abas button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+main { padding-block: 20px 60px; }
+section[role="tabpanel"] { display: flex; flex-direction: column; gap: 16px; }
+
+/* controles */
+.barra-ctl { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: none; padding: 7px 14px; cursor: pointer; display: flex; gap: 6px; align-items: center; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); font-weight: 600; }
+.seg .dot { width: 8px; height: 8px; border-radius: 50%; }
+.seg small { color: var(--muted); font-family: var(--f-mono); }
+details.ajustes { border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+details.ajustes summary { cursor: pointer; padding: 10px 14px; font-weight: 600; }
+details.ajustes summary small { font-weight: 400; color: var(--muted); margin-left: 8px; }
+.ajustes-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px 22px; padding: 4px 14px 16px; }
+.ajustes-grade fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.ajustes-grade legend { font-family: var(--f-display); font-stretch: 85%; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 12px; color: var(--accent); margin-bottom: 4px; }
+.campo { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; }
+.campo input[type="number"] { width: 92px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); text-align: right; font-family: var(--f-mono); }
+.pesos { width: 100%; border-collapse: collapse; font-size: 12px; }
+.pesos th, .pesos td { padding: 3px 4px; text-align: right; border: 0; }
+.pesos th:first-child, .pesos td:first-child { text-align: left; }
+.pesos input { width: 46px; padding: 2px 4px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); text-align: right; font-family: var(--f-mono); }
+.ajustes-pe { padding: 0 14px 14px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+
+/* tabelas */
+.tabela { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+table.dados { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.dados th { position: sticky; top: 0; background: var(--surface); text-align: right; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 10px 10px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.dados td { text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; white-space: nowrap; }
+table.dados tr:last-child td { border-bottom: 0; }
+table.dados .esq { text-align: left; }
+table.dados tbody tr:hover { background: color-mix(in srgb, var(--accent-soft) 45%, transparent); }
+table.dados th button { all: unset; cursor: pointer; }
+table.dados th button:focus-visible { outline: 2px solid var(--accent); }
+table.dados th[aria-sort] button::after { content: " ↓"; }
+table.dados th[aria-sort="ascending"] button::after { content: " ↑"; }
+.tk-btn { border: 0; background: none; padding: 0; cursor: pointer; font-family: var(--f-mono); font-weight: 500; color: var(--accent); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.emp, .sub { display: block; color: var(--muted); font-size: 11.5px; white-space: normal; max-width: 34ch; }
+td .sub { margin-top: 1px; }
+.pos { font-family: var(--f-display); font-weight: 700; font-stretch: 85%; font-size: 16px; }
+.idx { display: inline-flex; align-items: center; gap: 8px; }
+.idx .trilho { width: 64px; height: 6px; background: var(--line-soft); border-radius: 3px; overflow: hidden; }
+.idx .trilho i { display: block; height: 100%; background: var(--accent); }
+.chip { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 11px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.chip.g-tijolo { color: var(--g-tijolo); border-color: color-mix(in srgb, var(--g-tijolo) 45%, transparent); }
+.chip.g-papel { color: var(--g-papel); border-color: color-mix(in srgb, var(--g-papel) 45%, transparent); }
+.chip.g-fof { color: var(--g-fof); border-color: color-mix(in srgb, var(--g-fof) 45%, transparent); }
+.chip-alerta { color: var(--atencao); border-color: color-mix(in srgb, var(--atencao) 45%, transparent); }
+.desc-pos { color: var(--bom); }
+.desc-neg { color: var(--ruim); }
+.pos-v { color: var(--bom); }
+.neg-v { color: var(--ruim); }
+.alerta { color: var(--atencao); }
+.vazio { text-align: left !important; color: var(--muted); padding: 20px !important; white-space: normal !important; }
+.vazio p { margin: 0 0 10px; }
+.nota { font-size: 12px; color: var(--muted); max-width: 90ch; margin: 0; }
+.mini { border: 1px solid var(--line); background: var(--surface); border-radius: 3px; padding: 3px 8px; cursor: pointer; font-size: 12px; }
+.mini.perigo { border-color: var(--ruim); color: var(--ruim); }
+.botao { border: 0; background: var(--accent); color: var(--surface); border-radius: 4px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+.botao:disabled { opacity: 0.5; cursor: default; }
+.motivos { margin: 0; padding-left: 16px; white-space: normal; text-align: left; color: var(--ink); }
+.motivos li { margin: 1px 0; }
+
+/* ficha */
+.veu { position: fixed; inset: 0; background: color-mix(in srgb, var(--ink) 35%, transparent); z-index: 40; }
+.ficha { position: fixed; top: 0; right: 0; bottom: 0; width: min(640px, 100%); background: var(--surface); z-index: 41; overflow-y: auto; border-left: 1px solid var(--line);
+  padding-top: max(18px, env(safe-area-inset-top, 0px)); padding-bottom: max(40px, env(safe-area-inset-bottom, 0px));
+  padding-left: 22px; padding-right: max(22px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 18px; }
+.ficha-topo { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.ficha-topo h2 { font-size: 34px; font-weight: 800; font-stretch: 72%; line-height: 1; font-family: var(--f-display); }
+.ficha-topo p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+.ficha .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tres { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.tres div { background: var(--surface); padding: 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tres .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.tres .val { font-family: var(--f-display); font-size: 28px; font-weight: 700; font-stretch: 80%; line-height: 1.05; }
+.tres .sub { max-width: none; }
+.bloco h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.07em; font-stretch: 85%; color: var(--accent); margin-bottom: 8px; }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px 18px; }
+.kv div { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px dotted var(--line); padding-bottom: 3px; font-size: 13px; min-width: 0; }
+.kv span { color: var(--muted); }
+.kv b { font-weight: 500; font-variant-numeric: tabular-nums; text-align: right; }
+.kv .pctl { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+.kv small { font-size: 11px; }
+.comp-barra { display: flex; height: 14px; border-radius: 2px; overflow: hidden; background: var(--line-soft); }
+.comp-barra i { display: block; }
+.comp-leg { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 12px; color: var(--muted); }
+.comp-leg .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; }
+.graficos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+.grafico svg { width: 100%; height: auto; display: block; }
+.grafico figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.grafico h4 { margin: 0 0 4px; font-size: 13px; font-weight: 600; }
+.lista-alertas { margin: 0; padding-left: 18px; font-size: 13px; }
+.lista-alertas li { margin: 3px 0; }
+.imoveis { width: 100%; border-collapse: collapse; font-size: 12px; }
+.imoveis td, .imoveis th { padding: 4px 6px; border-bottom: 1px solid var(--line-soft); text-align: right; }
+.imoveis th { color: var(--muted); font-weight: 500; }
+.imoveis td:first-child, .imoveis th:first-child { text-align: left; white-space: normal; }
+.fechar { border: 1px solid var(--line); background: var(--surface); border-radius: 4px; padding: 6px 10px; cursor: pointer; }
+
+/* diversificação */
+.div-abas { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.div-abas button { border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 3px 10px; font-size: 12px; cursor: pointer; color: var(--muted); }
+.div-abas button[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: var(--accent-soft); }
+.pizza { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: center; }
+.pizza svg { width: 170px; height: 170px; display: block; }
+.pizza ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; min-width: 0; }
+.pizza li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; }
+.pizza li .sw { width: 10px; height: 10px; border-radius: 2px; transform: translateY(1px); }
+.pizza li span:nth-child(2) { overflow-wrap: anywhere; }
+.pizza li b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.conc-linha { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.conc-linha span { font-size: 12px; border: 1px solid var(--line); border-radius: 3px; padding: 2px 8px; }
+.conc-linha span b { font-weight: 600; }
+.leitura { font-size: 13px; margin: 8px 0 0; }
+.leitura.conc { color: var(--atencao); }
+@media (max-width: 480px) { .pizza { grid-template-columns: minmax(0, 1fr); justify-items: center; } .pizza ol { width: 100%; } }
+
+/* carteira */
+.cart-topo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.cart-topo label { display: flex; gap: 8px; align-items: center; }
+.cart-topo input { width: 120px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); font-family: var(--f-mono); text-align: right; }
+#cart-resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+#cart-resumo > div { background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+#cart-resumo .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+#cart-resumo .sub-lab { text-transform: none; letter-spacing: 0; }
+#cart-resumo .val { font-family: var(--f-display); font-size: 24px; font-weight: 700; font-stretch: 80%; }
+#cart-resumo .val small { font-size: 13px; color: var(--muted); font-weight: 500; }
+.dist-barra { display: flex; height: 12px; border-radius: 2px; overflow: hidden; }
+.dist-barra i { display: block; }
+.dist-leg { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--muted); }
+.dist-leg .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; }
+.acoes-cel { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+#cart-form { border: 1px solid var(--line); border-radius: 4px; background: var(--surface); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+#cart-form h3 { font-size: 16px; font-stretch: 85%; }
+.form-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 14px; }
+.form-grade label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); min-width: 0; }
+.form-grade input { padding: 6px 8px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); width: 100%; }
+.form-grade .lado { display: flex; gap: 6px; }
+#cart-dica { font-size: 12px; color: var(--muted); margin: 0; }
+#cart-erro { color: var(--ruim); font-size: 13px; margin: 0; }
+#cart-status { font-size: 12px; color: var(--muted); margin: 0; }
+#cart-montar-conf { border: 1px solid var(--atencao); border-radius: 4px; padding: 10px 12px; background: var(--surface); }
+#cart-montar-conf p { margin: 0 0 8px; }
+
+/* método */
+.metodo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px 28px; }
+.metodo article { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 16px 18px; min-width: 0; }
+.metodo article h3 { font-size: 18px; font-stretch: 85%; margin-bottom: 6px; }
+.metodo article h3 small { display: block; font-family: var(--f-mono); font-size: 11px; color: var(--accent); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; font-stretch: 100%; }
+.metodo p, .metodo li { max-width: 65ch; }
+.metodo ul { padding-left: 18px; margin: 6px 0; }
+.metodo .larga { grid-column: 1 / -1; }
+@media (max-width: 760px) {
+  .metodo { grid-template-columns: minmax(0, 1fr); }
+  .tres { grid-template-columns: minmax(0, 1fr); }
+  .busca input { width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ficha { animation: entra 0.18s ease-out; }
+  @keyframes entra { from { transform: translateX(24px); opacity: 0.6; } to { transform: none; opacity: 1; } }
+}
+</style>
+
+<header class="topo">
+  <div class="casca">
+    <div class="topo-linha">
+      <div class="marca">
+        <h1>Peneira <span>FIIs</span></h1>
+        <p>Fundos imobiliários da B3 pelo mesmo raciocínio da Peneira de Valor: tira o que não dá para operar, tira quem está sangrando, ordena por quanto se leva por real pago e compara com a própria história.</p>
+      </div>
+      <div class="busca">
+        <label for="busca">Abrir a ficha de um fundo</label>
+        <input id="busca" list="lista-tickers" placeholder="HGLG11" autocomplete="off" spellcheck="false">
+        <datalist id="lista-tickers"></datalist>
+      </div>
+    </div>
+    <div class="datas" id="datas"></div>
+    <div class="funil" id="funil"></div>
+  </div>
+</header>
+
+<div class="casca">
+  <nav class="abas" role="tablist" aria-label="Seções">
+    <button role="tab" id="aba-ranking" aria-controls="ranking" aria-selected="true">Ranking</button>
+    <button role="tab" id="aba-eliminados" aria-controls="eliminados" aria-selected="false">Eliminados</button>
+    <button role="tab" id="aba-carteira" aria-controls="carteira" aria-selected="false">Carteira</button>
+    <button role="tab" id="aba-metodo" aria-controls="metodo" aria-selected="false">Método e fontes</button>
+  </nav>
+
+  <main>
+    <section id="ranking" role="tabpanel" aria-labelledby="aba-ranking">
+      <div class="barra-ctl">
+        <div class="seg" id="seg-grupo" role="group" aria-label="Grupo"></div>
+        <span class="nota" id="nota-grupo"></span>
+      </div>
+      <details class="ajustes" id="ajustes">
+        <summary>Ajustar a peneira <small id="ajustes-resumo"></small></summary>
+        <div class="ajustes-grade">
+          <fieldset>
+            <legend>Passo 1 · operável</legend>
+            <label class="campo" for="p-liq">Liquidez mínima (R$ mil/dia) <input type="number" id="p-liq" min="0" step="50"></label>
+            <label class="campo" for="p-meses">Meses mínimos de bolsa <input type="number" id="p-meses" min="0" step="1"></label>
+          </fieldset>
+          <fieldset>
+            <legend>Passo 2 · sangria</legend>
+            <label class="campo" for="p-payout">Payout máximo (%) <input type="number" id="p-payout" min="50" step="5"></label>
+            <label class="campo" for="p-passivo">Passivo máximo (% do PL) <input type="number" id="p-passivo" min="0" step="5"></label>
+            <label class="campo" for="p-vac">Vacância máxima, tijolo (%) <input type="number" id="p-vac" min="0" step="5"></label>
+            <label class="campo" for="p-inad">Inadimplência máxima, tijolo (%) <input type="number" id="p-inad" min="0" step="1"></label>
+            <label class="campo" for="p-um">Tirar fundo de um imóvel só <input type="checkbox" id="p-um"></label>
+            <label class="campo" for="p-vol">Tirar os mais voláteis do grupo (%) <input type="number" id="p-vol" min="0" max="80" step="5"></label>
+          </fieldset>
+          <fieldset>
+            <legend>Passo 3 · pesos do índice</legend>
+            <table class="pesos" aria-label="Pesos do índice por grupo">
+              <thead><tr><th>Componente</th><th>Tijolo</th><th>Papel</th><th>FOF</th></tr></thead>
+              <tbody id="pesos-corpo"></tbody>
+            </table>
+          </fieldset>
+        </div>
+        <div class="ajustes-pe"><button type="button" class="mini" id="restaurar">Voltar aos critérios padrão</button><span>Os ajustes valem só neste navegador e não mudam a base.</span></div>
+      </details>
+      <div class="tabela"><table class="dados" id="tab-rank"><thead></thead><tbody></tbody></table></div>
+      <p class="nota" id="nota-rank"></p>
+    </section>
+
+    <section id="eliminados" role="tabpanel" aria-labelledby="aba-eliminados" hidden>
+      <div class="barra-ctl">
+        <div class="seg" id="seg-elim" role="group" aria-label="Filtro de eliminados"></div>
+        <span class="nota">Quem saiu, em que passo e por quê. Clique no ticker para ver a ficha.</span>
+      </div>
+      <div class="tabela"><table class="dados" id="tab-elim"><thead><tr><th class="esq">Fundo</th><th class="esq">Grupo</th><th>Liquidez/dia</th><th>P/VP</th><th>Passo</th><th class="esq">Motivos</th></tr></thead><tbody></tbody></table></div>
+    </section>
+
+    <section id="carteira" role="tabpanel" aria-labelledby="aba-carteira" hidden>
+      <div class="cart-topo">
+        <label for="cart-capital">Capital da carteira (R$) <input type="number" id="cart-capital" min="0" step="100"></label>
+        <button type="button" class="mini" id="cart-montar">Montar carteira com 10 da peneira</button>
+      </div>
+      <div id="cart-montar-conf" hidden></div>
+      <div id="cart-resumo"></div>
+      <div id="cart-dist"></div>
+      <div class="tabela"><table class="dados" id="tab-cart"><thead><tr>
+        <th class="esq">Fundo</th><th>Cotas</th><th>Entrada</th><th>Cotação</th><th>Preço alvo</th><th>Até o alvo</th><th>Valor</th><th>Resultado</th><th>Rendimento/mês</th><th class="esq">Na peneira</th>
+      </tr></thead><tbody></tbody></table></div>
+      <form id="cart-form" novalidate>
+        <h3 id="cart-form-tit">Adicionar fundo</h3>
+        <div class="form-grade">
+          <label for="cart-ticker">Ticker <input id="cart-ticker" list="cart-tickers" autocomplete="off" spellcheck="false"><datalist id="cart-tickers"></datalist></label>
+          <label for="cart-qtd">Cotas <input id="cart-qtd" type="number" min="1" step="1"></label>
+          <label for="cart-entrada">Preço de entrada (R$) <span class="lado"><input id="cart-entrada" type="number" min="0" step="0.01"><button type="button" class="mini" id="cart-usar-cot">Cotação</button></span></label>
+          <label for="cart-alvo">Preço alvo (R$) <span class="lado"><input id="cart-alvo" type="number" min="0" step="0.01"><button type="button" class="mini" id="cart-usar-alvo">Método</button></span></label>
+          <label for="cart-data">Data de entrada <input id="cart-data" type="date"></label>
+          <label for="cart-nota">Observação <input id="cart-nota" maxlength="140"></label>
+        </div>
+        <p id="cart-dica"></p>
+        <p id="cart-erro" role="alert"></p>
+        <div><button type="submit" class="botao" id="cart-salvar">Adicionar à carteira</button> <button type="button" class="mini" id="cart-cancelar" hidden>Cancelar edição</button></div>
+      </form>
+      <p id="cart-status"></p>
+    </section>
+
+    <section id="metodo" role="tabpanel" aria-labelledby="aba-metodo" hidden>
+      <div class="metodo" id="metodo-corpo"></div>
+    </section>
+  </main>
+</div>
+
+<div class="veu" id="veu" hidden></div>
+<aside class="ficha" id="ficha" role="dialog" aria-modal="true" aria-labelledby="ficha-titulo" hidden></aside>
+
+<script id="base-dados" type="application/json">__BASE__</script>
+<script>
+/*__MOTOR__*/
+</script>
+<script>
+/*__CARTEIRA__*/
+</script>
+<script>
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const ok = (v) => v !== null && v !== undefined && Number.isFinite(v);
+const nf = (v, d = 2) => ok(v) ? v.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d }) : "–";
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const pct = (v, d = 1) => ok(v) ? nf(v, d) + "%" : "–";
+const mi = (v) => ok(v) ? (v >= 1e9 ? nf(v / 1e9, 2) + " bi" : v >= 1e6 ? nf(v / 1e6, 1) + " mi" : nf(v / 1e3, 0) + " mil") : "–";
+const dataBR = (iso) => iso ? iso.slice(0, 10).split("-").reverse().join("/") : "–";
+const mesBR = (iso) => { if (!iso) return "–"; const m = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]; return m[+iso.slice(5, 7) - 1] + "/" + iso.slice(0, 4); };
+const GRUPO_NOME = { tijolo: "Tijolo", papel: "Papel", fof: "FOF" };
+const UNID_ATIVO = { tijolo: "imóveis", papel: "ativos", fof: "cotas" };
+const COMP_NOME = { patrimonio_por_real: "Patrimônio por real", resultado_por_real: "Resultado por real", aluguel_por_real: "Aluguel por real", dividendo_por_real: "Dividendo por real" };
+const COMP_SIGLA = { patrimonio_por_real: "VP ÷ preço", resultado_por_real: "FFO yield", aluguel_por_real: "cap rate implícito", dividendo_por_real: "DY 12m" };
+const PARAMS_LS = "peneira-fii-params-v1";
+
+const STOP = new Set(["DE", "DA", "DO", "DAS", "DOS", "E", "EM"]);
+const SIGLAS = new Set(["BTG", "RBR", "VBI", "HSI", "TRX", "CRI", "LCI", "VGI", "CSHG", "GGR", "HBC", "KNIP", "CDI", "IPCA", "BRL", "JPP", "SPX", "VX", "TG", "AAA", "II", "III", "IV", "MXRF", "XPML", "REC", "BB", "CXP"]);
+function nomeCurto(n) {
+  let s = String(n || "").replace(/FUNDOS? DE INVESTIMENTOS? IMOBILI[AÁ]RIOS?|FUNDOS? DE INVESTIMENTOS?|FI IMOBILI[AÁ]RIO|RESPONSABILIDADE\s+LIMITADA|RESP\.?\s+LIMITADA|\bFII\b|\bRL\b|\bFUNDO DE CRI\b/gi, " ")
+    .replace(/[-–]\s*$/g, "").replace(/\s[-–]\s/g, " ").replace(/\s+/g, " ").trim().replace(/[-–\s]+$/, "");
+  if (s === s.toUpperCase()) s = s.split(" ").map((w) => STOP.has(w) ? w.toLowerCase() : (w.length <= 2 || SIGLAS.has(w)) && /^[A-Z]+$/.test(w) ? w : w.charAt(0) + w.slice(1).toLowerCase()).join(" ");
+  return s || n;
+}
+
+const BASE = JSON.parse(document.getElementById("base-dados").textContent);
+const PADRAO = MotorFII.paramsPadrao(BASE.criterios);
+let P = carregarParams();
+let R = null;
+let grupoAtivo = "tijolo", filtroElim = "passo2";
+let ordem = { col: "indice", asc: false };
+
+function carregarParams() {
+  try { const o = JSON.parse(localStorage.getItem(PARAMS_LS) || "null"); if (o) return Object.assign(JSON.parse(JSON.stringify(PADRAO)), o); } catch (e) {}
+  return JSON.parse(JSON.stringify(PADRAO));
+}
+function salvarParams() { try { localStorage.setItem(PARAMS_LS, JSON.stringify(P)); } catch (e) {} }
+
+function rodar() { R = MotorFII.rodar(BASE, P); }
+
+// ---------- cabeçalho ----------
+function desenharDatas() {
+  const f = BASE.fontes || {};
+  const dp = BASE.fundos.map((x) => x.data_preco).filter(Boolean).sort().pop();
+  $("#datas").innerHTML = [
+    `Cotações de <b>${dataBR(dp)}</b>`,
+    `Informe mensal da CVM até <b>${mesBR(f.cvm_mensal_ultimo)}</b>`,
+    `Informe trimestral até <b>${dataBR(f.cvm_trimestral_ultimo)}</b>`,
+    `Base montada em <b>${dataBR(BASE.gerado_em)}</b>`,
+  ].map((x) => `<span>${x}</span>`).join("");
+}
+
+function desenharFunil() {
+  const F = R.funil, U = F.universo;
+  const seg = [
+    { k: "sai1", n: F.passo1.saem, cor: "var(--sai1)", rot: "saem no passo 1", sub: `${F.passo1.liquidez} por liquidez, ${F.passo1.universo + F.passo1.novo + F.passo1.outros} fora do universo, novos ou duplicados` },
+    { k: "sai2", n: F.passo2.saem + F.passo3.saem, cor: "var(--sai2)", rot: "saem no passo 2", sub: `${F.passo2.sangria} sangrando, ${F.passo2.volatilidade} pela volatilidade` },
+    { k: "tijolo", n: F.grupos.tijolo, cor: "var(--g-tijolo)", rot: "tijolo ranqueados", sub: "patrimônio, resultado e aluguel por real" },
+    { k: "papel", n: F.grupos.papel, cor: "var(--g-papel)", rot: "papel ranqueados", sub: "patrimônio (peso 2), resultado e dividendo" },
+    { k: "fof", n: F.grupos.fof, cor: "var(--g-fof)", rot: "FOF ranqueados", sub: "patrimônio, resultado e dividendo" },
+  ];
+  $("#funil").innerHTML = `<div class="funil-barra" role="img" aria-label="De ${U} FIIs, ${F.ranqueados} chegam ao ranking">${seg.map((s) => `<i style="flex:${s.n} 1 0;background:${s.cor}" title="${s.n} ${s.rot}"></i>`).join("")}</div>
+    <div class="funil-leg"><div><span class="sw" style="background:transparent;border:1px solid var(--line)"></span><b>${U}</b><span>FIIs listados no universo da base</span></div>${seg.map((s) => `<div><span class="sw" style="background:${s.cor}"></span><b>${s.n}</b><span>${s.rot}<br>${s.sub}</span></div>`).join("")}</div>`;
+}
+
+// ---------- ranking ----------
+function desenharSegGrupo() {
+  const F = R.funil.grupos;
+  $("#seg-grupo").innerHTML = ["tijolo", "papel", "fof", "todos"].map((g) => `<button type="button" data-g="${g}" aria-pressed="${g === grupoAtivo}">${g !== "todos" ? `<span class="dot" style="background:var(--g-${g})"></span>` : ""}${g === "todos" ? "Todos" : GRUPO_NOME[g]} <small>${g === "todos" ? R.ranqueados.length : F[g]}</small></button>`).join("");
+  const notas = {
+    tijolo: "Imóveis são a maior parte do ativo. Índice: VP ÷ preço, FFO yield e cap rate implícito, com pesos iguais.",
+    papel: "CRI, LCI e LIG são a maior parte do ativo. O P/VP pesa 2, porque a carteira é marcada a mercado.",
+    fof: "Cotas de outros FIIs são a maior parte do ativo. Atenção à taxa dupla.",
+    todos: "Os três grupos juntos, cada fundo com o índice calculado dentro do próprio grupo.",
+  };
+  $("#nota-grupo").textContent = notas[grupoAtivo];
+}
+
+const COLS = [
+  { k: "pos", t: "#", v: (f) => grupoAtivo === "todos" ? f.posicaoGeral : f.posicao },
+  { k: "ticker", t: "Fundo", esq: true, v: (f) => f.ticker },
+  { k: "seg", t: "Segmento", esq: true, v: (f) => f.grupo === "tijolo" ? f.subtipo?.nome : GRUPO_NOME[f.grupo] },
+  { k: "indice", t: "Índice", v: (f) => f.indice },
+  { k: "pvp", t: "P/VP", v: (f) => f.preco / f.vp_cota, asc: true },
+  { k: "ffo", t: "FFO yield", v: (f) => f.componentes.resultado_por_real },
+  { k: "cap", t: "Cap rate impl.", v: (f) => f.componentes.aluguel_por_real, so: "tijolo" },
+  { k: "dy", t: "DY 12m", v: (f) => f.dy_12m },
+  { k: "desc", t: "vs média 5a", v: (f) => f.descontoHist },
+  { k: "div", t: "Diversificação", v: (f) => f.conc ? f.conc.efetivo : null },
+  { k: "preco", t: "Preço", v: (f) => f.preco },
+  { k: "alvo", t: "Alvo do método", v: (f) => f.alvo ? f.alvo.v / f.preco - 1 : null },
+  { k: "liq", t: "Liquidez/dia", v: (f) => f.liquidez },
+];
+
+function colsAtivas() { return COLS.filter((c) => !c.so || grupoAtivo === c.so || grupoAtivo === "todos"); }
+
+function desenharRanking() {
+  desenharSegGrupo();
+  const cols = colsAtivas();
+  $("#tab-rank thead").innerHTML = `<tr>${cols.map((c) => `<th class="${c.esq ? "esq" : ""}" ${ordem.col === c.k ? `aria-sort="${ordem.asc ? "ascending" : "descending"}"` : ""}><button type="button" data-ord="${c.k}">${c.t}</button></th>`).join("")}</tr>`;
+  let L = grupoAtivo === "todos" ? [...R.ranqueados] : [...R.porGrupo[grupoAtivo]];
+  const c = COLS.find((x) => x.k === ordem.col) || COLS[3];
+  L.sort((a, b) => {
+    const va = c.v(a), vb = c.v(b);
+    if (!ok(va) && !ok(vb)) return 0; if (!ok(va)) return 1; if (!ok(vb)) return -1;
+    if (typeof va === "string") return ordem.asc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return ordem.asc ? va - vb : vb - va;
+  });
+  if (!L.length) { $("#tab-rank tbody").innerHTML = `<tr><td colspan="${cols.length}" class="vazio">Nenhum fundo passou pela peneira com estes critérios. Afrouxe algum corte em "Ajustar a peneira".</td></tr>`; return; }
+  $("#tab-rank tbody").innerHTML = L.map((f) => `<tr>${cols.map((col) => celula(col.k, f)).join("")}</tr>`).join("");
+  const m = R.funil.passo2.cortesVol;
+  $("#nota-rank").innerHTML = `Índice de 0 a 100: percentil médio dos componentes dentro do grupo. "vs média 5a" é o desconto médio do P/VP e do DY contra a média dos últimos 5 anos (positivo = mais barato que a própria história). "Diversificação" conta os ativos do grupo (imóveis, CRIs ou cotas) e diz a quantos ativos de mesmo peso a carteira equivale. Cortes de volatilidade: tijolo ${pct(m.tijolo)}, papel ${pct(m.papel)}, FOF ${pct(m.fof)} a.a. Não é recomendação de investimento.`;
+}
+
+function celula(k, f) {
+  switch (k) {
+    case "pos": return `<td class="pos">${grupoAtivo === "todos" ? f.posicaoGeral : f.posicao}</td>`;
+    case "ticker": return `<td class="esq"><button type="button" class="tk-btn" data-ficha="${f.ticker}">${f.ticker}</button><span class="emp">${esc(nomeCurto(f.nome))}</span></td>`;
+    case "seg": return `<td class="esq"><span class="chip g-${f.grupo}">${esc(f.grupo === "tijolo" ? f.subtipo?.nome : GRUPO_NOME[f.grupo])}</span>${f.hibrido ? `<span class="sub">híbrido</span>` : ""}${Carteira.tem(f.ticker) ? `<span class="sub">na carteira</span>` : ""}</td>`;
+    case "indice": return `<td><span class="idx"><span class="trilho"><i style="width:${f.indice.toFixed(1)}%"></i></span>${nf(f.indice, 0)}</span></td>`;
+    case "pvp": return `<td>${nf(f.preco / f.vp_cota, 2)}</td>`;
+    case "ffo": return `<td>${pct(f.componentes.resultado_por_real * 100)}</td>`;
+    case "cap": return `<td>${ok(f.componentes.aluguel_por_real) ? pct(f.componentes.aluguel_por_real * 100) : "–"}</td>`;
+    case "dy": return `<td>${pct(f.dy_12m)}</td>`;
+    case "desc": { const d = f.descontoHist; return `<td class="${ok(d) ? (d > 0 ? "desc-pos" : "desc-neg") : ""}">${ok(d) ? (d > 0 ? "+" : "−") + nf(Math.abs(d), 0) + "%" : "–"}<span class="sub">${f.anosHist ? f.anosHist + (f.anosHist === 1 ? " ano" : " anos") : "sem histórico"}</span></td>`; }
+    case "div": return `<td>${f.conc ? `${nf(f.conc.n, 0)} ${UNID_ATIVO[f.grupo]}<span class="sub" title="Número efetivo: quantos ativos de mesmo peso dariam a mesma concentração">equivale a ${nf(f.conc.efetivo, f.conc.efetivo < 10 ? 1 : 0)} · maior ${nf(f.conc.maior_pct, 0)}%</span>` : "–"}</td>`;
+    case "preco": return `<td>R$ ${nf(f.preco, 2)}</td>`;
+    case "alvo": return `<td>${f.alvo ? `R$ ${nf(f.alvo.v, 2)}<span class="sub ${f.alvo.v >= f.preco ? "desc-pos" : "desc-neg"}">${f.alvo.v >= f.preco ? "+" : "−"}${nf(Math.abs(f.alvo.v / f.preco - 1) * 100, 0)}%</span>` : "–"}</td>`;
+    case "liq": return `<td>R$ ${mi(f.liquidez)}</td>`;
+  }
+  return "<td></td>";
+}
+
+// ---------- eliminados ----------
+function desenharEliminados() {
+  const op = [
+    { k: "passo2", t: "Passo 2", f: (x) => x.etapa === 2 || x.etapa === 3 },
+    { k: "passo1", t: "Passo 1 sem liquidez como motivo", f: (x) => x.etapa === 1 && !x.motivos.some((m) => m.tipo === "liquidez") },
+    { k: "todos", t: "Todos", f: (x) => x.etapa !== 4 },
+  ];
+  $("#seg-elim").innerHTML = op.map((o) => `<button type="button" data-e="${o.k}" aria-pressed="${o.k === filtroElim}">${o.t} <small>${R.fundos.filter(o.f).length}</small></button>`).join("");
+  const L = R.fundos.filter(op.find((o) => o.k === filtroElim).f).sort((a, b) => (b.liquidez || 0) - (a.liquidez || 0));
+  $("#tab-elim tbody").innerHTML = L.length ? L.map((f) => `<tr>
+    <td class="esq"><button type="button" class="tk-btn" data-ficha="${f.ticker}">${f.ticker}</button><span class="emp">${esc(nomeCurto(f.nome))}</span></td>
+    <td class="esq">${f.grupo ? `<span class="chip g-${f.grupo}">${GRUPO_NOME[f.grupo]}</span>` : `<span class="chip">sem grupo</span>`}</td>
+    <td>R$ ${mi(f.liquidez)}</td>
+    <td>${ok(f.preco) && ok(f.vp_cota) ? nf(f.preco / f.vp_cota, 2) : "–"}</td>
+    <td>${f.etapa}</td>
+    <td class="esq"><ul class="motivos">${f.motivos.map((m) => `<li>${esc(m.texto)}</li>`).join("")}</ul></td></tr>`).join("") : `<tr><td colspan="6" class="vazio">Ninguém saiu nesse filtro.</td></tr>`;
+}
+
+// ---------- ficha ----------
+let ultimoFoco = null;
+function abrir(t) {
+  const f = R.fundos.find((x) => x.ticker === t);
+  if (!f) return;
+  ultimoFoco = document.activeElement;
+  const el = $("#ficha");
+  el.innerHTML = fichaHTML(f);
+  el.hidden = false; $("#veu").hidden = false;
+  document.body.style.overflow = "hidden";
+  el.scrollTop = 0;
+  $("#ficha-fechar").focus();
+  $("#ficha-fechar").onclick = fechar;
+  const b = $("#ficha-carteira"); if (b) b.onclick = () => Carteira.preparar(t);
+  el.onclick = (e) => {
+    const x = e.target.closest("[data-div]"); if (!x) return;
+    const novo = document.createElement("div"); novo.innerHTML = divBloco(f, x.dataset.div);
+    $("#div-bloco").replaceWith(novo.firstElementChild);
+    const bt = $(`#div-bloco [data-div="${x.dataset.div}"]`); if (bt) bt.focus();
+  };
+}
+function fechar() {
+  $("#ficha").hidden = true; $("#veu").hidden = true; document.body.style.overflow = "";
+  if (ultimoFoco && ultimoFoco.focus) ultimoFoco.focus();
+}
+
+function grafico(h, chave, titulo, unid, dec) {
+  if (!h || !h.serie || h.serie.length < 2) return `<figure class="grafico"><h4>${titulo}</h4><figcaption>Sem histórico anual suficiente.</figcaption></figure>`;
+  const s = h.serie, W = 300, H = 128, L = 34, Rr = 10, T = 12, B = 22;
+  const vals = s.map((x) => x.v).concat(Object.values(h.janelas).map((j) => j.media).filter(ok));
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  const pad = (hi - lo) * 0.12 || hi * 0.1; lo = Math.max(0, lo - pad); hi = hi + pad;
+  const X = (i) => L + (s.length === 1 ? 0 : i * (W - L - Rr) / (s.length - 1));
+  const Y = (v) => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+  const ticks = [lo, (lo + hi) / 2, hi];
+  const j5 = h.janelas[5];
+  const path = s.map((x, i) => `${i ? "L" : "M"}${X(i).toFixed(1)} ${Y(x.v).toFixed(1)}`).join(" ");
+  const u = s.length - 1;
+  return `<figure class="grafico"><h4>${titulo}: ${nf(h.atual, dec)}${unid} hoje</h4>
+  <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${titulo} anual de ${s[0].ano} a ${s[u].ano}">
+    ${ticks.map((t) => `<line x1="${L}" x2="${W - Rr}" y1="${Y(t).toFixed(1)}" y2="${Y(t).toFixed(1)}" stroke="var(--line-soft)"/><text x="${L - 5}" y="${(Y(t) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" fill="var(--muted)">${nf(t, dec)}</text>`).join("")}
+    ${j5 && ok(j5.media) ? `<line x1="${L}" x2="${W - Rr}" y1="${Y(j5.media).toFixed(1)}" y2="${Y(j5.media).toFixed(1)}" stroke="var(--accent)" stroke-dasharray="4 3"/>` : ""}
+    <path d="${path}" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+    ${s.map((x, i) => `<circle cx="${X(i).toFixed(1)}" cy="${Y(x.v).toFixed(1)}" r="${i === u ? 4 : 2.2}" fill="${i === u ? "var(--accent)" : "var(--surface)"}" stroke="${i === u ? "var(--accent)" : "var(--ink)"}" stroke-width="1.2"/>`).join("")}
+    ${s.map((x, i) => (i === 0 || i === u || (s.length <= 6) || i % 2 === u % 2) ? `<text x="${X(i).toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="9.5" fill="var(--muted)">${x.atual ? "hoje" : String(x.ano).slice(2)}</text>` : "").join("")}
+  </svg>
+  <figcaption>${Object.entries(h.janelas).map(([n, j]) => ok(j.media) ? `média ${n}a${j.completo ? "" : ` (só ${j.pontos} ${j.pontos === 1 ? "ano" : "anos"}, ${j.de}–${j.ate})`}: ${nf(j.media, dec)}${unid}` : "").filter(Boolean).join(" · ")}${j5 && ok(j5.media) ? ". Tracejado: média de 5 anos." : ""}</figcaption></figure>`;
+}
+
+// ---------- diversificação ----------
+const CORES = ["--c1", "--c2", "--c3", "--c4", "--c5", "--c6", "--c7", "--c8"];
+function corFatia(i, x) { return x.outros ? "var(--line)" : `var(${CORES[i % CORES.length]})`; }
+function pizzaSVG(fatias, centro, sub) {
+  const R0 = 80, R1 = 50, C = 85;
+  let a0 = -Math.PI / 2;
+  const tot = fatias.reduce((t, x) => t + x.pct, 0) || 1;
+  const arcos = fatias.map((x, i) => {
+    const ang = x.pct / tot * Math.PI * 2;
+    const a1 = a0 + ang;
+    let d;
+    if (ang >= Math.PI * 2 - 1e-6) {
+      d = `M${C} ${C - R0}A${R0} ${R0} 0 1 1 ${C - 0.01} ${C - R0}Z M${C} ${C - R1}A${R1} ${R1} 0 1 0 ${C + 0.01} ${C - R1}Z`;
+    } else {
+      const g = ang > Math.PI ? 1 : 0;
+      const p = (r, a) => `${(C + r * Math.cos(a)).toFixed(2)} ${(C + r * Math.sin(a)).toFixed(2)}`;
+      d = `M${p(R0, a0)}A${R0} ${R0} 0 ${g} 1 ${p(R0, a1)}L${p(R1, a1)}A${R1} ${R1} 0 ${g} 0 ${p(R1, a0)}Z`;
+    }
+    a0 = a1;
+    return `<path d="${d}" fill="${corFatia(i, x)}" stroke="var(--surface)" stroke-width="1.2" fill-rule="evenodd"><title>${esc(x.nome)}: ${nf(x.pct, 1)}%</title></path>`;
+  }).join("");
+  return `<svg viewBox="0 0 170 170" role="img" aria-label="${esc(centro)} ${esc(sub)}">${arcos}
+    <text x="${C}" y="${C - 2}" text-anchor="middle" font-family="var(--f-display)" font-weight="700" font-size="26" fill="var(--ink)">${esc(centro)}</text>
+    <text x="${C}" y="${C + 16}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${esc(sub)}</text></svg>`;
+}
+
+function visoesDiv(f) {
+  const d = f.diversificacao || {}, v = [];
+  const im = d.imoveis;
+  const conc = (c, unid) => c ? [`<span><b>${nf(c.n, 0)}</b> ${unid}</span>`, `<span>equivale a <b>${nf(c.efetivo, c.efetivo < 10 ? 1 : 0)}</b> de mesmo peso</span>`, `<span>maior <b>${nf(c.maior_pct, 0)}%</b></span>`, `<span>3 maiores <b>${nf(c.top3_pct, 0)}%</b></span>`].join("") : "";
+  const cri = () => d.cri ? v.push({ k: "cri", t: "CRIs e LCIs", fatias: d.cri.fatias, centro: nf(d.cri.conc.n, 0), sub: "ativos de crédito", conc: conc(d.cri.conc, "ativos"), ref: d.cri.ref, nota: `Peso de cada ativo no valor da carteira de crédito (R$ ${mi(d.cri.total)}).` }) : null;
+  const fii = () => d.fii ? v.push({ k: "fii", t: "Cotas de FII", fatias: d.fii.fatias, centro: nf(d.fii.conc.n, 0), sub: "FIIs na carteira", conc: conc(d.fii.conc, "fundos"), ref: d.fii.ref, nota: `Peso de cada fundo no valor investido em cotas de FII (R$ ${mi(d.fii.total)}).` }) : null;
+  if (f.grupo === "papel") cri();
+  if (f.grupo === "fof") fii();
+  if (im) {
+    v.push({ k: "receita", t: "Receita por imóvel", fatias: im.receita, centro: nf(im.conc_receita?.n ?? 0, 0), sub: "imóveis para renda", conc: conc(im.conc_receita, "imóveis"), ref: im.ref, nota: "Participação de cada imóvel na receita do fundo." });
+    v.push({ k: "area", t: "Área", fatias: im.area, centro: nf(im.area_m2 / 1000, 0) + " mil", sub: "m² de área", conc: conc(im.conc_area, "imóveis"), ref: im.ref, nota: "Participação de cada imóvel na área total." });
+    if (im.area_vaga && im.area_vaga.length) v.push({ k: "vaga", t: "Área vaga", fatias: im.area_vaga, centro: nf(im.vaga_m2 / im.area_m2 * 100, 1) + "%", sub: "da área está vaga", conc: `<span><b>${nf(im.vaga_m2, 0)}</b> m² vagos</span><span>em <b>${im.imoveis_com_vaga}</b> ${im.imoveis_com_vaga === 1 ? "imóvel" : "imóveis"}</span>`, ref: im.ref, nota: "Onde está a área vaga: participação de cada imóvel nos metros quadrados vagos.", leitura: im.leitura_vacancia });
+    if (im.uf) v.push({ k: "uf", t: "Estados", fatias: im.uf, centro: String(im.uf.filter((x) => !x.outros && x.nome !== "Não identificado").length), sub: "estados na receita", conc: "", ref: im.ref, nota: "Receita por estado, lido do endereço que o fundo informa à CVM." });
+  }
+  if (d.setores) v.push({ k: "setor", t: "Inquilinos por setor", fatias: d.setores.fatias, centro: nf(d.setores.conc.n, 0), sub: "setores", conc: conc(d.setores.conc, "setores"), ref: d.setores.ref, nota: "Receita por setor de atuação dos inquilinos, como o fundo informa à CVM." });
+  if (f.grupo !== "papel") cri();
+  if (f.grupo !== "fof") fii();
+  // a leitura da vacância aparece também na primeira visão do tijolo
+  if (im && im.leitura_vacancia && v[0] && v[0].k === "receita") v[0].leitura = "Vacância " + im.leitura_vacancia + ".";
+  if (v.length && v.find((x) => x.k === "vaga")) v.find((x) => x.k === "vaga").leitura = "Vacância " + im.leitura_vacancia + ".";
+  return v;
+}
+
+function divBloco(f, visaoK) {
+  const V = visoesDiv(f);
+  if (!V.length) return f.grupo ? `<div class="bloco" id="div-bloco"><h3>Diversificação do portfólio</h3><p class="nota">O informe trimestral não traz a lista de ativos deste fundo.</p></div>` : "";
+  const vis = V.find((x) => x.k === visaoK) || V[0];
+  const conc = /concentrada/.test(vis.leitura || "") && !/pulverizada/.test(vis.leitura || "");
+  return `<div class="bloco" id="div-bloco"><h3>Diversificação do portfólio</h3>
+    ${V.length > 1 ? `<div class="div-abas" role="group" aria-label="Visão da diversificação">${V.map((x) => `<button type="button" data-div="${x.k}" aria-pressed="${x === vis}">${x.t}</button>`).join("")}</div>` : ""}
+    <div class="pizza">${pizzaSVG(vis.fatias, vis.centro, vis.sub)}
+      <ol>${vis.fatias.map((x, i) => `<li><span class="sw" style="background:${corFatia(i, x)}"></span><span>${esc(x.nome)}</span><b>${nf(x.pct, 1)}%</b></li>`).join("")}</ol></div>
+    ${vis.conc ? `<div class="conc-linha">${vis.conc}</div>` : ""}
+    ${vis.leitura ? `<p class="leitura ${conc ? "conc" : ""}">${esc(vis.leitura)}</p>` : ""}
+    <p class="nota" style="margin-top:6px">${esc(vis.nota)} Informe trimestral de ${dataBR(vis.ref)}. "Equivale a" é o número de ativos de mesmo peso que dariam a mesma concentração (inverso do índice de Herfindahl).</p></div>`;
+}
+
+function fichaHTML(f) {
+  const r = f.resultado || {}, im = f.imoveis || {}, c = f.composicao || {};
+  const pvp = ok(f.preco) && ok(f.vp_cota) ? f.preco / f.vp_cota : null;
+  const chips = [
+    f.grupo ? `<span class="chip g-${f.grupo}">${GRUPO_NOME[f.grupo]}${f.hibrido ? " (híbrido)" : ""}</span>` : "",
+    f.subtipo ? `<span class="chip">${esc(f.subtipo.nome)}</span>` : "",
+    f.gestao ? `<span class="chip">gestão ${esc(String(f.gestao).toLowerCase())}</span>` : "",
+    f.etapa === 4 ? `<span class="chip">${f.posicao}º do grupo</span>` : `<span class="chip chip-alerta">saiu no passo ${f.etapa}</span>`,
+  ].join("");
+  let tres = "";
+  if (f.etapa === 4) {
+    const d = f.descontoHist;
+    tres = `<div class="tres">
+      <div><span class="lab">Índice de valor</span><span class="val">${nf(f.indice, 0)}</span><span class="sub">${f.posicao}º de ${R.porGrupo[f.grupo].length} no ${GRUPO_NOME[f.grupo].toLowerCase()}</span></div>
+      <div><span class="lab">vs média de 5 anos</span><span class="val ${ok(d) ? (d > 0 ? "desc-pos" : "desc-neg") : ""}">${ok(d) ? (d > 0 ? "+" : "−") + nf(Math.abs(d), 0) + "%" : "–"}</span><span class="sub">${ok(d) ? (d > 0 ? "mais barato que a própria história" : "mais caro que a própria história") : "sem histórico suficiente"}</span></div>
+      <div><span class="lab">Preço alvo do método</span><span class="val">${f.alvo ? "R$ " + nf(f.alvo.v, 2) : "–"}</span><span class="sub">${f.alvo ? f.alvo.partes.map((p) => `${p.k} R$ ${nf(p.v, 2)}`).join(" · ") : "precisa de 2 anos de P/VP ou DY"}</span></div></div>`;
+  } else {
+    tres = `<div class="bloco"><h3>Por que saiu</h3><ul class="lista-alertas">${f.motivos.map((m) => `<li>${esc(m.texto)}${m.fonte ? ` (<a href="${esc(m.fonte)}" target="_blank" rel="noopener">fonte</a>)` : ""}</li>`).join("")}</ul></div>`;
+  }
+  const comps = f.componentes ? `<div class="bloco"><h3>Quanto se leva por real pago</h3><div class="kv">${Object.entries(COMP_NOME).filter(([k]) => (R.params.pesos[f.grupo] || {})[k] > 0).map(([k, n]) => `<div><span>${n} <small>(${COMP_SIGLA[k]})</small></span><b>${ok(f.componentes[k]) ? (k === "patrimonio_por_real" ? "R$ " + nf(f.componentes[k], 2) : pct(f.componentes[k] * 100)) : "–"}${f.percentis && ok(f.percentis[k]) ? `<small class="pctl">percentil ${nf(f.percentis[k], 0)}</small>` : ""}</b></div>`).join("")}</div></div>` : "";
+  const pc = c.pct || {};
+  const total = (c.investido || 0) + (c.caixa || 0);
+  const partes = [["imoveis", "Imóveis", "var(--g-tijolo)"], ["papel", "CRI, LCI e LIG", "var(--g-papel)"], ["fii", "Cotas de FII", "var(--g-fof)"], ["outros", "Outros", "var(--g-outros)"], ["caixa", "Caixa e renda fixa", "var(--line)"]]
+    .map(([k, n, cor]) => ({ n, cor, w: total > 0 ? (c[k] || 0) / total * 100 : 0 })).filter((x) => x.w > 0.4);
+  const compHTML = partes.length ? `<div class="bloco"><h3>Composição do ativo (${mesBR(f.ref_mensal)})</h3><div class="comp-barra" role="img" aria-label="Composição do ativo">${partes.map((p) => `<i style="flex:${p.w.toFixed(2)} 1 0;background:${p.cor}"></i>`).join("")}</div><div class="comp-leg">${partes.map((p) => `<span><span class="sw" style="background:${p.cor}"></span>${p.n} ${nf(p.w, 0)}%</span>`).join("")}</div></div>` : "";
+  const kv = (pares) => `<div class="kv">${pares.filter(Boolean).map(([a, b]) => `<div><span>${a}</span><b>${b}</b></div>`).join("")}</div>`;
+  const mercado = `<div class="bloco"><h3>Mercado e patrimônio</h3>${kv([
+    ["Cotação", `R$ ${nf(f.preco, 2)} (${dataBR(f.data_preco)})`], ["VP da cota", `R$ ${nf(f.vp_cota, 2)}`], ["P/VP", nf(pvp, 2)],
+    ["DY 12m", pct(f.dy_12m) + (f.fonte_dy === "cvm" ? " (CVM)" : "")], ["Liquidez/dia", "R$ " + mi(f.liquidez)], ["Cotistas", ok(f.cotistas) ? nf(f.cotistas, 0) : "–"],
+    ["Patrimônio líquido", "R$ " + mi(f.patrimonio)], ["Valor de mercado", "R$ " + mi(f.valor_mercado)], ["Passivo ÷ PL", pct(ok(f.passivo_pl) ? f.passivo_pl * 100 : null)],
+    ["Volatilidade 1 ano", pct(f.vol_1a)], ["Maior queda em 1 ano", pct(f.mdd_1a)], ["Taxa de adm. no mês", ok(f.taxa_adm_mes_pct) ? nf(f.taxa_adm_mes_pct, 3) + "% do PL" : "–"],
+  ])}</div>`;
+  const resultado = ok(r.resultado_12m) ? `<div class="bloco"><h3>Resultado (${esc(r.periodo || "")})</h3>${kv([
+    ["Resultado financeiro 12m", "R$ " + mi(r.resultado_12m)], ["Rendimentos declarados", "R$ " + mi(r.declarado_12m)], ["Payout", pct(ok(r.payout) ? r.payout * 100 : null, 0)],
+    f.grupo === "tijolo" ? ["Receita de aluguel 12m", "R$ " + mi(r.aluguel_12m) + (r.trimestres_aluguel < 4 ? ` (anualizado de ${r.trimestres_aluguel} tri)` : "")] : null,
+    ok(r.ganho_venda_imoveis_12m) && Math.abs(r.ganho_venda_imoveis_12m) > 0 ? ["Venda de imóveis (líquida)", "R$ " + mi(r.ganho_venda_imoveis_12m)] : null,
+    ["Último trimestre", `R$ ${mi(r.resultado_ult_tri)} (${dataBR(r.ref_ult_tri)})`],
+  ])}</div>` : "";
+  const imoveis = f.grupo === "tijolo" && ok(im.n_renda) ? `<div class="bloco"><h3>Imóveis para renda (${dataBR(im.ref)})</h3>${kv([
+    ["Imóveis", nf(im.n_renda, 0)], ["Área", ok(im.area_total) ? nf(im.area_total, 0) + " m²" : "–"], ["Vacância física", pct(im.vacancia_fisica)],
+    ["Inadimplência", pct(im.inadimplencia)], ["Maior imóvel na receita", pct(im.maior_receita_pct, 0)],
+  ])}${(im.imoveis || []).length ? `<div class="tabela" style="margin-top:8px"><table class="imoveis"><thead><tr><th>Imóvel</th><th>Área m²</th><th>Vacância</th><th>% receita</th></tr></thead><tbody>${im.imoveis.map((x) => `<tr><td>${esc(x.nome)}</td><td>${ok(x.area) ? nf(x.area, 0) : "–"}</td><td>${pct(x.vac)}</td><td>${pct(x.receita)}</td></tr>`).join("")}</tbody></table></div>` : ""}</div>` : "";
+  const graf = f.historico ? `<div class="bloco"><h3>Contra a própria história</h3><div class="graficos">${grafico(f.historico.p_vp, "p_vp", "P/VP", "", 2)}${grafico(f.historico.dy, "dy", "DY", "%", 1)}</div></div>` : "";
+  const alertas = f.alertas.length ? `<div class="bloco"><h3>Alertas</h3><ul class="lista-alertas">${[...new Set(f.alertas)].map((a) => `<li>${esc(a)}</li>`).join("")}</ul></div>` : "";
+  const fontes = `<div class="bloco"><h3>De onde vêm os dados</h3><p class="nota">CNPJ ${esc(f.cnpj || "não encontrado na CVM")} · segmento informado à CVM: ${esc(f.segmento_cvm || "–")} · administrador: ${esc(f.administrador || "–")}. Composição, VP, cotistas e passivo: informe mensal da CVM de ${mesBR(f.ref_mensal)}. Resultado, vacância e inadimplência: informe trimestral da CVM. Cotação, liquidez e rendimento de 12 meses: Fundamentus. Volatilidade e fechamentos de dezembro: Yahoo Finance.</p></div>`;
+  return `<div class="ficha-topo"><div><h2 id="ficha-titulo">${f.ticker}</h2><p>${esc(nomeCurto(f.nome))}</p><div class="chips">${chips}</div></div><button type="button" class="fechar" id="ficha-fechar">Fechar</button></div>
+    ${tres}${comps}${divBloco(f)}${graf}${compHTML}${mercado}${resultado}${imoveis}${alertas}
+    <div><button type="button" class="botao" id="ficha-carteira">${Carteira.tem(f.ticker) ? "Comprar mais na carteira" : "Adicionar à carteira"}</button></div>${fontes}`;
+}
+
+// ---------- método ----------
+function desenharMetodo() {
+  const p = R.params, f = BASE.fontes || {};
+  $("#metodo-corpo").innerHTML = `
+  <article><h3><small>Passo 1</small>Tira o que não dá para operar</h3><ul>
+    <li>Liquidez média diária abaixo de R$ ${nf(p.liquidezMin / 1000, 0)} mil (volume médio de 2 meses).</li>
+    <li>Sem informe mensal de FII na CVM: Fiagro, FI-Infra ou fundo sem cadastro como FII.</li>
+    <li>Fundo de desenvolvimento: ${p.devPct}% ou mais do investido em obras, terrenos e imóveis para venda.</li>
+    <li>Menos de ${p.mesesBolsa} meses de pregão, informe mensal com mais de 6 meses, código antigo de fundo que trocou de ticker.</li>
+    <li>Evento pendente (liquidação, incorporação, venda total), mantido à mão com o fato relevante.</li></ul></article>
+  <article><h3><small>Passo 2</small>Tira quem está sangrando e os mais voláteis</h3><ul>
+    <li>Resultado financeiro negativo em 12 meses ou no último trimestre.</li>
+    <li>Rendimentos declarados acima de ${p.payoutMax}% do resultado dos dois últimos semestres.</li>
+    <li>Passivo acima de ${p.passivoMax}% do PL.</li>
+    <li>Tijolo: vacância física acima de ${p.vacMax}%, inadimplência acima de ${p.inadMax}% da receita${p.exclUmImovel ? ", um imóvel só" : ""}.</li>
+    <li>Papel: evento de crédito relevante registrado à mão.</li>
+    <li>Os ${p.volPercentil}% mais voláteis de cada grupo (desvio-padrão anualizado de 252 pregões).</li></ul></article>
+  <article><h3><small>Passo 3</small>Ordena por quanto se leva por real pago</h3>
+    <p>Os sobreviventes são separados pela composição do ativo no informe mensal: tijolo (imóveis), papel (CRI, LCI, LIG) e FOF (cotas de FII). Cada componente vira percentil de 0 a 100 dentro do grupo e o índice é a média ponderada.</p><ul>
+    <li>Patrimônio por real: VP da cota ÷ preço.</li>
+    <li>Resultado por real: resultado financeiro de 12 meses (CVM) ÷ valor de mercado.</li>
+    <li>Aluguel por real (só tijolo): receita de aluguel de 12 meses ÷ (valor de mercado + passivo).</li>
+    <li>Dividendo por real (papel e FOF): rendimentos de 12 meses ÷ preço.</li></ul></article>
+  <article><h3><small>Passo 4</small>Compara com a própria história</h3>
+    <p>P/VP e DY de dezembro de cada ano contra o momento atual, nas médias de 10, 5 e 2 anos. Quando o fundo não tem o período inteiro, a ficha informa quantos anos entraram. O P/VP usa o VP do informe mensal de dezembro; o DY histórico usa o rendimento mensal informado à CVM e só é mostrado quando bate com o Fundamentus no período atual.</p>
+    <p>Preço alvo do método: o preço em que o fundo voltaria à média de 5 anos no P/VP e no DY (papel: P/VP com peso 2). É sugestão; na carteira o alvo é editável.</p>
+    <p>Prêmio do DY sobre a NTN-B: pendente. A fonte de taxas do Tesouro não estava acessível na coleta desta base.</p></article>
+  <article class="larga"><h3><small>Fontes</small>De onde vêm os dados</h3>
+    <div class="tabela"><table class="dados"><thead><tr><th class="esq">Fonte</th><th class="esq">Dados</th><th class="esq">Referência nesta base</th></tr></thead><tbody>
+      <tr><td class="esq"><a href="https://dados.cvm.gov.br/dataset/fii-doc-inf_mensal" target="_blank" rel="noopener">CVM, informe mensal</a></td><td class="esq" style="white-space:normal">Composição do ativo, PL, VP da cota, cotas, cotistas, passivo, taxa de administração, rendimento mensal</td><td class="esq">até ${mesBR(f.cvm_mensal_ultimo)}, desde 2016</td></tr>
+      <tr><td class="esq"><a href="https://dados.cvm.gov.br/dataset/fii-doc-inf_trimestral" target="_blank" rel="noopener">CVM, informe trimestral</a></td><td class="esq" style="white-space:normal">Resultado financeiro, rendimentos declarados, receita de aluguel, imóveis com área, vacância e inadimplência</td><td class="esq">até ${dataBR(f.cvm_trimestral_ultimo)}</td></tr>
+      <tr><td class="esq"><a href="https://www.fundamentus.com.br/fii_resultado.php" target="_blank" rel="noopener">Fundamentus</a></td><td class="esq" style="white-space:normal">Universo de FIIs, cotação, liquidez de 2 meses, rendimento por cota de 12 meses, FFO</td><td class="esq">cotações de ${dataBR(BASE.fundos.map((x) => x.data_preco).filter(Boolean).sort().pop())}</td></tr>
+      <tr><td class="esq">Yahoo Finance</td><td class="esq" style="white-space:normal">Fechamento diário (volatilidade e maior queda em 1 ano) e de dezembro de cada ano, sem ajuste por rendimentos</td><td class="esq">coleta de 03/11/2026, pelo navegador</td></tr>
+    </tbody></table></div>
+    <p class="nota" style="margin-top:10px">A ligação entre ticker e CNPJ sai do código ISIN do informe mensal; fundos que trocaram de ticker ou têm ISIN no formato novo são ligados pelo número de cotas e pelo PL (${(BASE.mapeados_por_nome || []).length} casos nesta base). Esta página é separada da Peneira de Valor de ações e não compartilha dados nem carteira com ela. Não é recomendação de investimento.</p></article>`;
+}
+
+// ---------- ajustes ----------
+function montarAjustes() {
+  const campos = [["p-liq", "liquidezMin", 1000], ["p-meses", "mesesBolsa", 1], ["p-payout", "payoutMax", 1], ["p-passivo", "passivoMax", 1], ["p-vac", "vacMax", 1], ["p-inad", "inadMax", 1], ["p-vol", "volPercentil", 1]];
+  const preencher = () => {
+    for (const [id, k, f] of campos) $("#" + id).value = P[k] / f;
+    $("#p-um").checked = !!P.exclUmImovel;
+    $("#pesos-corpo").innerHTML = Object.keys(COMP_NOME).map((k) => `<tr><td>${COMP_NOME[k]}</td>${["tijolo", "papel", "fof"].map((g) => `<td><input type="number" min="0" max="5" step="1" id="peso-${g}-${k}" value="${P.pesos[g][k] ?? 0}" aria-label="${COMP_NOME[k]}, ${GRUPO_NOME[g]}"></td>`).join("")}</tr>`).join("");
+    resumoAjustes();
+  };
+  let t = null;
+  const aplicar = () => { clearTimeout(t); t = setTimeout(() => { salvarParams(); tudo(); resumoAjustes(); }, 250); };
+  for (const [id, k, f] of campos) $("#" + id).addEventListener("input", (e) => { const v = Number(e.target.value); if (ok(v) && v >= 0) { P[k] = v * f; aplicar(); } });
+  $("#p-um").addEventListener("change", (e) => { P.exclUmImovel = e.target.checked; aplicar(); });
+  $("#pesos-corpo").addEventListener("input", (e) => {
+    const m = e.target.id.match(/^peso-(\w+?)-(.+)$/); if (!m) return;
+    const v = Number(e.target.value); if (ok(v) && v >= 0) { P.pesos[m[1]][m[2]] = v; aplicar(); }
+  });
+  $("#restaurar").onclick = () => { P = JSON.parse(JSON.stringify(PADRAO)); salvarParams(); preencher(); tudo(); };
+  preencher();
+}
+function resumoAjustes() {
+  const dif = JSON.stringify(P) !== JSON.stringify(PADRAO);
+  $("#ajustes-resumo").textContent = `liquidez R$ ${nf(P.liquidezMin / 1000, 0)} mil, payout até ${P.payoutMax}%, vacância até ${P.vacMax}%${dif ? " · critérios alterados" : " · critérios padrão"}`;
+}
+
+// ---------- abas ----------
+const ABAS = ["ranking", "eliminados", "carteira", "metodo"];
+function trocarAba(id, semHash) {
+  if (!ABAS.includes(id)) id = "ranking";
+  for (const a of ABAS) { $("#" + a).hidden = a !== id; $("#aba-" + a).setAttribute("aria-selected", String(a === id)); }
+  if (id === "carteira") Carteira.iniciar();
+  if (!semHash && location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+}
+
+function tudo() {
+  rodar();
+  desenharFunil(); desenharRanking(); desenharEliminados(); desenharMetodo();
+  Carteira.desenhar();
+}
+
+// ---------- eventos ----------
+document.addEventListener("click", (e) => {
+  const fb = e.target.closest("[data-ficha]"); if (fb) { abrir(fb.dataset.ficha); return; }
+  const g = e.target.closest("#seg-grupo [data-g]"); if (g) { grupoAtivo = g.dataset.g; if (ordem.col === "pos") ordem = { col: "indice", asc: false }; desenharRanking(); return; }
+  const el = e.target.closest("#seg-elim [data-e]"); if (el) { filtroElim = el.dataset.e; desenharEliminados(); return; }
+  const o = e.target.closest("#tab-rank [data-ord]");
+  if (o) {
+    const k = o.dataset.ord, c = COLS.find((x) => x.k === k);
+    ordem = ordem.col === k ? { col: k, asc: !ordem.asc } : { col: k, asc: k === "pos" || k === "ticker" || k === "seg" || !!c.asc };
+    if (k === "pos") ordem = { col: "indice", asc: false };
+    desenharRanking(); return;
+  }
+  const ab = e.target.closest(".abas [role=tab]"); if (ab) trocarAba(ab.id.replace("aba-", ""));
+});
+$("#veu").addEventListener("click", fechar);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#ficha").hidden) fechar(); });
+$("#busca").addEventListener("change", (e) => { const t = e.target.value.toUpperCase().trim(); if (R.fundos.some((f) => f.ticker === t)) { abrir(t); e.target.value = ""; } });
+$("#busca").addEventListener("keydown", (e) => { if (e.key === "Enter") e.target.dispatchEvent(new Event("change")); });
+window.addEventListener("hashchange", () => trocarAba(location.hash.slice(1), true));
+
+$("#lista-tickers").innerHTML = BASE.fundos.filter((f) => (f.liquidez || 0) > 0).map((f) => `<option value="${f.ticker}">${esc(nomeCurto(f.nome || ""))}</option>`).join("");
+desenharDatas();
+montarAjustes();
+tudo();
+trocarAba(location.hash.slice(1) || "ranking", true);
+</script>
+
+</body></html>

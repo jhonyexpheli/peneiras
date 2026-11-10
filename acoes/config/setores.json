@@ -1,0 +1,286 @@
+{
+  "_doc": "KPIs preponderantes por setor. Os KPIs-base do método valem para todos; aqui entram os que pesam mais em cada setor e que também são comparados com a média histórica (regressão à média). A ordem dos perfis importa: o primeiro que casar vence. Campos de casamento são regex sobre setor/subsetor/segmento do Status Invest.",
+  "indicadores": {
+    "dy": {
+      "nome": "Dividend yield",
+      "unid": "%",
+      "direcao": "maior_melhor"
+    },
+    "roe": {
+      "nome": "ROE",
+      "unid": "%",
+      "direcao": "maior_melhor"
+    },
+    "roic": {
+      "nome": "ROIC",
+      "unid": "%",
+      "direcao": "maior_melhor"
+    },
+    "p_l": {
+      "nome": "P/L",
+      "unid": "x",
+      "direcao": "menor_melhor"
+    },
+    "p_vp": {
+      "nome": "P/VP",
+      "unid": "x",
+      "direcao": "menor_melhor"
+    },
+    "ev_ebit": {
+      "nome": "EV/EBIT",
+      "unid": "x",
+      "direcao": "menor_melhor"
+    },
+    "ev_ebitda": {
+      "nome": "EV/EBITDA",
+      "unid": "x",
+      "direcao": "menor_melhor"
+    },
+    "dividaliquida_ebitda": {
+      "nome": "Dív. líq./EBITDA",
+      "unid": "x",
+      "direcao": "menor_melhor"
+    },
+    "dividaliquida_ebit": {
+      "nome": "Dív. líq./EBIT",
+      "unid": "x",
+      "direcao": "menor_melhor"
+    },
+    "dividaliquida_patrimonioliquido": {
+      "nome": "Dív. líq./PL",
+      "unid": "x",
+      "direcao": "menor_melhor"
+    },
+    "margemebit": {
+      "nome": "Margem EBIT",
+      "unid": "%",
+      "direcao": "maior_melhor"
+    },
+    "margemliquida": {
+      "nome": "Margem líquida",
+      "unid": "%",
+      "direcao": "maior_melhor"
+    },
+    "margembruta": {
+      "nome": "Margem bruta",
+      "unid": "%",
+      "direcao": "maior_melhor"
+    },
+    "receitas_cagr5": {
+      "nome": "CAGR receitas 5a",
+      "unid": "%",
+      "direcao": "maior_melhor"
+    },
+    "liquidezcorrente": {
+      "nome": "Liquidez corrente",
+      "unid": "x",
+      "direcao": "maior_melhor"
+    },
+    "caixa_liquido_por_real": {
+      "nome": "Caixa líquido por real (aprox.)",
+      "unid": "R$",
+      "direcao": "maior_melhor",
+      "derivado": "-dividaliquida_patrimonioliquido / p_vp"
+    }
+  },
+  "perfis": [
+    {
+      "id": "bancos",
+      "nome": "Bancos",
+      "financeiro": true,
+      "match": {
+        "setor": "Financeiro",
+        "subsetor": "Intermedi"
+      },
+      "kpis": [
+        "dy",
+        "roe",
+        "p_vp",
+        "p_l"
+      ],
+      "nota": "Banco não se analisa por EBIT nem caixa. Peso em ROE (rentabilidade sobre o patrimônio) e DY, com P/VP e P/L para preço; a regressão à média de DY e ROE indica se o momento atual é exceção."
+    },
+    {
+      "id": "seguros",
+      "nome": "Seguradoras e previdência",
+      "financeiro": true,
+      "match": {
+        "setor": "Financeiro",
+        "subsetor": "Previd|Segur"
+      },
+      "kpis": [
+        "dy",
+        "roe",
+        "p_vp",
+        "p_l"
+      ],
+      "nota": "Mesma lógica de banco: ROE, DY e P/VP, com o resultado financeiro sensível à Selic."
+    },
+    {
+      "id": "imoveis",
+      "nome": "Shoppings e exploração de imóveis",
+      "financeiro": false,
+      "match": {
+        "segmento": "Imóve|Imove|Shopping"
+      },
+      "kpis": [
+        "p_vp",
+        "dy",
+        "dividaliquida_ebitda",
+        "margemebit"
+      ],
+      "nota": "Valor patrimonial e renda: P/VP, DY e alavancagem."
+    },
+    {
+      "id": "financeiro_outros",
+      "nome": "Serviços financeiros e holdings",
+      "financeiro": false,
+      "match": {
+        "setor": "Financeiro"
+      },
+      "kpis": [
+        "roe",
+        "dy",
+        "margemliquida",
+        "p_l"
+      ],
+      "nota": "Bolsas, adquirência, holdings e gestoras: rentabilidade e distribuição pesam mais que ativos."
+    },
+    {
+      "id": "eletricas",
+      "nome": "Energia elétrica",
+      "financeiro": false,
+      "match": {
+        "setor": "Utilidade",
+        "subsetor": "Energ"
+      },
+      "kpis": [
+        "dy",
+        "dividaliquida_ebitda",
+        "ev_ebitda",
+        "roe"
+      ],
+      "nota": "Setor regulado e de dividendos: DY, alavancagem (Dív. líq./EBITDA) e EV/EBITDA."
+    },
+    {
+      "id": "saneamento",
+      "nome": "Saneamento, água e gás",
+      "financeiro": false,
+      "match": {
+        "setor": "Utilidade",
+        "subsetor": "Água|Agua|Saneamento|Gás|Gas"
+      },
+      "kpis": [
+        "dy",
+        "dividaliquida_ebitda",
+        "ev_ebitda",
+        "roe"
+      ],
+      "nota": "Concessões de longo prazo: alavancagem e EV/EBITDA, além de DY."
+    },
+    {
+      "id": "commodities",
+      "nome": "Commodities (petróleo, mineração, siderurgia, papel e celulose, química)",
+      "financeiro": false,
+      "match": {
+        "setor": "Petróleo|Materiais Básicos"
+      },
+      "kpis": [
+        "ev_ebitda",
+        "dividaliquida_ebitda",
+        "margemebit",
+        "dy"
+      ],
+      "nota": "Lucro cíclico: o múltiplo atual engana no topo e no fundo do ciclo; comparar com a média de 10 anos é o que mais importa aqui."
+    },
+    {
+      "id": "construcao",
+      "nome": "Construção civil e incorporação",
+      "financeiro": false,
+      "match": {
+        "subsetor": "Constru",
+        "segmento": "Incorpora|Edifica"
+      },
+      "kpis": [
+        "p_vp",
+        "roe",
+        "dividaliquida_patrimonioliquido",
+        "margemliquida"
+      ],
+      "nota": "Ativo é estoque e terreno: P/VP e ROE, com alavancagem sobre o patrimônio."
+    },
+    {
+      "id": "varejo_consumo",
+      "nome": "Varejo e consumo",
+      "financeiro": false,
+      "match": {
+        "setor": "Consumo"
+      },
+      "kpis": [
+        "roic",
+        "margemliquida",
+        "dividaliquida_ebit",
+        "p_l"
+      ],
+      "nota": "Margens finas: ROIC e margem líquida dizem se o negócio cria valor; alavancagem sobre EBIT."
+    },
+    {
+      "id": "saude",
+      "nome": "Saúde",
+      "financeiro": false,
+      "match": {
+        "setor": "Saúde|Saude"
+      },
+      "kpis": [
+        "roic",
+        "margemebit",
+        "receitas_cagr5",
+        "dividaliquida_ebitda"
+      ],
+      "nota": "Crescimento com retorno: ROIC, margem e CAGR de receita, de olho na dívida das consolidações."
+    },
+    {
+      "id": "tecnologia_telecom",
+      "nome": "Tecnologia e comunicações",
+      "financeiro": false,
+      "match": {
+        "setor": "Tecnologia|Comunica"
+      },
+      "kpis": [
+        "roic",
+        "margemebit",
+        "receitas_cagr5",
+        "dy"
+      ],
+      "nota": "Retorno sobre capital e crescimento de receita."
+    },
+    {
+      "id": "industria",
+      "nome": "Bens industriais, transporte e agro",
+      "financeiro": false,
+      "match": {
+        "setor": "Bens Industriais|Agro|Outros"
+      },
+      "kpis": [
+        "roic",
+        "margemebit",
+        "dividaliquida_ebitda",
+        "ev_ebit"
+      ],
+      "nota": "Retorno sobre capital, margem operacional e alavancagem."
+    },
+    {
+      "id": "padrao",
+      "nome": "Demais",
+      "financeiro": false,
+      "match": {},
+      "kpis": [
+        "roic",
+        "margemliquida",
+        "dividaliquida_ebitda",
+        "dy"
+      ],
+      "nota": "Perfil genérico."
+    }
+  ]
+}

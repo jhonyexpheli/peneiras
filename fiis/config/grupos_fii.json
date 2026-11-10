@@ -1,0 +1,74 @@
+{
+  "_doc": "Classificação em grupos pela composição do ativo no último informe mensal da CVM (não pelo rótulo de site). O subtipo do tijolo vem do segmento informado à CVM e serve para tela e teto da carteira.",
+  "regra_pct_min": 50,
+  "grupos": {
+    "tijolo": {
+      "nome": "Tijolo",
+      "componente": "imoveis",
+      "nota": "Imobiliária: aluguel, ocupação, contrato. VP de laudo, em geral anual."
+    },
+    "papel": {
+      "nome": "Papel",
+      "componente": "papel",
+      "nota": "Credor: CRI, LCI e LIG. Carteira marcada a mercado; o P/VP pesa mais."
+    },
+    "fof": {
+      "nome": "FOF",
+      "componente": "fii",
+      "nota": "Fundo de fundos: taxa dupla, desconto sobre desconto."
+    }
+  },
+  "hibrido": "Nenhum componente chega a 50%: entra no grupo do maior componente, com alerta na ficha.",
+  "subtipos_tijolo": [
+    {
+      "id": "lajes",
+      "nome": "Lajes corporativas",
+      "match": "Laje|Escrit|Corporat|Office|\\bTowers?\\b"
+    },
+    {
+      "id": "logistica",
+      "nome": "Logística e galpões",
+      "match": "Log[ií]st|\\bLOG\\b|Galp|Industri|Warehouse"
+    },
+    {
+      "id": "shoppings",
+      "nome": "Shoppings",
+      "match": "Shop|Malls?\\b|Outlet"
+    },
+    {
+      "id": "renda_urbana",
+      "nome": "Renda urbana e varejo",
+      "match": "Varejo|Renda Urbana|Ag[êe]ncia|Varej"
+    },
+    {
+      "id": "hospital",
+      "nome": "Hospitais e saúde",
+      "match": "Hospital|Sa[úu]de|\\bClin|Medic"
+    },
+    {
+      "id": "educacional",
+      "nome": "Educacional",
+      "match": "Educa"
+    },
+    {
+      "id": "hotel",
+      "nome": "Hotéis",
+      "match": "Hot[ée]is|Hotel"
+    },
+    {
+      "id": "residencial",
+      "nome": "Residencial",
+      "match": "Resid|Renda Residencial"
+    },
+    {
+      "id": "agro",
+      "nome": "Terras e agro",
+      "match": "Terrax|Agro|Terras|Rural"
+    },
+    {
+      "id": "outros",
+      "nome": "Outros e híbridos",
+      "match": ""
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# dados crus de cada coleta (baixados de novo pelo robô)
+**/data/raw/
+# páginas montadas (geradas a partir de site/ e data/)
+acoes/dist/
+acoes/dist_cdv/
+fiis/dist_fii/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,5 @@
+{
+  "_doc": "Eventos mantidos à mão, sempre com o link do fato relevante. tipo: liquidacao | incorporacao | venda_total | credito. 'pendente': true tira o fundo no passo 1 (liquidação, incorporação, venda total) ou no passo 2 (evento de crédito, só papel). Igual ao opa.json da Peneira de Valor, mas em arquivo próprio.",
+  "atualizado": "2026-11-03",
+  "eventos": []
+}

@@ -1,0 +1,674 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
+<title>Peneira Ações Baratas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap">
+<style>
+/* Versão de apresentação (layout do documento "Peneira de Valor × Clube do Valor"): faixa marinho no topo, funil em cinco cartões,
+   abas Ações Baratas / Carteira / Eliminadas / Método, tabela com as 20 mais baratas em azul claro e selo ouro no desconto; ficha numa gaveta lateral.
+   Paleta e fontes do site do Clube do Valor (fundo gelo, azul de ação, marinho, Lexend + Inter). Sem logotipo nem nome da marca como autoria. */
+:root{
+  --bg:#F5F6FA; --surface:#FFFFFF; --ink:#1C1B35; --muted:#425366; --rule:#E3E7EF;
+  --navy:#1C1B35; --navy-ink:#FFFFFF; --navy-muted:#B9C3DA;
+  --accent:#3271DC; --accent-2:#3DA0F9; --accent-soft:#E6EFFE; --gold:#F5C400; --gold-soft:#FFF4C2; --gold-ink:#5C4500;
+  --good:#1F9D55; --bad:#D93A3A; --warn:#A86E00;
+  --track:#E6EAF2; --shadow:0 18px 50px rgba(28,27,53,.16);
+  --f-display:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1024; --surface:#1C1B35; --ink:#EEF1F8; --muted:#A3AEC2; --rule:#2C2B4A;
+  --navy:#15142B; --navy-ink:#FFFFFF; --navy-muted:#A3AEC2;
+  --accent:#5B92F0; --accent-2:#3DA0F9; --accent-soft:#22305A; --gold:#F5C400; --gold-soft:#3A3315; --gold-ink:#FFE27A;
+  --good:#4CC488; --bad:#F07070; --warn:#E0B44E;
+  --track:#2A2950; --shadow:0 18px 50px rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1024; --surface:#1C1B35; --ink:#EEF1F8; --muted:#A3AEC2; --rule:#2C2B4A;
+  --navy:#15142B; --navy-ink:#FFFFFF; --navy-muted:#A3AEC2;
+  --accent:#5B92F0; --accent-2:#3DA0F9; --accent-soft:#22305A; --gold:#F5C400; --gold-soft:#3A3315; --gold-ink:#FFE27A;
+  --good:#4CC488; --bad:#F07070; --warn:#E0B44E;
+  --track:#2A2950; --shadow:0 18px 50px rgba(0,0,0,.5); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.wrap,.painel{grid-template-columns:minmax(0,1fr)}
+.wrap>*,.painel>*{min-width:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:28px}
+a{color:var(--accent)}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Cabeçalho: faixa marinho */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;background:var(--navy);color:var(--navy-ink);border-radius:16px;padding:28px 28px 26px;border:1px solid var(--rule)}
+.marca{min-width:0;flex:1 1 320px}
+.selo-prop{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);background:var(--gold);border-radius:999px;padding:3px 10px;margin-bottom:12px}
+.marca h1{font-family:var(--f-display);font-weight:600;font-size:clamp(30px,5vw,44px);line-height:1.05;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.marca h1 em{font-style:normal;color:var(--accent-2)}
+.marca p{margin:10px 0 0;color:var(--navy-muted);max-width:62ch}
+.datas{color:var(--navy-muted);font-size:13px;text-align:right;min-width:0}
+.datas b{color:var(--navy-ink);font-weight:600}
+
+/* A peneira: o funil em cinco cartões */
+.peneira{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.passo{padding:16px 16px 18px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;display:grid;gap:6px;align-content:start;min-width:0}
+.passo .n{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.passo h3{margin:0;font-family:var(--f-display);font-weight:500;font-size:16px;line-height:1.2}
+.passo .q{font-family:var(--f-display);font-weight:600;font-size:36px;line-height:1.05}
+.passo .det{font-size:12.5px;color:var(--muted)}
+.passo .det span{display:block}
+.barra{height:6px;background:var(--track);border-radius:3px;overflow:hidden}
+.barra i{display:block;height:100%;background:var(--accent);transition:width .5s ease}
+@media (max-width:900px){.peneira{grid-template-columns:repeat(2,minmax(0,1fr))}.passo:first-child{grid-column:1/-1}}
+
+/* Controles */
+details.ajustes{background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+details.ajustes>summary{cursor:pointer;padding:12px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+details.ajustes>summary::after{content:"Mostrar";color:var(--accent);font-weight:500}
+details.ajustes[open]>summary::after{content:"Recolher"}
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px 28px;padding:4px 16px 18px}
+.grade fieldset{border:0;margin:0;padding:0;display:grid;gap:8px;min-width:0}
+.grade legend{font-family:var(--f-display);font-weight:700;margin-bottom:4px}
+.grade label{display:flex;align-items:center;gap:8px;font-size:14px}
+.grade input[type=range]{flex:1;accent-color:var(--accent)}
+.grade input[type=number],.grade select{width:100%;padding:6px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg)}
+.grade input[type=checkbox],.grade input[type=radio]{accent-color:var(--accent)}
+.grade .v{min-width:3.5em;text-align:right;color:var(--muted)}
+.restaurar{justify-self:start;background:none;border:1px solid var(--rule);border-radius:6px;padding:6px 12px;cursor:pointer}
+
+/* Abas */
+.abas{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto}
+.abas button{background:none;border:0;padding:10px 14px;cursor:pointer;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap}
+.abas button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+.filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filtros input,.filtros select{padding:7px 10px;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+.filtros input{min-width:0;flex:1 1 200px;max-width:320px}
+.filtros select{min-width:0;max-width:100%;flex:0 1 auto}
+.filtros .cont{color:var(--muted);font-size:13px;margin-left:auto}
+
+/* Tabelas */
+.tabela{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule)}
+th{font-weight:600;color:var(--navy-ink);font-size:12px;letter-spacing:.02em;position:sticky;top:0;background:var(--navy);cursor:pointer;user-select:none}
+th.esq,td.esq{text-align:left}
+th[aria-sort=descending]::after{content:" ↓"}th[aria-sort=ascending]::after{content:" ↑"}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--bg)}
+tbody tr:last-child td{border-bottom:0}
+.tk{font-family:var(--f-display);font-weight:600;font-size:16px}
+td .sub{display:block;font-size:11.5px;color:var(--muted)}
+.emp{display:block;color:var(--muted);font-size:12px;max-width:22ch;overflow:hidden;text-overflow:ellipsis}
+.pos{font-family:var(--f-display);font-weight:700;color:var(--muted)}
+.idx{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.idx .barra{width:70px}
+.idx b{min-width:2.4em}
+.chip{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;border:1px solid color-mix(in srgb, var(--muted) 40%, transparent);color:var(--muted)}
+.chip.fin{border-color:var(--accent);color:var(--accent)}
+.pos-v{color:var(--good)}.neg-v{color:var(--bad)}
+.mot{white-space:normal;text-align:left;min-width:280px}
+.mot span{display:block}
+.etq{font-weight:700;font-size:12px;padding:1px 8px;border-radius:4px;background:var(--accent-soft);color:var(--ink)}
+
+/* Gaveta da ação */
+.veu{position:fixed;inset:0;background:rgba(10,14,12,.45);z-index:20}
+.gaveta{position:fixed;top:0;right:0;bottom:0;width:min(760px,100%);background:var(--surface);z-index:21;box-shadow:var(--shadow);overflow-y:auto;overflow-x:hidden;
+  padding:calc(20px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(32px + env(safe-area-inset-bottom,0px)) 20px;display:grid;gap:22px;align-content:start}
+.gaveta>*{min-width:0}
+.gaveta header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.gaveta h2{margin:0;font-family:var(--f-display);font-weight:600;font-size:38px;line-height:1}
+.gaveta h2 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:500;color:var(--muted);margin-top:6px}
+.fechar{background:none;border:1px solid var(--rule);border-radius:6px;padding:6px 12px;cursor:pointer}
+.gaveta h4{margin:0 0 8px;font-family:var(--f-display);font-size:17px}
+.comp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.comp div{border-left:3px solid var(--accent);padding:2px 0 2px 12px;min-width:0}
+.comp .val{font-family:var(--f-display);font-weight:600;font-size:28px;line-height:1.05}
+.comp .val{display:block}
+.comp .lab{display:block;font-size:13px;color:var(--muted)}
+.fatos{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:6px 18px;font-size:14px;margin:0}
+.fatos div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dotted var(--rule);padding:3px 0}
+.fatos dt{color:var(--muted)} .fatos dd{margin:0;font-weight:500}
+.nota{font-size:14px;color:var(--muted);margin:0;max-width:70ch}
+.alerta{font-size:13px;color:var(--warn);margin:4px 0 0}
+.hist td.esq b{font-weight:600}
+.hist .esc{display:block;font-size:11.5px;color:var(--warn)}
+svg.spark{display:block}
+.links{display:flex;flex-wrap:wrap;gap:14px;font-size:14px}
+
+/* Método */
+.metodo{display:grid;gap:22px;max-width:78ch}
+.metodo h3{font-family:var(--f-display);margin:0 0 6px;font-size:20px}
+.metodo p,.metodo li{margin:0 0 8px}
+.metodo code{font-size:12.5px;background:var(--track);padding:1px 5px;border-radius:4px;word-break:break-all}
+.aviso{border-left:3px solid var(--warn);padding:8px 14px;background:var(--surface);font-size:14px}
+.vazio{padding:28px;color:var(--muted)}
+
+/* Ações Baratas: top 20 em azul claro, corte e selo ouro */
+tr.top20{background:var(--accent-soft)}
+tr.top20:hover{background:color-mix(in srgb, var(--accent-soft) 70%, var(--accent) 12%)}
+tr.corte td{padding:6px 12px;text-align:left;font-size:12px;font-weight:600;color:var(--accent);border-bottom:2px dashed var(--accent);background:var(--surface);cursor:default}
+tr.corte{cursor:default}
+.selo{display:inline-block;padding:1px 9px;border-radius:999px;background:var(--gold-soft);border:1px solid var(--gold);color:var(--gold-ink);font-weight:700;font-size:12.5px}
+.ey b{font-weight:600}
+.ey .sub{font-size:11px}
+
+/* Ficha: três números grandes */
+.destaques{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.destaques div{background:var(--bg);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;min-width:0}
+.destaques .lab{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.destaques .val{display:block;font-family:var(--f-display);font-weight:600;font-size:28px;line-height:1.15;margin-top:4px}
+.destaques .sub{display:block;font-size:12px;color:var(--muted)}
+
+/* Rodapé */
+.rodape{display:grid;gap:6px;border-top:1px solid var(--rule);padding-top:18px;font-size:13px;color:var(--muted)}
+.rodape b{color:var(--ink);font-weight:600}
+
+/* Carteira: resumo em números, faixa de distribuição, tabela das posições e formulário */
+.carteira{display:grid;gap:16px}
+.cart-topo{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between}
+.cart-topo>*{min-width:0}
+.cart-resumo{flex:1 1 560px}
+.cart-resumo .val{font-size:26px}
+.cart-capital{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.cap-campo{display:flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:6px;background:var(--surface);padding:0 10px}
+.cap-campo span{color:var(--muted)}
+.cap-campo input{border:0;background:none;padding:8px 0;width:9em;font-weight:600;font-size:16px;color:var(--ink)}
+.cap-campo:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.cap-campo input:focus-visible{outline:none}
+.dist-barra{display:flex;gap:2px;height:14px;border-radius:4px;overflow:hidden;background:var(--surface)}
+.dist-barra i{display:block;min-width:2px}
+.dist-leg{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted)}
+.dist-leg li{display:flex;align-items:center;gap:6px}
+.dist-leg b{color:var(--ink);font-weight:600}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block;border:1px solid var(--rule)}
+#tab-cart th{cursor:default}
+#tab-cart tbody tr{cursor:default}
+.tk-btn{background:none;border:0;padding:0;cursor:pointer;color:var(--ink);text-align:left}
+.tk-btn:hover .tk{color:var(--accent)}
+.nota-pos{max-width:28ch;white-space:normal}
+.traj{display:block;height:4px;width:64px;margin:5px 0 0 auto;background:var(--track);border-radius:2px;overflow:hidden}
+.traj i{display:block;height:100%;background:var(--good)}
+.mini{background:none;border:1px solid var(--rule);border-radius:5px;padding:3px 9px;font-size:12.5px;cursor:pointer;margin-right:4px}
+.mini:hover{border-color:var(--accent)}
+.mini:disabled{opacity:.45;cursor:default}
+.mini.perigo{border-color:var(--bad);color:var(--bad)}
+.botao{background:var(--accent);color:var(--navy-ink);border:0;border-radius:6px;padding:9px 18px;font-weight:600;cursor:pointer}
+.botao:hover{background:var(--navy)}
+.chip.alerta-chip{border-color:var(--warn);color:var(--warn);cursor:help}
+.cart-form{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px;display:grid;gap:12px}
+.cart-form h3{margin:0;font-family:var(--f-display);font-size:19px}
+.cart-campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 16px}
+.cart-campos label{display:grid;gap:4px;font-size:13px;color:var(--muted);min-width:0}
+.cart-campos .larga{grid-column:1/-1}
+.cart-campos input{width:100%;min-width:0;padding:7px 9px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink);font-size:15px}
+.cart-campos input[readonly]{color:var(--muted)}
+.com-botao{display:flex;gap:6px;min-width:0}
+.com-botao .mini{margin:0;white-space:nowrap}
+.cart-botoes{display:flex;flex-wrap:wrap;gap:10px}
+#cart-erro:empty{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.g-cart{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.cart-acoes{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;font-size:14px;color:var(--muted)}
+.cart-acoes b{color:var(--ink)}
+.cart-rev{min-width:0;flex:1 1 320px}
+.cart-conf{display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.barra i{transition:none}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="marca">
+      <span class="selo-prop">Protótipo para apresentação</span>
+      <h1>Peneira de Valor: <em>as ações mais baratas</em> da B3, pelas regras do método</h1>
+      <p>Regras fixas, sem opinião: tira o que não dá para operar, tira prejuízo e as mais voláteis, ordena pelo Earning Yield, caixa e patrimônio por real pago e compara cada ação com a própria média de 10, 5 e 2 anos.</p>
+    </div>
+    <div class="datas" id="datas">Carregando a base…</div>
+  </header>
+
+  <section class="peneira" id="peneira" aria-label="Funil dos quatro passos"></section>
+
+  <details class="ajustes" id="ajustes">
+    <summary>Ajustar critérios</summary>
+    <form class="grade" id="form" onsubmit="return false">
+      <fieldset>
+        <legend>Passo 1 · operável</legend>
+        <label for="liq">Liquidez média diária mínima</label>
+        <select id="liq">
+          <option value="500000">R$ 500 mil</option>
+          <option value="1000000" selected>R$ 1 milhão</option>
+          <option value="5000000">R$ 5 milhões</option>
+          <option value="10000000">R$ 10 milhões</option>
+          <option value="30000000">R$ 30 milhões</option>
+        </select>
+        <label><input type="checkbox" id="sit_RJ" checked> Recuperação judicial</label>
+        <label><input type="checkbox" id="sit_REJ" checked> Recuperação extrajudicial</label>
+        <label><input type="checkbox" id="sit_FAL" checked> Falência e liquidação</label>
+        <label><input type="checkbox" id="opa" checked> OPA pendente</label>
+      </fieldset>
+      <fieldset>
+        <legend>Passo 2 · prejuízo e volatilidade</legend>
+        <label><input type="checkbox" id="pj12" checked> Prejuízo nos últimos 12 meses</label>
+        <label><input type="checkbox" id="pj3" checked> Prejuízo no último trimestre</label>
+        <label><input type="checkbox" id="pjex" checked> Prejuízo no último exercício fechado</label>
+        <label for="volp">Tirar as mais voláteis (percentil)</label>
+        <label><input type="range" id="volp" min="0" max="50" step="5" value="20"><span class="v" id="volp_v">20%</span></label>
+      </fieldset>
+      <fieldset>
+        <legend>Passo 3 · índice de valor</legend>
+        <label><input type="radio" name="cx" id="cx_liq" value="liquido" checked> Caixa líquido (desconta a dívida)</label>
+        <label><input type="radio" name="cx" id="cx_bru" value="bruto"> Caixa bruto (só disponibilidades)</label>
+        <label for="w_cx">Peso do caixa</label>
+        <label><input type="range" id="w_cx" min="0" max="3" step="0.5" value="1"><span class="v" id="w_cx_v">1</span></label>
+        <label for="w_eb">Peso do lucro operacional</label>
+        <label><input type="range" id="w_eb" min="0" max="3" step="0.5" value="1"><span class="v" id="w_eb_v">1</span></label>
+        <label for="w_pl">Peso do patrimônio</label>
+        <label><input type="range" id="w_pl" min="0" max="3" step="0.5" value="1"><span class="v" id="w_pl_v">1</span></label>
+        <label><input type="checkbox" id="classe" checked> Uma classe por empresa (a mais líquida)</label>
+      </fieldset>
+      <fieldset>
+        <legend>Bancos e seguradoras</legend>
+        <label for="w_lf">Peso do lucro por real</label>
+        <label><input type="range" id="w_lf" min="0" max="3" step="0.5" value="1"><span class="v" id="w_lf_v">1</span></label>
+        <label for="w_pf">Peso do patrimônio por real</label>
+        <label><input type="range" id="w_pf" min="0" max="3" step="0.5" value="1"><span class="v" id="w_pf_v">1</span></label>
+        <label for="w_df">Peso do dividendo por real</label>
+        <label><input type="range" id="w_df" min="0" max="3" step="0.5" value="1"><span class="v" id="w_df_v">1</span></label>
+        <button type="button" class="restaurar" id="restaurar">Voltar ao padrão do método</button>
+      </fieldset>
+    </form>
+  </details>
+
+  <nav class="abas" role="tablist">
+    <button role="tab" id="t-ranking" aria-selected="true" data-aba="ranking">Ações Baratas</button>
+    <button role="tab" id="t-carteira" aria-selected="false" data-aba="carteira">Carteira</button>
+    <button role="tab" id="t-eliminadas" aria-selected="false" data-aba="eliminadas">Eliminadas</button>
+    <button role="tab" id="t-metodo" aria-selected="false" data-aba="metodo">Método</button>
+  </nav>
+
+  <section id="ranking" class="painel" style="display:grid;gap:12px">
+    <div class="filtros">
+      <input id="busca" type="search" placeholder="Buscar ticker ou empresa">
+      <select id="fgrupo"><option value="">Todos os grupos</option><option value="padrao">Empresas não financeiras</option><option value="financeiro">Bancos e seguradoras</option></select>
+      <select id="fperfil"><option value="">Todos os setores</option></select>
+      <span class="cont" id="cont"></span>
+    </div>
+    <div class="tabela"><table id="tab-rank"><thead><tr>
+      <th data-k="posicao" aria-sort="ascending">#</th>
+      <th class="esq" data-k="ticker">Ação</th>
+      <th class="esq" data-k="perfil">Setor</th>
+      <th data-k="c2" title="EBIT de 12 meses sobre o valor da firma (EV). Bancos e seguradoras: lucro líquido de 12 meses sobre o valor de mercado.">Earning Yield</th>
+      <th data-k="indice">Índice de valor</th>
+      <th data-k="c1" title="Caixa por real pago (bancos: dividendo por real)">Caixa / R$</th>
+      <th data-k="c3" title="Patrimônio líquido por real pago">Patrimônio / R$</th>
+      <th data-k="descontoHist" title="Média do desvio de EV/EBIT e P/VP (bancos: P/VP e P/L) contra a média de 5 anos. Positivo = mais barata que a própria média.">Desconto vs média 5a</th>
+      <th data-k="roe" title="Retorno sobre o patrimônio dos últimos 12 meses (Status Invest). Abaixo, a média dos últimos 5 anos da própria empresa.">ROE</th>
+      <th data-k="vol_1a">Vol. 1 ano</th>
+      <th data-k="anosHist">Histórico</th>
+    </tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="eliminadas" class="painel" hidden style="display:grid;gap:12px">
+    <div class="filtros">
+      <input id="busca2" type="search" placeholder="Buscar ticker ou empresa">
+      <select id="fpasso"><option value="">Todos os passos</option><option value="1">Passo 1 · não operável</option><option value="2">Passo 2 · prejuízo ou volatilidade</option><option value="3">Passo 3 · sem dados para o índice</option><option value="classe">Outra classe da mesma empresa</option></select>
+      <label style="display:flex;gap:6px;align-items:center;font-size:14px"><input type="checkbox" id="esconde_liq" checked> Esconder as que saem só por liquidez</label>
+      <span class="cont" id="cont2"></span>
+    </div>
+    <div class="tabela"><table id="tab-elim"><thead><tr>
+      <th class="esq">Ação</th><th class="esq">Saiu em</th><th class="esq">Motivo</th><th>Liquidez diária</th><th>Lucro 12m</th>
+    </tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="carteira" class="painel carteira" hidden>
+    <div class="cart-topo">
+      <div class="cart-resumo comp" id="cart-resumo"></div>
+      <label class="cart-capital" for="cart-capital">Capital da carteira
+        <span class="cap-campo"><span>R$</span><input id="cart-capital" type="number" min="0" step="100" inputmode="decimal"></span>
+      </label>
+    </div>
+    <div class="cart-acoes" id="cart-acoes"></div>
+    <div class="cart-dist" id="cart-dist"></div>
+    <div class="tabela"><table id="tab-cart"><thead><tr>
+      <th class="esq">Ação</th>
+      <th class="esq">Setor</th>
+      <th>Qtd.</th>
+      <th title="Preço médio pago e data da entrada">Entrada</th>
+      <th title="Último fechamento da base da peneira">Cotação</th>
+      <th title="Seu preço alvo. Abaixo, o alvo do método: volta à média de 5 anos dos múltiplos">Preço alvo</th>
+      <th title="Quanto falta da cotação até o alvo. A barra mostra o caminho já percorrido desde a entrada">Até o alvo</th>
+      <th title="Participação no patrimônio da carteira (posições na cotação + caixa livre)">Peso</th>
+      <th>Valor</th>
+      <th>Resultado</th>
+      <th title="Posição no ranking com os critérios escolhidos agora">Peneira hoje</th>
+      <th class="esq"><span class="sr">Ações</span></th>
+    </tr></thead><tbody></tbody></table></div>
+
+    <form class="cart-form" id="cart-form" novalidate>
+      <h3 id="cart-form-tit">Adicionar ativo</h3>
+      <div class="cart-campos">
+        <label for="cart-ticker">Ticker<input id="cart-ticker" list="cart-tickers" autocomplete="off" placeholder="Ex.: BBDC4" required></label>
+        <label for="cart-qtd">Quantidade<input id="cart-qtd" type="number" min="1" step="1" inputmode="numeric" placeholder="ações"></label>
+        <label for="cart-entrada">Preço de entrada (R$)
+          <span class="com-botao"><input id="cart-entrada" type="number" min="0" step="0.01" inputmode="decimal"><button type="button" class="mini" id="cart-usar-cot">Cotação</button></span></label>
+        <label for="cart-alvo">Preço alvo (R$)
+          <span class="com-botao"><input id="cart-alvo" type="number" min="0" step="0.01" inputmode="decimal" placeholder="opcional"><button type="button" class="mini" id="cart-usar-alvo">Método</button></span></label>
+        <label for="cart-data">Data da entrada<input id="cart-data" type="date"></label>
+        <label for="cart-nota" class="larga">Observação<input id="cart-nota" maxlength="200" placeholder="Tese, gatilho de saída, lembrete"></label>
+      </div>
+      <datalist id="cart-tickers"></datalist>
+      <p class="nota" id="cart-dica"></p>
+      <p class="alerta" id="cart-erro" role="alert"></p>
+      <div class="cart-botoes">
+        <button type="submit" class="botao" id="cart-salvar">Adicionar à carteira</button>
+        <button type="button" class="restaurar" id="cart-cancelar" hidden>Cancelar edição</button>
+      </div>
+    </form>
+    <p class="nota" id="cart-status"></p>
+  </section>
+
+  <section id="metodo" class="painel metodo" hidden></section>
+
+  <footer class="rodape" id="rodape">
+    <span><b>Protótipo independente</b> de Jhony Nepomuceno Freitas, preparado para apresentação ao Clube do Valor. Não é produto, serviço nem comunicação oficial do Clube do Valor.</span>
+    <span>Ferramenta de estudo que aplica regras públicas de seleção de ações. Não é recomendação de compra ou venda.</span>
+    <span id="rodape-fontes"></span>
+  </footer>
+</div>
+
+<div class="veu" id="veu" hidden></div>
+<aside class="gaveta" id="gaveta" hidden aria-modal="true" role="dialog" aria-labelledby="g-tit"></aside>
+
+<script>/*MOTOR*/</script>
+<script>/*CARTEIRA*/</script>
+<script>
+"use strict";
+let BASE = null, R = null, ordem = {k: "posicao", dir: 1};
+const $ = (s) => document.querySelector(s);
+const ok = (v) => v !== null && v !== undefined && Number.isFinite(v);
+const nf = (v, d = 1) => ok(v) ? v.toLocaleString("pt-BR", {minimumFractionDigits: d, maximumFractionDigits: d}) : "–";
+const pct = (v, d = 1) => ok(v) ? nf(v, d) + "%" : "–";
+const reais = (v) => {
+  if (!ok(v)) return "–";
+  const a = Math.abs(v), s = v < 0 ? "−" : "";
+  if (a >= 1e9) return s + "R$ " + nf(a / 1e9, 1) + " bi";
+  if (a >= 1e6) return s + "R$ " + nf(a / 1e6, 1) + " mi";
+  return s + "R$ " + nf(a / 1e3, 0) + " mil";
+};
+const porReal = (v) => ok(v) ? (v < 0 ? "−" : "") + "R$ " + nf(Math.abs(v), 2) : "–";
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+const NOMES_COMP = {
+  caixa_por_real: ["Caixa por real", "Caixa líquido sobre valor de mercado"],
+  lucro_operacional_por_real: ["Lucro operacional por real", "EBIT 12m sobre valor da firma"],
+  patrimonio_por_real: ["Patrimônio por real", "Patrimônio líquido sobre valor de mercado"],
+  lucro_por_real: ["Lucro por real", "Lucro líquido 12m sobre valor de mercado"],
+  dividendo_por_real: ["Dividendo por real", "Dividendos pagos em 12 meses sobre o preço"],
+};
+
+function lerParams() {
+  const sit = [];
+  if ($("#sit_RJ").checked) sit.push("RJ");
+  if ($("#sit_REJ").checked) sit.push("REJ");
+  if ($("#sit_FAL").checked) sit.push("FAL", "LE", "LJ");
+  return {
+    liquidezMin: +$("#liq").value, excluirSituacoes: sit, excluirOpa: $("#opa").checked,
+    excluirPrejuizo12m: $("#pj12").checked, excluirPrejuizoTri: $("#pj3").checked, excluirPrejuizoExercicio: $("#pjex").checked,
+    volPercentil: +$("#volp").value, umaClasse: $("#classe").checked,
+    caixaBase: document.querySelector("input[name=cx]:checked").value,
+    pesosPadrao: {caixa_por_real: +$("#w_cx").value, lucro_operacional_por_real: +$("#w_eb").value, patrimonio_por_real: +$("#w_pl").value},
+    pesosFinanceiro: {lucro_por_real: +$("#w_lf").value, patrimonio_por_real: +$("#w_pf").value, dividendo_por_real: +$("#w_df").value},
+  };
+}
+
+function rodar() {
+  for (const id of ["volp", "w_cx", "w_eb", "w_pl", "w_lf", "w_df"]) $("#" + id + "_v").textContent = $("#" + id).value + (id === "volp" ? "%" : "");
+  R = Motor.rodar(BASE, lerParams());
+  desenharPeneira(); desenharRanking(); desenharEliminadas(); Carteira.desenhar();
+}
+
+function desenharPeneira() {
+  const f = R.funil, U = f.universo;
+  const apos1 = U - f.passo1.saem, apos2 = apos1 - f.passo2.saem - f.classes;
+  const P = R.params;
+  const barra = (n) => `<div class="barra" aria-hidden="true"><i style="width:${(n / U * 100).toFixed(1)}%"></i></div>`;
+  $("#peneira").innerHTML = `
+    <div class="passo"><span class="n">Universo</span><h3>Ações listadas na B3</h3><span class="q">${U}</span>${barra(U)}<span class="det">Busca avançada do Status Invest</span></div>
+    <div class="passo"><span class="n">Passo 1</span><h3>Operáveis</h3><span class="q">${apos1}</span>${barra(apos1)}
+      <span class="det"><span>−${f.passo1.liquidez} liquidez abaixo de ${reais(P.liquidezMin)}/dia</span><span>−${f.passo1.cvm} RJ, extrajudicial ou falência</span><span>−${f.passo1.opa} com OPA pendente</span></span></div>
+    <div class="passo"><span class="n">Passo 2</span><h3>Sem prejuízo e menos voláteis</h3><span class="q">${apos2}</span>${barra(apos2)}
+      <span class="det"><span>−${f.passo2.prejuizo} com prejuízo</span><span>−${f.passo2.volatilidade} voláteis (acima de ${pct(f.passo2.corteVol, 0)} a.a.)</span>${f.classes ? `<span>−${f.classes} classe repetida da mesma empresa</span>` : ""}</span></div>
+    <div class="passo"><span class="n">Passo 3</span><h3>Ranqueadas pelo índice de valor</h3><span class="q">${f.ranqueadas}</span>${barra(f.ranqueadas)}
+      <span class="det">${f.passo3.saem ? `<span>−${f.passo3.saem} sem dados para o índice</span>` : ""}<span>Earning Yield, caixa e patrimônio por real pago; bancos por lucro, patrimônio e dividendo</span><span>as 20 primeiras formam a carteira Ações Baratas</span></span></div>
+    <div class="passo"><span class="n">Passo 4</span><h3>Abaixo da própria média</h3><span class="q">${R.ranqueadas.filter((a) => ok(a.descontoHist) && a.descontoHist > 0).length}</span>${barra(R.ranqueadas.filter((a) => ok(a.descontoHist) && a.descontoHist > 0).length)}
+      <span class="det">abaixo da média de 5 anos nos múltiplos de preço; médias de 10, 5 e 2 anos na ficha</span></div>`;
+}
+
+// Colunas da tabela: caixa, lucro e patrimônio por real. Para bancos o "caixa" que volta
+// ao acionista é o dividendo, o lucro é o lucro líquido e o patrimônio é o mesmo.
+function colunas(a) {
+  const c = a.componentes || {};
+  return a.grupo === "financeiro" ? [c.dividendo_por_real, c.lucro_por_real, c.patrimonio_por_real]
+    : [c.caixa_por_real, c.lucro_operacional_por_real, c.patrimonio_por_real];
+}
+// ROE atual (12 meses) e média de 5 anos, a partir do histórico anual.
+function roeMedia5(a) {
+  const s = Motor.serie(a, "roe").slice(0, 5);
+  return s.length ? {media: s.reduce((t, x) => t + x.v, 0) / s.length, anos: s.length} : null;
+}
+function celRoe(a) {
+  const v = a.ind?.roe, m = roeMedia5(a);
+  if (!ok(v)) return "–";
+  const cls = m && ok(m.media) ? (v >= m.media ? "pos-v" : "neg-v") : "";
+  const sub = m ? `<span class="sub">média ${m.anos < 5 ? m.anos + "a" : "5a"}: ${pct(m.media, 1)}</span>` : "";
+  return `<span class="${cls}">${pct(v, 1)}</span>${sub}`;
+}
+function valorOrdem(a, k) {
+  if (k === "perfil") return a.perfil.nome;
+  if (k === "roe") return a.ind?.roe;
+  if (k === "c1" || k === "c2" || k === "c3") return colunas(a)[+k[1] - 1];
+  return a[k];
+}
+
+function desenharRanking() {
+  const sel = $("#fperfil"), atual = sel.value;
+  const perfis = [...new Map(R.ranqueadas.map((a) => [a.perfil.id, a.perfil.nome])).entries()].sort((x, y) => x[1].localeCompare(y[1]));
+  sel.innerHTML = `<option value="">Todos os setores</option>` + perfis.map(([id, n]) => `<option value="${id}" ${id === atual ? "selected" : ""}>${esc(n)}</option>`).join("");
+  const q = $("#busca").value.trim().toUpperCase(), g = $("#fgrupo").value, pf = sel.value;
+  let lista = R.ranqueadas.filter((a) => (!q || a.ticker.includes(q) || (a.empresa || "").toUpperCase().includes(q)) && (!g || a.grupo === g) && (!pf || a.perfil.id === pf));
+  lista.sort((x, y) => {
+    const a = valorOrdem(x, ordem.k), b = valorOrdem(y, ordem.k);
+    if (!ok(a) && typeof a !== "string") return 1; if (!ok(b) && typeof b !== "string") return -1;
+    return (typeof a === "string" ? a.localeCompare(b) : a - b) * ordem.dir;
+  });
+  document.querySelectorAll("#tab-rank th").forEach((th) => th.setAttribute("aria-sort", th.dataset.k === ordem.k ? (ordem.dir > 0 ? "ascending" : "descending") : "none"));
+  $("#cont").textContent = `${lista.length} de ${R.ranqueadas.length} ações ranqueadas`;
+  $("#tab-rank tbody").innerHTML = lista.length ? lista.map((a) => {
+    const c = colunas(a);
+    const fin = a.grupo === "financeiro";
+    const d = a.descontoHist;
+    const corte = ordem.k === "posicao" && ordem.dir === 1 && a.posicao === 20 && lista.length > 20 && lista.at(-1) !== a
+      ? `<tr class="corte"><td colspan="11">Fim do top 20 · as 20 mais baratas pelas regras do método formam a carteira Ações Baratas (5% cada)</td></tr>` : "";
+    return `<tr data-t="${a.ticker}" tabindex="0" class="${a.posicao <= 20 ? "top20" : ""}">
+      <td class="pos">${a.posicao}</td>
+      <td class="esq"><span class="tk">${a.ticker}</span><span class="emp">${esc(a.empresa)}</span></td>
+      <td class="esq"><span class="chip ${fin ? "fin" : ""}">${esc(a.perfil.nome.split(" (")[0])}</span></td>
+      <td class="ey" title="${fin ? "Lucro líquido 12m sobre o valor de mercado" : "EBIT 12m sobre o valor da firma"}"><b>${ok(c[1]) ? (c[1] >= 9 ? "EV negativo" : pct(c[1] * 100, 1)) : "–"}</b><span class="sub">${fin ? "lucro / preço" : "EBIT / EV"}</span></td>
+      <td><div class="idx"><div class="barra"><i style="width:${a.indice.toFixed(0)}%"></i></div><b>${nf(a.indice, 0)}</b></div></td>
+      <td title="${fin ? "Dividendo por real (banco)" : "Caixa por real"}">${porReal(c[0])}</td>
+      <td title="Patrimônio por real">${porReal(c[2])}</td>
+      <td>${ok(d) ? (d > 0 ? `<span class="selo" title="Mais barata que a própria média de 5 anos">+${nf(d, 0)}%</span>` : `<span class="neg-v">${nf(d, 0)}%</span>`) : "–"}</td>
+      <td>${celRoe(a)}</td>
+      <td>${pct(a.vol_1a, 0)}</td>
+      <td>${a.anosHist ? a.anosHist + (a.anosHist < 10 ? " anos" : " anos") : "–"}</td></tr>${corte}`;
+  }).join("") : `<tr><td colspan="11" class="vazio esq">Nenhuma ação passa pelos filtros escolhidos. Afrouxe um critério em "Ajustar critérios" ou limpe a busca.</td></tr>`;
+}
+
+function desenharEliminadas() {
+  const q = $("#busca2").value.trim().toUpperCase(), p = $("#fpasso").value, sl = $("#esconde_liq").checked;
+  const rot = {1: "Passo 1", 2: "Passo 2", 3: "Passo 3", classe: "Classe repetida"};
+  let lista = R.acoes.filter((a) => a.etapa === 1 || a.etapa === 2 || a.etapa === 3 || a.etapa === "classe")
+    .filter((a) => !p || String(a.etapa) === p)
+    .filter((a) => !sl || !(a.motivos.length === 1 && a.motivos[0].tipo === "liquidez"))
+    .filter((a) => !q || a.ticker.includes(q) || (a.empresa || "").toUpperCase().includes(q))
+    .sort((x, y) => (y.liquidez || 0) - (x.liquidez || 0));
+  $("#cont2").textContent = `${lista.length} ações`;
+  $("#tab-elim tbody").innerHTML = lista.map((a) => `<tr data-t="${a.ticker}" tabindex="0">
+    <td class="esq"><span class="tk">${a.ticker}</span><span class="emp">${esc(a.empresa)}</span></td>
+    <td class="esq"><span class="etq">${rot[a.etapa]}</span></td>
+    <td class="mot">${a.motivos.map((m) => `<span>${esc(m.texto)}</span>`).join("")}</td>
+    <td>${reais(a.liquidez)}</td><td class="${ok(a.lucro_12m) && a.lucro_12m < 0 ? "neg-v" : ""}">${reais(a.lucro_12m)}</td></tr>`).join("")
+    || `<tr><td colspan="5" class="vazio esq">Nenhuma ação eliminada com esses filtros.</td></tr>`;
+}
+
+function spark(serie, chave) {
+  const pts = serie.filter((x) => ok(x.v));
+  if (pts.length < 2) return "";
+  const W = 120, H = 30, xs = pts.map((p) => p.ano), vs = pts.map((p) => p.v);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...vs), y1 = Math.max(...vs);
+  const X = (x) => 3 + (x - x0) / ((x1 - x0) || 1) * (W - 6), Y = (y) => H - 3 - (y - y0) / ((y1 - y0) || 1) * (H - 6);
+  const d = pts.map((p, i) => (i ? "L" : "M") + X(p.ano).toFixed(1) + " " + Y(p.v).toFixed(1)).join(" ");
+  const u = pts[pts.length - 1];
+  return `<svg class="spark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Série anual ${x0} a ${x1}"><path d="${d}" fill="none" stroke="var(--muted)" stroke-width="1.4"/><circle cx="${X(u.ano)}" cy="${Y(u.v)}" r="3" fill="var(--accent)"/></svg>`;
+}
+
+function grafPreco(mensal) {
+  if (!mensal || mensal.length < 3) return "";
+  const W = 680, H = 150, pad = {l: 44, r: 10, t: 10, b: 22};
+  const vs = mensal.map((m) => m[1]), y0 = Math.min(...vs), y1 = Math.max(...vs);
+  const X = (i) => pad.l + i / (mensal.length - 1) * (W - pad.l - pad.r), Y = (v) => pad.t + (1 - (v - y0) / ((y1 - y0) || 1)) * (H - pad.t - pad.b);
+  const d = mensal.map((m, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(m[1]).toFixed(1)).join(" ");
+  const area = d + ` L ${X(mensal.length - 1)} ${H - pad.b} L ${X(0)} ${H - pad.b} Z`;
+  const ticks = [y0, (y0 + y1) / 2, y1].map((v) => `<line x1="${pad.l}" x2="${W - pad.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--rule)" stroke-width="1"/><text x="${pad.l - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)">${nf(v, 2)}</text>`).join("");
+  const anos = mensal.map((m, i) => [m[0], i]).filter(([k]) => k.endsWith("-01")).map(([k, i]) => `<text x="${X(i)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--muted)">${k.slice(0, 4)}</text>`).join("");
+  const u = mensal[mensal.length - 1];
+  return `<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" width="100%" style="min-width:420px;max-width:100%" role="img" aria-label="Fechamento mensal">${ticks}${anos}<path d="${area}" fill="var(--accent-soft)" stroke="none"/><path d="${d}" fill="none" stroke="var(--accent)" stroke-width="1.8"/><circle cx="${X(mensal.length - 1)}" cy="${Y(u[1])}" r="3.5" fill="var(--accent)"/></svg></div>`;
+}
+
+// Três números grandes da ficha: Earning Yield, desconto contra a média de 5 anos e preço alvo do método.
+function destaquesFicha(a) {
+  const c = colunas(a), fin = a.grupo === "financeiro" || a.perfil.financeiro, d = a.descontoHist, al = Carteira.alvoMetodo(a);
+  const ey = ok(c[1]) ? (c[1] >= 9 ? "EV negativo" : pct(c[1] * 100, 1)) : "–";
+  return `<div class="destaques">
+    <div><span class="lab">Earning Yield</span><span class="val">${ey}</span><span class="sub">${fin ? "lucro 12m / valor de mercado" : "EBIT 12m / valor da firma"}</span></div>
+    <div><span class="lab">Desconto vs média 5a</span><span class="val">${ok(d) ? (d > 0 ? "+" : "") + nf(d, 0) + "%" : "–"}</span><span class="sub">${ok(d) ? (d > 0 ? "mais barata que a própria média" : "mais cara que a própria média") : "sem histórico suficiente"}</span></div>
+    <div><span class="lab">Preço alvo do método</span><span class="val">${al ? "R$ " + nf(al.v, 2) : "–"}</span><span class="sub">${al ? pct((al.v / a.preco - 1) * 100, 0) + " sobre R$ " + nf(a.preco, 2) : "sem histórico suficiente"}</span></div>
+  </div>`;
+}
+
+function abrir(t) {
+  const a = R.acoes.find((x) => x.ticker === t); if (!a) return;
+  const IND = BASE.setores.indicadores, J = R.params.janelas;
+  const fmtInd = (k, v) => !ok(v) ? "–" : IND[k]?.unid === "%" ? pct(v) : IND[k]?.unid === "R$" ? porReal(v) : nf(v, 2) + "x";
+  const status = a.etapa === 4 ? `<p class="nota">Posição <b>${a.posicao}º</b> de ${R.ranqueadas.length} no ranking · índice de valor <b>${nf(a.indice, 0)}</b> de 100 (percentil médio dentro do grupo ${a.grupo === "financeiro" ? "bancos e seguradoras" : "não financeiro"}).</p>`
+    : `<div class="aviso">Fora do ranking ${a.etapa === "classe" ? "por ser outra classe da mesma empresa" : "no passo " + a.etapa}: ${a.motivos.map((m) => esc(m.texto)).join("; ")}.</div>`;
+  const comp = a.componentes ? `<div><h4>Quanto vem por real pago</h4><div class="comp">${Object.entries(a.componentes).map(([k, v]) => `<div><span class="val">${porReal(v)}</span><span class="lab">${NOMES_COMP[k][0]} · percentil ${nf(a.percentis?.[k], 0)}</span><span class="lab" style="display:block">${NOMES_COMP[k][1]}</span></div>`).join("")}</div></div>` : "";
+  const fatos = [["Preço", a.preco ? "R$ " + nf(a.preco, 2) : "–"], ["Valor de mercado", reais(a.valor_mercado)], ["Valor da firma (EV)", reais(a.valor_firma)], ["Caixa (disponib.)", reais(a.caixa)], ["Dívida bruta", reais(a.divida_bruta)], ["Dívida líquida", reais(a.divida_liquida)], ["Patrimônio líquido", reais(a.patrimonio)], ["EBIT 12m", reais(a.ebit_12m)], ["Lucro 12m", reais(a.lucro_12m)], ["Lucro do trimestre", reais(a.lucro_3m)], ["Liquidez diária", reais(a.liquidez)], ["Volatilidade 1 ano", pct(a.vol_1a)], ["Queda máx. em 1 ano", pct(a.drawdown_1a)], ["Último balanço", a.ultimo_balanco || "–"]];
+  let hist = "";
+  if (a.historico && Object.keys(a.historico).length) {
+    const linhas = Object.values(a.historico).map((h) => {
+      const k = h.chave, cel = J.map((n) => {
+        const j = h.janelas[n];
+        const escopo = j && !j.completo ? `<span class="esc">máx. ${j.pontos} ${j.pontos === 1 ? "ano" : "anos"} (${j.de}–${j.ate})</span>` : "";
+        const ign = j && j.usados < j.pontos ? `<span class="esc">${j.pontos - j.usados} ano(s) negativo(s) fora</span>` : "";
+        return `<td>${fmtInd(k, j?.media)}${escopo}${ign}</td>`;
+      }).join("");
+      const d5 = h.janelas[5]?.desvio;
+      const melhor = (IND[k]?.direcao === "menor_melhor") ? d5 < 0 : d5 > 0;
+      return `<tr><td class="esq"><b>${esc(IND[k]?.nome || k)}</b></td><td>${fmtInd(k, h.atual)}</td>${cel}<td class="${ok(d5) ? (melhor ? "pos-v" : "neg-v") : ""}">${ok(d5) ? (d5 > 0 ? "+" : "") + nf(d5, 0) + "%" : "–"}</td><td>${spark(h.serie, k)}</td></tr>`;
+    }).join("");
+    hist = `<div><h4>Contra a própria média histórica</h4><div class="tabela hist"><table><thead><tr><th class="esq">Indicador</th><th>Atual</th>${J.map((n) => `<th>Média ${n} anos</th>`).join("")}<th>Atual vs 5 anos</th><th>${a.historico[Object.keys(a.historico)[0]].serie[0]?.ano || ""}–hoje</th></tr></thead><tbody>${linhas}</tbody></table></div>
+      <p class="nota" style="margin-top:8px">Médias de pontos anuais do Status Invest (o ano corrente em 12 meses mais os exercícios fechados). Verde quando o número atual está melhor que a média de 5 anos para aquele indicador: múltiplo de preço menor ou rentabilidade maior. Quando a empresa não tem a janela inteira, aparece o escopo máximo usado.</p></div>`;
+  }
+  $("#gaveta").innerHTML = `
+    <header><h2 id="g-tit">${a.ticker}<small>${esc(a.empresa)} · ${esc(a.setor || "")} / ${esc(a.subsetor || "")}</small></h2><button class="fechar" id="fechar">Fechar</button></header>
+    <div id="g-status">${status}</div>
+    ${destaquesFicha(a)}
+    <div><h4>${esc(a.perfil.nome)}</h4><p class="nota">${esc(a.perfil.nota)}</p>${(a.alertas || []).map((t) => `<p class="alerta">${esc(t)}</p>`).join("")}</div>
+    ${comp}
+    <div><h4>Balanço e resultado</h4><dl class="fatos">${fatos.filter(([, v]) => v !== "–").map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl></div>
+    ${hist}
+    ${a.mensal ? `<div><h4>Preço, fechamento mensal</h4>${grafPreco(a.mensal)}</div>` : ""}
+    <div class="links"><a href="https://statusinvest.com.br/acoes/${a.ticker.toLowerCase()}" target="_blank" rel="noopener">Ver no Status Invest</a><a href="https://www.fundamentus.com.br/detalhes.php?papel=${a.ticker}" target="_blank" rel="noopener">Ver no Fundamentus</a>${a.cvm ? `<span>CVM: ${esc(a.cvm.nome)} (CNPJ ${esc(a.cvm.cnpj)})</span>` : ""}${a.opa ? `<a href="${esc(a.opa.fonte)}" target="_blank" rel="noopener">Notícia da OPA</a>` : ""}</div>`;
+  const alvoM = Carteira.alvoMetodo(a);
+  $("#g-status").insertAdjacentHTML("afterend", `<div class="g-cart"><p class="nota">${alvoM ? `Preço alvo pelo método: <b>R$ ${nf(alvoM.v, 2)}</b> (${alvoM.partes.map((x) => `${x.k} de volta à média de ${x.anos} anos: R$ ${nf(x.v, 2)}`).join("; ")}), ${pct((alvoM.v / a.preco - 1) * 100, 0)} sobre a cotação.` : "Sem histórico suficiente para calcular o preço alvo pelo método."}</p><button type="button" class="botao" id="g-add">${Carteira.tem(a.ticker) ? "Comprar mais na carteira" : "Adicionar à carteira"}</button></div>`);
+  $("#g-add").onclick = () => Carteira.preparar(a.ticker);
+  $("#gaveta").hidden = false; $("#veu").hidden = false; $("#fechar").focus();
+  $("#fechar").onclick = fechar;
+}
+function fechar() { $("#gaveta").hidden = true; $("#veu").hidden = true; }
+
+function desenharMetodo() {
+  const m = BASE.meta, c = BASE.criterios;
+  const opa = m.opa.map((o) => `<li><b>${o.tickers.join(", ")}</b> · ${esc(o.empresa)}: ${esc(o.tipo)}. ${esc(o.obs)} <i>(${o.status === "pendente" ? "conta no filtro" : "concluída, fora do filtro"})</i> <a href="${esc(o.fonte)}" target="_blank" rel="noopener">fonte</a></li>`).join("");
+  const cvm = m.cvm_especiais.map((e) => `${esc(e.nome.replace(/ - EM .*/, ""))} (${e.cod}, ${(e.desde || "").slice(0, 7)})`).join("; ");
+  $("#metodo").innerHTML = `
+    <div class="aviso">Ferramenta de estudo que aplica um método público de seleção de ações. Não é recomendação de compra ou venda; confira os números nas fontes antes de decidir.</div>
+    <div><h3>Passo 1 · tira o que não dá pra operar</h3><p>Sai quem negocia menos de ${reais(c.passo1_operavel.liquidez_media_diaria_min_reais)} por dia (média do Status Invest), quem está em recuperação judicial, extrajudicial, falência ou liquidação segundo o cadastro oficial da CVM, e quem tem OPA pendente.</p></div>
+    <div><h3>Passo 2 · tira prejuízo e as mais voláteis</h3><p>Sai quem teve prejuízo nos últimos 12 meses, no último trimestre divulgado ou no último exercício fechado. Das que sobram, saem as ${c.passo2_prejuizo_volatilidade.excluir_percentil_mais_volateis}% mais voláteis, medidas pelo desvio-padrão anualizado dos retornos diários dos últimos 252 pregões.</p></div>
+    <div><h3>Passo 3 · ordena por um índice de valor</h3><p>Para cada real pago na ação: quanto vem de caixa (caixa líquido sobre valor de mercado, ou caixa bruto, à escolha), de lucro operacional (EBIT de 12 meses sobre o valor da firma, que soma a dívida líquida ao valor de mercado) e de patrimônio (patrimônio líquido sobre valor de mercado). Cada componente vira percentil de 0 a 100 dentro do grupo e o índice é a média ponderada.</p><p>Bancos e seguradoras não têm EBIT nem caixa comparáveis com uma indústria. Entram num grupo próprio, medidos por lucro, patrimônio e dividendo por real pago, com DY e ROE na leitura histórica.</p></div>
+    <div><h3>Passo 4 · compara com a média histórica</h3><p>Para cada ranqueada, os múltiplos de preço (EV/EBIT, P/VP, P/L, caixa líquido por real) e os KPIs que pesam no setor são comparados com a média de 10, 5 e 2 anos. A fonte traz o ano corrente e até 9 exercícios fechados; quando a empresa tem menos que a janela, a ficha mostra o escopo máximo usado. Anos com múltiplo negativo (prejuízo) não entram na média dos múltiplos.</p>
+      <p>KPIs por setor: ${BASE.setores.perfis.map((p) => `<b>${esc(p.nome)}</b>: ${p.kpis.map((k) => esc(BASE.setores.indicadores[k]?.nome || k)).join(", ")}`).join("; ")}.</p></div>
+    <div><h3>OPAs consideradas</h3><ul>${opa}</ul><p>Não existe API pública de OPAs em andamento; a lista é mantida à mão a partir de editais e fatos relevantes (atualizada em ${esc(m.fontes.opa)}).</p></div>
+    <div><h3>Situação especial na CVM</h3><p>${cvm}.</p></div>
+    <div><h3>Carteira e preço alvo</h3><p>A aba Carteira guarda cada posição com quantidade, preço de entrada, data e o preço alvo que você definir, e compara com o último fechamento da base e com o lugar da ação na peneira de hoje. O peso de cada ativo é o valor na cotação sobre o patrimônio da carteira (posições mais caixa livre).</p><p>O botão "Montar carteira Ações Baratas (20 × 5%)" pega as 20 primeiras do ranking e divide o capital em partes iguais, com revisão a cada trimestre.</p><p>O preço alvo sugerido segue o passo 4: é o preço em que a ação voltaria à própria média de 5 anos. Para empresas não financeiras, a média do preço implícito no P/VP e no EV/EBIT (o EV volta à média e a dívida líquida é descontada); para bancos e seguradoras, P/VP e P/L. É um ponto de partida para o seu alvo, que pode ser trocado a qualquer momento.</p></div>
+    <div><h3>Fontes e APIs</h3><ul>
+      <li>Status Invest: <code>category/advancedsearchresultpaginated</code> (universo, liquidez, setor, indicadores), <code>acao/indicatorhistoricallist</code> (histórico anual, time=7) e <code>acao/tickerprice</code> (cotações de 5 anos). Coletado em ${dt(m.fontes.universo)}.</li>
+      <li>Fundamentus: <code>detalhes.php</code> (caixa, dívida, patrimônio, EBIT e lucro de 12 meses e do trimestre). Coletado em ${dt(m.fontes.fichas)}.</li>
+      <li>Cotações para a volatilidade: ${esc(m.fontes.precos_fonte || "")} (<code>amline/cot_hist.php</code>). Coletado em ${dt(m.fontes.precos)}.</li>
+      <li>CVM dados abertos: <code>CIA_ABERTA/CAD/DADOS/cad_cia_aberta.csv</code> (situação do emissor). Coletado em ${dt(m.fontes.cvm)}.</li>
+    </ul></div>`;
+}
+const dt = (s) => s ? new Date(s).toLocaleString("pt-BR", {dateStyle: "short", timeStyle: "short"}) : "–";
+
+function trocarAba(id) {
+  for (const b of document.querySelectorAll(".abas button")) b.setAttribute("aria-selected", b.dataset.aba === id);
+  for (const p of document.querySelectorAll(".painel")) p.hidden = p.id !== id;
+  try { localStorage.setItem("peneira-aba", id); } catch (e) {}
+  try { if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id); } catch (e) {}
+}
+const ABAS = ["ranking", "carteira", "eliminadas", "metodo"];
+
+function restaurar() {
+  $("#liq").value = "1000000"; for (const id of ["sit_RJ", "sit_REJ", "sit_FAL", "opa", "pj12", "pj3", "pjex", "classe"]) $("#" + id).checked = true;
+  $("#volp").value = 20; $("#cx_liq").checked = true; for (const id of ["w_cx", "w_eb", "w_pl", "w_lf", "w_df"]) $("#" + id).value = 1;
+  rodar();
+}
+
+async function iniciar() {
+  try {
+    BASE = window.BASE || await (await fetch("base.json")).json();
+  } catch (e) {
+    $("#datas").textContent = "Não foi possível carregar base.json. Abra a página por um servidor (ou publique com o arquivo de dados ao lado).";
+    return;
+  }
+  const f = BASE.meta.fontes;
+  $("#datas").innerHTML = `Coleta de <b>${dt(f.universo)}</b><br>${BASE.acoes.length} ações no universo da B3`;
+  $("#rodape-fontes").textContent = `Dados: Status Invest, Fundamentus e CVM (dados abertos), coletados em ${dt(f.universo)}. Cotações de fechamento de ${BASE.acoes.find((a) => a.data_cotacao)?.data_cotacao || "–"}.`;
+  $("#form").addEventListener("input", rodar);
+  $("#restaurar").onclick = restaurar;
+  for (const id of ["busca", "fgrupo", "fperfil"]) $("#" + id).addEventListener("input", desenharRanking);
+  for (const id of ["busca2", "fpasso", "esconde_liq"]) $("#" + id).addEventListener("input", desenharEliminadas);
+  document.querySelectorAll("#tab-rank th").forEach((th) => th.onclick = () => {
+    const k = th.dataset.k; ordem = {k, dir: ordem.k === k ? -ordem.dir : (k === "posicao" || k === "ticker" || k === "perfil" || k === "vol_1a" ? 1 : -1)}; desenharRanking();
+  });
+  for (const tb of ["#tab-rank tbody", "#tab-elim tbody"]) {
+    $(tb).addEventListener("click", (e) => { const tr = e.target.closest("tr[data-t]"); if (tr) abrir(tr.dataset.t); });
+    $(tb).addEventListener("keydown", (e) => { const tr = e.target.closest("tr[data-t]"); if (tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); abrir(tr.dataset.t); } });
+  }
+  $("#veu").onclick = fechar;
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") fechar(); });
+  for (const b of document.querySelectorAll(".abas button")) b.onclick = () => trocarAba(b.dataset.aba);
+  let aba = "ranking"; try { aba = localStorage.getItem("peneira-aba") || "ranking"; } catch (e) {}
+  const h = location.hash.slice(1); if (ABAS.includes(h)) aba = h;
+  if (!ABAS.includes(aba)) aba = "ranking";
+  trocarAba(aba);
+  window.addEventListener("hashchange", () => { const k = location.hash.slice(1); if (ABAS.includes(k)) trocarAba(k); });
+  desenharMetodo(); rodar();
+  Carteira.iniciar();
+}
+iniciar();
+</script>
+
+
+</body></html>

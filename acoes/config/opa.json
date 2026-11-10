@@ -1,0 +1,56 @@
+{
+  "atualizado_em": "2026-10-31",
+  "itens": [
+    {
+      "tickers": [
+        "HBOR3"
+      ],
+      "empresa": "Helbor",
+      "tipo": "OPA para cancelamento de registro (HBR Realty)",
+      "status": "pendente",
+      "obs": "CVM aprovou a OPA em out/2026; HBR Realty já detém cerca de 83%.",
+      "fonte": "https://www.spacemoney.com.br/investimentos/acoes/cvm-aprova-opa-fechamento-capital-helbor"
+    },
+    {
+      "tickers": [
+        "RAPT3",
+        "RAPT4"
+      ],
+      "empresa": "Randoncorp",
+      "tipo": "OPA facultativa por permuta em ações FRAS3 (Frasle Mobility)",
+      "status": "pendente",
+      "obs": "Leilão em 16/11/2026 na B3. Conferir no edital se a oferta alcança a classe PN; mantida no filtro por cautela.",
+      "fonte": "https://www.cotalab.com.br/noticias/opa-com-acoes-de-fras3-tera-leilao-em-16-de-novembro"
+    },
+    {
+      "tickers": [
+        "MERC4"
+      ],
+      "empresa": "Mercantil Financeira",
+      "tipo": "OPA para fechamento de capital",
+      "status": "pendente",
+      "obs": "Registro aprovado pela CVM em jan/2026 a R$ 14,40; confirmar se o leilão já ocorreu.",
+      "fonte": "https://www.moneytimes.com.br/cvm-aprova-pedido-de-opa-para-fechamento-de-capital-da-mercantil-financeira-merc4-fets/"
+    },
+    {
+      "tickers": [
+        "SHOW3"
+      ],
+      "empresa": "T4F Entretenimento",
+      "tipo": "OPA para saída do Novo Mercado e cancelamento de registro",
+      "status": "concluida",
+      "obs": "Leilão de 20/07/2026 atingiu o quórum.",
+      "fonte": "https://atlaspublico.com.br/cvm/noticias/leilao-de-opa-da-t4f-entretenimento-atinge-quorum-de-73584"
+    },
+    {
+      "tickers": [
+        "BRAV3"
+      ],
+      "empresa": "Brava Energia",
+      "tipo": "OPA por aumento de participação (Ecopetrol)",
+      "status": "concluida",
+      "obs": "Ecopetrol concluiu o leilão e assumiu o controle; ação segue listada.",
+      "fonte": "https://atlaspublico.com.br/cvm/noticias/ecopetrol-conclui-leilao-de-opa-e-assume-51pct-do-controle-77285"
+    }
+  ]
+}
