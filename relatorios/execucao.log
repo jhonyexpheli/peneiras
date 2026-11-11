@@ -1,19 +1,19 @@
-# Execução 2026-11-10 15:35 UTC, commit 15c8fa1
-COTAHIST_A2016.ZIP (baixado, 16 MB): 107929 linhas à vista
-COTAHIST_A2017.ZIP (baixado, 17 MB): 112311 linhas à vista
-COTAHIST_A2018.ZIP (baixado, 19 MB): 123929 linhas à vista
-COTAHIST_A2019.ZIP (baixado, 27 MB): 134041 linhas à vista
-COTAHIST_A2020.ZIP (baixado, 37 MB): 184719 linhas à vista
-COTAHIST_A2021.ZIP (baixado, 50 MB): 274938 linhas à vista
-COTAHIST_A2022.ZIP (baixado, 59 MB): 281782 linhas à vista
-COTAHIST_A2023.ZIP (baixado, 70 MB): 193941 linhas à vista
-COTAHIST_A2024.ZIP (baixado, 79 MB): 202073 linhas à vista
-COTAHIST_A2025.ZIP (baixado, 89 MB): 208073 linhas à vista
-COTAHIST_A2026.ZIP (baixado, 90 MB): 183113 linhas à vista
-dados_oficiais/cotahist_vista.csv.gz: 2006849 linhas, 2877 tickers, 2696 pregões, de 2016-01-04 a 2026-11-09
-{"coletado_em": "2026-11-10T15:48:58+00:00", "selic_meta": 13.75, "cdi": 13.65, "ipca_12m": 4.58, "ntnb": 7.55}
-COTAHIST: 563 de 617 ações com negócios, pregões até 2026-11-09
-base.json: 384 ações com preço da B3, 233 sem negócios no último mês, 184 desdobramentos/grupamentos corrigidos
+# Execução 2026-11-11 02:22 UTC, commit fb977cf
+COTAHIST_A2016.ZIP (cache, 16 MB): 107929 linhas à vista
+COTAHIST_A2017.ZIP (cache, 17 MB): 112311 linhas à vista
+COTAHIST_A2018.ZIP (cache, 19 MB): 123929 linhas à vista
+COTAHIST_A2019.ZIP (cache, 27 MB): 134041 linhas à vista
+COTAHIST_A2020.ZIP (cache, 37 MB): 184719 linhas à vista
+COTAHIST_A2021.ZIP (cache, 50 MB): 274938 linhas à vista
+COTAHIST_A2022.ZIP (cache, 59 MB): 281782 linhas à vista
+COTAHIST_A2023.ZIP (cache, 70 MB): 193941 linhas à vista
+COTAHIST_A2024.ZIP (cache, 79 MB): 202073 linhas à vista
+COTAHIST_A2025.ZIP (cache, 89 MB): 208073 linhas à vista
+COTAHIST_A2026.ZIP (baixado, 93 MB): 183972 linhas à vista
+dados_oficiais/cotahist_vista.csv.gz: 2007708 linhas, 2877 tickers, 2697 pregões, de 2016-01-04 a 2026-11-10
+{"coletado_em": "2026-11-11T02:25:47+00:00", "selic_meta": 13.75, "cdi": 13.65, "ipca_12m": 4.58, "ntnb": 7.55}
+COTAHIST: 563 de 617 ações com negócios, pregões até 2026-11-10
+base.json: 385 ações com preço da B3, 232 sem negócios no último mês, 188 desdobramentos/grupamentos corrigidos
 dist/index.html e dist/base.json prontos
 dist_cdv/index.html e dist_cdv/base.json prontos
 mensal 2020
@@ -41,7 +41,7 @@ detalhes 200/241
 detalhes 220/241
 detalhes 240/241
 detalhes: 241
-b3_fii.json: 1013 fundos, pregões até 2026-11-09
+b3_fii.json: 1013 fundos, pregões até 2026-11-10
 lendo CVM mensal...
 lendo CVM trimestral...
 aviso: CNPJ já usado por outro ticker BTCI11 09.552.812/0001-14

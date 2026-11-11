@@ -6,7 +6,7 @@ Gerado pelo robô do GitHub Actions a cada execução do coletor. Não é recome
 
 | Indicador | Valor | Data | Fonte |
 |---|---|---|---|
-| Selic meta (% a.a.) | 13,75 | 2026-11-10 | Banco Central, SGS série 432 |
+| Selic meta (% a.a.) | 13,75 | 2026-11-11 | Banco Central, SGS série 432 |
 | CDI (% a.a.) | 13,65 | 2026-11-09 | Banco Central, SGS série 4389 |
 | IPCA 12 meses (%) | 4,58 | 2026-09-01 | Banco Central, SGS série 13522 |
 | NTN-B, juro real (% a.a.) | 7,55 | 2026-11-09 | Tesouro Transparente, preços e taxas do Tesouro Direto |
@@ -21,11 +21,11 @@ Variação relativa entre a base atual e a nova, nos ativos com o campo preenchi
 
 | Campo | Comparados | Diferença mediana | Acima de 5% | Acima de 20% |
 |---|---|---|---|---|
-| Preço (R$) | 579 | 0,0% | 0 | 0 |
-| Liquidez diária (R$) | 384 | 0,0% | 0 | 0 |
-| Volatilidade 1 ano (%) | 389 | 0,0% | 0 | 0 |
-| Maior queda 1 ano (%) | 395 | 0,0% | 0 | 0 |
-| Valor de mercado (R$) | 582 | 0,0% | 0 | 0 |
+| Preço (R$) | 579 | 0,3% | 39 | 2 |
+| Liquidez diária (R$) | 384 | 3,3% | 107 | 21 |
+| Volatilidade 1 ano (%) | 389 | 0,1% | 1 | 0 |
+| Maior queda 1 ano (%) | 395 | 0,0% | 6 | 2 |
+| Valor de mercado (R$) | 582 | 0,2% | 39 | 2 |
 
 ### Qual medida de liquidez da B3 bate com a fonte antiga
 
@@ -33,54 +33,54 @@ Ativos com liquidez antiga acima de R$ 100 mil. Em todas as janelas, pregão sem
 
 | Janela | Ativos | Diferença mediana | Diferença mediana (absoluta) | Acima de 10% |
 |---|---|---|---|---|
-| 2 meses | 271 | 1,8% | 4,3% | 46 |
-| 2 meses so dias com negocio | 271 | 1,8% | 4,4% | 46 |
-| 21 pregoes | 271 | 0,0% | 0,0% | 0 |
-| 42 pregoes | 271 | -15,2% | 15,8% | 205 |
-| 63 pregoes | 271 | -25,3% | 26,4% | 241 |
+| 2 meses | 271 | 0,4% | 4,3% | 51 |
+| 2 meses so dias com negocio | 271 | 0,5% | 4,4% | 51 |
+| 21 pregoes | 271 | -2,8% | 3,3% | 15 |
+| 42 pregoes | 271 | -15,1% | 15,8% | 209 |
+| 63 pregoes | 271 | -25,2% | 26,2% | 239 |
 
 ### O que muda no resultado do método
 
 Ranqueados: 110 antes, 110 depois. Entraram 0, saíram 0, continuaram 110.
 
-**Top 20**: 20 de 20 continuam.
+**Top 20**: 19 de 20 continuam.
 
 | # | Antes | Depois |
 |---|---|---|
 | 1 | BRSR6 | BRSR6 |
 | 2 | ALLD3 | ALLD3 |
 | 3 | LREN3 | LREN3 |
-| 4 | MDIA3 | MDIA3 |
-| 5 | VLID3 | VLID3 |
+| 4 | MDIA3 | VLID3 |
+| 5 | VLID3 | MDIA3 |
 | 6 | EUCA4 | EUCA4 |
 | 7 | BLAU3 | BLAU3 |
 | 8 | GMAT3 | GMAT3 |
 | 9 | ABCB4 | ABCB4 |
 | 10 | BMGB4 | BMGB4 |
-| 11 | JHSF3 | JHSF3 |
-| 12 | ALOS3 | ALOS3 |
+| 11 | JHSF3 | ALOS3 |
+| 12 | ALOS3 | JHSF3 |
 | 13 | DEXP3 | DEXP3 |
 | 14 | GOAU4 | GOAU4 |
-| 15 | FESA4 | FESA4 |
-| 16 | GGBR4 | GGBR4 |
-| 17 | BBDC4 | BBDC4 |
-| 18 | VIVA3 | VIVA3 |
+| 15 | FESA4 | VIVA3 |
+| 16 | GGBR4 | BBDC4 |
+| 17 | BBDC4 | CSUD3 (novo) |
+| 18 | VIVA3 | GGBR4 |
 | 19 | SYNE3 | SYNE3 |
-| 20 | INTB3 | INTB3 |
+| 20 | INTB3 | FESA4 |
 
 ### Maiores diferenças por campo
 
 Para conferir na fonte: o valor antigo, o novo e a variação.
 
-**Preço (R$)**: ZAMP3 3,50 → 3,50 (0%); YDUQ3 9,65 → 9,65 (0%); WLMM4 15,00 → 15,00 (0%); WLMM3 16,80 → 16,80 (0%); WIZC3 6,05 → 6,05 (0%); WHRL4 3,04 → 3,04 (0%); WHRL3 3,16 → 3,16 (0%); WEST3 3,49 → 3,49 (0%)
+**Preço (R$)**: TXRX3 9,00 → 5,46 (-39%); SEQL3 9,50 → 12,30 (29%); MRSA6B 36,00 → 42,00 (17%); USIM6 6,60 → 5,51 (-17%); MRSA5B 38,00 → 43,46 (14%); TECN3 7,95 → 9,00 (13%); SBFG3 5,48 → 4,84 (-12%); MGLU3 5,84 → 6,52 (12%)
 
-**Liquidez diária (R$)**: YDUQ3 70,0 mi → 70,0 mi (0%); WLMM4 87.930 → 87.930 (0%); WLMM3 1.498 → 1.498 (0%); WIZC3 11,0 mi → 11,0 mi (0%); WHRL4 61.170 → 61.170 (0%); WHRL3 19.238 → 19.238 (0%); WEST3 119.325 → 119.325 (0%); WEGE3 818,0 mi → 818,0 mi (0%)
+**Liquidez diária (R$)**: MRSA3B 1.200 → 4.126 (244%); MRSA5B 349 → 1.158 (232%); MRSA6B 328 → 1.061 (224%); BGIP3 1.396 → 3.236 (132%); SNSY3 47 → 0 (-100%); GPAR3 285 → 95 (-67%); CASN3 639 → 1.011 (58%); CEDO3 67 → 33 (-50%)
 
-**Volatilidade 1 ano (%)**: YDUQ3 50,3 → 50,3 (0%); WLMM4 40,6 → 40,6 (0%); WLMM3 77,5 → 77,5 (0%); WIZC3 38,9 → 38,9 (0%); WHRL4 22,5 → 22,5 (0%); WHRL3 27,4 → 27,4 (0%); WEST3 66,8 → 66,8 (0%); WEGE3 31,1 → 31,1 (0%)
+**Volatilidade 1 ano (%)**: BMKS3 33,9 → 30,6 (-10%); TECN3 42,1 → 43,8 (4%); AGRO3 26,3 → 27,3 (4%); SMTO3 46,0 → 47,6 (3%); SBFG3 52,4 → 53,8 (3%); CRPG5 64,2 → 62,5 (-3%); EMBJ3 39,9 → 40,7 (2%); FESA4 41,9 → 42,8 (2%)
 
-**Maior queda 1 ano (%)**: YDUQ3 -50,4 → -50,4 (0%); WLMM4 -48,8 → -48,8 (0%); WLMM3 -34,4 → -34,4 (0%); WIZC3 -44,2 → -44,2 (0%); WHRL4 -37,4 → -37,4 (0%); WHRL3 -29,9 → -29,9 (0%); WEST3 -70,9 → -70,9 (0%); WEGE3 -22,7 → -22,7 (0%)
+**Maior queda 1 ano (%)**: USIM6 -35,3 → -44,8 (27%); AHEB3 -21,8 → -17,4 (-20%); BRAV3 -31,3 → -35,7 (14%); CEEB5 -17,9 → -15,6 (-13%); UNIP5 -29,8 → -31,4 (5%); MNPR3 -37,5 → -39,4 (5%); AALR3 -64,0 → -66,7 (4%); MELK3 -45,3 → -46,5 (3%)
 
-**Valor de mercado (R$)**: ZAMP3 1,42 bi → 1,42 bi (0%); YDUQ3 2,64 bi → 2,64 bi (0%); WLMM4 576,0 mi → 576,0 mi (0%); WLMM3 576,0 mi → 576,0 mi (0%); WIZC3 967,4 mi → 967,4 mi (0%); WHRL4 4,69 bi → 4,69 bi (0%); WHRL3 4,69 bi → 4,69 bi (0%); WEST3 38,8 mi → 38,8 mi (0%)
+**Valor de mercado (R$)**: TXRX3 18,3 mi → 11,1 mi (-39%); SEQL3 403,5 mi → 522,4 mi (29%); MRSA6B 14,54 bi → 16,96 bi (17%); USIM6 6,18 bi → 5,16 bi (-17%); MRSA5B 14,54 bi → 16,63 bi (14%); TECN3 478,4 mi → 541,6 mi (13%); SBFG3 1,26 bi → 1,12 bi (-12%); MGLU3 4,53 bi → 5,06 bi (12%)
 
 ## Peneira FIIs
 
@@ -92,12 +92,12 @@ Variação relativa entre a base atual e a nova, nos ativos com o campo preenchi
 
 | Campo | Comparados | Diferença mediana | Acima de 5% | Acima de 20% |
 |---|---|---|---|---|
-| Preço (R$) | 575 | 0,0% | 0 | 0 |
-| Liquidez diária (R$) | 359 | 0,0% | 0 | 0 |
-| Volatilidade 1 ano (%) | 324 | 0,0% | 0 | 0 |
-| Maior queda 1 ano (%) | 352 | 0,0% | 0 | 0 |
-| DY 12 meses (%) | 381 | 0,0% | 0 | 0 |
-| P/VP | 470 | 0,0% | 0 | 0 |
+| Preço (R$) | 575 | 0,0% | 18 | 1 |
+| Liquidez diária (R$) | 359 | 0,6% | 27 | 4 |
+| Volatilidade 1 ano (%) | 324 | 0,1% | 6 | 0 |
+| Maior queda 1 ano (%) | 352 | 0,0% | 14 | 2 |
+| DY 12 meses (%) | 381 | 0,2% | 23 | 4 |
+| P/VP | 470 | 0,1% | 18 | 1 |
 
 ### Qual medida de liquidez da B3 bate com a fonte antiga
 
@@ -105,15 +105,21 @@ Ativos com liquidez antiga acima de R$ 100 mil. Em todas as janelas, pregão sem
 
 | Janela | Ativos | Diferença mediana | Diferença mediana (absoluta) | Acima de 10% |
 |---|---|---|---|---|
-| 2 meses | 198 | 12,4% | 13,7% | 135 |
-| 2 meses so dias com negocio | 198 | 13,2% | 14,4% | 139 |
-| 21 pregoes | 198 | 11,0% | 14,3% | 136 |
-| 42 pregoes | 198 | 0,0% | 0,0% | 0 |
-| 63 pregoes | 198 | -4,3% | 8,9% | 87 |
+| 2 meses | 198 | 12,3% | 13,9% | 134 |
+| 2 meses so dias com negocio | 198 | 13,5% | 14,3% | 139 |
+| 21 pregoes | 198 | 9,9% | 14,2% | 132 |
+| 42 pregoes | 198 | -0,0% | 0,7% | 5 |
+| 63 pregoes | 198 | -4,3% | 8,5% | 84 |
 
 ### O que muda no resultado do método
 
-Ranqueados: 59 antes, 59 depois. Entraram 0, saíram 0, continuaram 59.
+Ranqueados: 59 antes, 58 depois. Entraram 0, saíram 1, continuaram 58.
+
+**Saíram do ranking**
+
+| Ativo | Posição antes | Motivo agora |
+|---|---|---|
+| SPXS11 | 3º (papel) | Liquidez média diária R$ 0,49 mi abaixo de R$ 0,5 mi |
 
 **Top 12 fof**: 12 de 12 continuam.
 
@@ -132,69 +138,69 @@ Ranqueados: 59 antes, 59 depois. Entraram 0, saíram 0, continuaram 59.
 | 11 | RINV11 | RINV11 |
 | 12 | SNEL11 | SNEL11 |
 
-**Top 20 papel**: 20 de 20 continuam.
+**Top 20 papel**: 19 de 20 continuam.
 
 | # | Antes | Depois |
 |---|---|---|
 | 1 | HABT11 | HABT11 |
 | 2 | VCJR11 | VCJR11 |
-| 3 | SPXS11 | SPXS11 |
+| 3 | SPXS11 | VRTA11 |
 | 4 | RZAK11 | RZAK11 |
-| 5 | VRTA11 | VRTA11 |
-| 6 | VGIP11 | VGIP11 |
-| 7 | RECR11 | RECR11 |
+| 5 | VRTA11 | VGIP11 |
+| 6 | VGIP11 | RECR11 |
+| 7 | RECR11 | VGIR11 |
 | 8 | RBRR11 | RBRR11 |
-| 9 | VGIR11 | VGIR11 |
-| 10 | PORD11 | PORD11 |
-| 11 | RBRY11 | RBRY11 |
-| 12 | BTCI11 | BTCI11 |
-| 13 | CLIN11 | CLIN11 |
-| 14 | XPCI11 | XPCI11 |
-| 15 | ICRI11 | ICRI11 |
-| 16 | HGCR11 | HGCR11 |
+| 9 | VGIR11 | RBRY11 |
+| 10 | PORD11 | BTCI11 |
+| 11 | RBRY11 | CLIN11 |
+| 12 | BTCI11 | PORD11 |
+| 13 | CLIN11 | XPCI11 |
+| 14 | XPCI11 | ICRI11 |
+| 15 | ICRI11 | HGCR11 |
+| 16 | HGCR11 | KNHY11 |
 | 17 | KNIP11 | KNIP11 |
-| 18 | KNHY11 | KNHY11 |
-| 19 | KNSC11 | KNSC11 |
-| 20 | KNUQ11 | KNUQ11 |
+| 18 | KNHY11 | KNSC11 |
+| 19 | KNSC11 | KNUQ11 |
+| 20 | KNUQ11 | MCCI11 (novo) |
 
 **Top 20 tijolo**: 20 de 20 continuam.
 
 | # | Antes | Depois |
 |---|---|---|
 | 1 | LIFE11 | LIFE11 |
-| 2 | JSRE11 | JSRE11 |
-| 3 | GTWR11 | GTWR11 |
+| 2 | JSRE11 | GTWR11 |
+| 3 | GTWR11 | JSRE11 |
 | 4 | RBVA11 | RBVA11 |
 | 5 | TVRI11 | TVRI11 |
 | 6 | RBRP11 | RBRP11 |
-| 7 | HGRE11 | HGRE11 |
-| 8 | RCRB11 | RCRB11 |
+| 7 | HGRE11 | RCRB11 |
+| 8 | RCRB11 | HGRE11 |
 | 9 | VILG11 | VILG11 |
 | 10 | FATN11 | FATN11 |
-| 11 | LVBI11 | LVBI11 |
-| 12 | KNHF11 | KNHF11 |
-| 13 | HGBS11 | HGBS11 |
-| 14 | CPSH11 | CPSH11 |
-| 15 | HGRU11 | HGRU11 |
-| 16 | BRCO11 | BRCO11 |
-| 17 | XPLG11 | XPLG11 |
-| 18 | XPML11 | XPML11 |
-| 19 | HGLG11 | HGLG11 |
-| 20 | PMLL11 | PMLL11 |
+| 11 | LVBI11 | HGBS11 |
+| 12 | KNHF11 | XPML11 |
+| 13 | HGBS11 | CPSH11 |
+| 14 | CPSH11 | KNHF11 |
+| 15 | HGRU11 | LVBI11 |
+| 16 | BRCO11 | HGRU11 |
+| 17 | XPLG11 | BRCO11 |
+| 18 | XPML11 | XPLG11 |
+| 19 | HGLG11 | PMLL11 |
+| 20 | PMLL11 | HGLG11 |
 
 ### Maiores diferenças por campo
 
 Para conferir na fonte: o valor antigo, o novo e a variação.
 
-**Preço (R$)**: ZIFI11 749,99 → 749,99 (0%); ZAVI11 9,32 → 9,32 (0%); ZAVC11 8,88 → 8,88 (0%); ZAGH11 7,89 → 7,89 (0%); YUFI11 15,00 → 15,00 (0%); YCHY11 1.000,00 → 1.000,00 (0%); XTED11 8,82 → 8,82 (0%); XPSF11 5,99 → 5,99 (0%)
+**Preço (R$)**: CTXT11 3,92 → 3,00 (-23%); EMET11 10,50 → 8,84 (-16%); HCTR11 11,01 → 9,71 (-12%); NVHO11 12,22 → 13,64 (12%); APTO11 5,54 → 5,00 (-10%); HOFC11 35,00 → 32,16 (-8%); RZTR11 66,04 → 70,70 (7%); CACR11 10,96 → 10,20 (-7%)
 
-**Liquidez diária (R$)**: ZAVI11 40.083 → 40.083 (0%); ZAVC11 6.524 → 6.524 (0%); ZAGH11 314.258 → 314.258 (0%); XPSF11 382.749 → 382.749 (0%); XPML11 25,1 mi → 25,1 mi (0%); XPLG11 9,5 mi → 9,5 mi (0%); XPCM11 10.784 → 10.784 (0%); XPCI11 1,7 mi → 1,7 mi (0%)
+**Liquidez diária (R$)**: ERPA11 18.094 → 34.033 (88%); EMET11 138.683 → 216.858 (56%); SPMO11 5.637 → 2.800 (-50%); WTSP11 158.979 → 225.726 (42%); FPNG11 124 → 148 (20%); AROA11 7.004 → 5.720 (-18%); FIXX11 146.273 → 121.003 (-17%); VGII11 297.509 → 249.860 (-16%)
 
-**Volatilidade 1 ano (%)**: ZAVI11 24,6 → 24,6 (0%); ZAVC11 26,3 → 26,3 (0%); ZAGH11 62,8 → 62,8 (0%); XPSF11 15,1 → 15,1 (0%); XPML11 13,2 → 13,2 (0%); XPLG11 14,5 → 14,5 (0%); XPCM11 34,6 → 34,6 (0%); XPCI11 17,0 → 17,0 (0%)
+**Volatilidade 1 ano (%)**: RCRI11 11,1 → 12,3 (10%); APTO11 22,8 → 24,9 (9%); HCTR11 28,2 → 30,8 (9%); NEWU11 30,9 → 28,7 (-7%); RZTR11 18,8 → 20,0 (6%); XPML11 13,2 → 14,0 (6%); SNFZ11 14,0 → 13,3 (-5%); FYTO11 14,1 → 14,5 (3%)
 
-**Maior queda 1 ano (%)**: ZAVI11 -17,1 → -17,1 (0%); ZAVC11 -15,5 → -15,5 (0%); ZAGH11 -38,2 → -38,2 (0%); XPSF11 -16,9 → -16,9 (0%); XPML11 -15,9 → -15,9 (0%); XPLG11 -17,3 → -17,3 (0%); XPCM11 -28,2 → -28,2 (0%); XPCI11 -15,2 → -15,2 (0%)
+**Maior queda 1 ano (%)**: CTXT11 -40,6 → -54,5 (34%); GFDL11 -0,1 → -0,1 (-30%); NEXG11 -11,1 → -9,2 (-17%); APTO11 -37,4 → -43,5 (16%); ARXD11 -15,3 → -17,8 (16%); XPML11 -15,9 → -18,4 (15%); DVFF11 -17,7 → -19,7 (11%); HCTR11 -52,5 → -58,1 (11%)
 
-**DY 12 meses (%)**: ZAVI11 14,73 → 14,73 (0%); ZAVC11 16,98 → 16,98 (0%); ZAGH11 5,83 → 5,83 (0%); XPSF11 14,02 → 14,02 (0%); XPML11 11,16 → 11,16 (0%); XPLG11 9,93 → 9,93 (0%); XPIN11 11,31 → 11,31 (0%); XPCI11 13,83 → 13,83 (0%)
+**DY 12 meses (%)**: GCOI11 80,13 → 133,38 (66%); VVDI11 2,90 → 4,04 (39%); TCIN11 5,61 → 7,54 (34%); HILG11 69,57 → 91,63 (32%); EMET11 12,48 → 14,37 (15%); APTO11 17,50 → 19,39 (11%); RMBS11 11,95 → 13,23 (11%); NVHO11 8,69 → 7,79 (-10%)
 
-**P/VP**: ZIFI11 0,49 → 0,49 (0%); ZAVI11 0,66 → 0,66 (0%); ZAVC11 0,86 → 0,86 (0%); ZAGH11 0,91 → 0,91 (0%); YUFI11 0,38 → 0,38 (0%); XTED11 0,67 → 0,67 (0%); XPSF11 0,80 → 0,80 (0%); XPML11 0,89 → 0,89 (0%)
+**P/VP**: CTXT11 0,27 → 0,20 (-23%); EMET11 1,15 → 0,96 (-16%); HCTR11 0,11 → 0,09 (-12%); NVHO11 0,74 → 0,82 (12%); APTO11 0,71 → 0,64 (-10%); HOFC11 0,57 → 0,52 (-8%); RZTR11 0,66 → 0,70 (7%); CACR11 0,12 → 0,11 (-7%)
 
