@@ -1,4 +1,4 @@
-# Execução 2026-11-12 02:28 UTC, commit d4ad62a
+# Execução 2026-11-13 02:22 UTC, commit 9d97d35
 COTAHIST_A2016.ZIP (cache, 16 MB): 107929 linhas à vista
 COTAHIST_A2017.ZIP (cache, 17 MB): 112311 linhas à vista
 COTAHIST_A2018.ZIP (cache, 19 MB): 123929 linhas à vista
@@ -9,14 +9,13 @@ COTAHIST_A2022.ZIP (cache, 59 MB): 281782 linhas à vista
 COTAHIST_A2023.ZIP (cache, 70 MB): 193941 linhas à vista
 COTAHIST_A2024.ZIP (cache, 79 MB): 202073 linhas à vista
 COTAHIST_A2025.ZIP (cache, 89 MB): 208073 linhas à vista
-COTAHIST_A2026.ZIP (baixado, 94 MB): 184830 linhas à vista
-dados_oficiais/cotahist_vista.csv.gz: 2008566 linhas, 2877 tickers, 2698 pregões, de 2016-01-04 a 2026-11-11
-{"coletado_em": "2026-11-12T02:31:44+00:00", "selic_meta": 13.75, "cdi": 13.65, "ipca_12m": 4.58, "ntnb": 7.53}
-COTAHIST: 563 de 617 ações com negócios, pregões até 2026-11-11
-base.json: 385 ações com preço da B3, 232 sem negócios no último mês, 188 desdobramentos/grupamentos corrigidos
+COTAHIST_A2026.ZIP (baixado, 92 MB): 185693 linhas à vista
+dados_oficiais/cotahist_vista.csv.gz: 2009429 linhas, 2878 tickers, 2699 pregões, de 2016-01-04 a 2026-11-12
+{"coletado_em": "2026-11-13T02:25:08+00:00", "selic_meta": 13.75, "cdi": 13.65, "ipca_12m": 4.63, "ntnb": 7.54}
+COTAHIST: 563 de 617 ações com negócios, pregões até 2026-11-12
+base.json: 385 ações com preço da B3, 232 sem negócios no último mês, 187 desdobramentos/grupamentos corrigidos
 dist/index.html e dist/base.json prontos
 dist_cdv/index.html e dist_cdv/base.json prontos
-mensal 2019
 mensal 2020
 mensal 2021
 mensal 2022
@@ -27,21 +26,22 @@ mensal 2026
 trimestral 2024
 trimestral 2025
 trimestral 2026
-fundamentus tabela: 575
-detalhes 0/240
-detalhes 20/240
-detalhes 40/240
-detalhes 60/240
-detalhes 80/240
-detalhes 100/240
-detalhes 120/240
-detalhes 140/240
-detalhes 160/240
-detalhes 180/240
-detalhes 200/240
-detalhes 220/240
-detalhes: 240
-b3_fii.json: 1013 fundos, pregões até 2026-11-11
+fundamentus tabela: 576
+detalhes 0/243
+detalhes 20/243
+detalhes 40/243
+detalhes 60/243
+detalhes 80/243
+detalhes 100/243
+detalhes 120/243
+detalhes 140/243
+detalhes 160/243
+detalhes 180/243
+detalhes 200/243
+detalhes 220/243
+detalhes 240/243
+detalhes: 243
+b3_fii.json: 1014 fundos, pregões até 2026-11-12
 lendo CVM mensal...
 lendo CVM trimestral...
 aviso: CNPJ já usado por outro ticker BTCI11 09.552.812/0001-14
@@ -51,8 +51,7 @@ aviso: CNPJ já usado por outro ticker FYTO11 18.085.673/0001-57
 aviso: CNPJ já usado por outro ticker MCRE11 36.655.973/0001-06
 aviso: CNPJ já usado por outro ticker PCIP11 28.729.197/0001-13
 aviso: CNPJ já usado por outro ticker PLAG11 32.754.734/0001-52
-aviso: CNPJ já usado por outro ticker RZZR11 35.652.278/0001-28
 aviso: CNPJ já usado por outro ticker VTOT11 35.652.252/0001-80
 aviso: CNPJ já usado por outro ticker VVMR11 30.871.698/0001-81
-fundos: 575; sem informe CVM: 88
-dist_fii/index.html: 1229 KB
+fundos: 576; sem informe CVM: 90
+dist_fii/index.html: 1227 KB
