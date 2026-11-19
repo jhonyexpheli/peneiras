@@ -1,13 +1,13 @@
 {
-  "coletado_em": "2026-11-18T02:34:30+00:00",
+  "coletado_em": "2026-11-19T02:33:18+00:00",
   "selic_meta": {
     "valor": 13.75,
-    "data": "2026-11-18",
+    "data": "2026-11-19",
     "fonte": "Banco Central, SGS série 432"
   },
   "cdi": {
     "valor": 13.65,
-    "data": "2026-11-16",
+    "data": "2026-11-17",
     "fonte": "Banco Central, SGS série 4389"
   },
   "ipca_12m": {
@@ -17,50 +17,50 @@
   },
   "ntnb": {
     "valor": 7.6,
-    "data": "2026-11-16",
+    "data": "2026-11-17",
     "regra": "média da taxa real de compra dos Tesouro IPCA+ com mais de 5 anos até o vencimento",
     "titulos": [
       {
         "titulo": "Tesouro IPCA+",
         "vencimento": "2029-05-15",
         "anos": 2.5,
-        "taxa": 7.44
+        "taxa": 7.49
       },
       {
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
         "vencimento": "2030-08-15",
         "anos": 3.7,
-        "taxa": 7.59
+        "taxa": 7.67
       },
       {
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
         "vencimento": "2032-08-15",
         "anos": 5.7,
-        "taxa": 7.71
-      },
-      {
-        "titulo": "Tesouro IPCA+",
-        "vencimento": "2032-08-15",
-        "anos": 5.7,
-        "taxa": 7.75
-      },
-      {
-        "titulo": "Tesouro IPCA+ com Juros Semestrais",
-        "vencimento": "2035-05-15",
-        "anos": 8.5,
         "taxa": 7.74
       },
       {
         "titulo": "Tesouro IPCA+",
+        "vencimento": "2032-08-15",
+        "anos": 5.7,
+        "taxa": 7.78
+      },
+      {
+        "titulo": "Tesouro IPCA+ com Juros Semestrais",
         "vencimento": "2035-05-15",
         "anos": 8.5,
-        "taxa": 7.78
+        "taxa": 7.73
+      },
+      {
+        "titulo": "Tesouro IPCA+",
+        "vencimento": "2035-05-15",
+        "anos": 8.5,
+        "taxa": 7.76
       },
       {
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
         "vencimento": "2037-05-15",
         "anos": 10.5,
-        "taxa": 7.68
+        "taxa": 7.67
       },
       {
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
@@ -78,13 +78,13 @@
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
         "vencimento": "2045-05-15",
         "anos": 18.5,
-        "taxa": 7.54
+        "taxa": 7.52
       },
       {
         "titulo": "Tesouro IPCA+",
         "vencimento": "2045-05-15",
         "anos": 18.5,
-        "taxa": 7.5
+        "taxa": 7.47
       },
       {
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
@@ -102,13 +102,13 @@
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
         "vencimento": "2055-05-15",
         "anos": 28.5,
-        "taxa": 7.53
+        "taxa": 7.51
       },
       {
         "titulo": "Tesouro IPCA+ com Juros Semestrais",
         "vencimento": "2060-08-15",
         "anos": 33.7,
-        "taxa": 7.54
+        "taxa": 7.51
       }
     ],
     "fonte": "Tesouro Transparente, preços e taxas do Tesouro Direto"
