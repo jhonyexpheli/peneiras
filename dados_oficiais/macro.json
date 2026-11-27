@@ -1,13 +1,13 @@
 {
-  "coletado_em": "2026-11-26T02:39:53+00:00",
+  "coletado_em": "2026-11-27T02:40:12+00:00",
   "selic_meta": {
     "valor": 13.75,
-    "data": "2026-11-26",
+    "data": "2026-11-27",
     "fonte": "Banco Central, SGS série 432"
   },
   "cdi": {
     "valor": 13.65,
-    "data": "2026-11-24",
+    "data": "2026-11-25",
     "fonte": "Banco Central, SGS série 4389"
   },
   "ipca_12m": {
